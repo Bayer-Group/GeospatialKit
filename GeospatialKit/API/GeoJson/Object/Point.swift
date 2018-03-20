@@ -40,7 +40,9 @@ extension GeoJson {
         // TODO: Need a better way to know when to include and exclude altitude in calculations. Currently excluded.
         public let altitude: Double?
         
-        public let boundingBox: GeoJsonBoundingBox
+        public var boundingBox: GeoJsonBoundingBox {
+            return BoundingBox(boundingCoordinates: (minLongitude: longitude, minLatitude: latitude, maxLongitude: longitude, maxLatitude: latitude))
+        }
         
         public let hashValue: Int
         
@@ -58,8 +60,6 @@ extension GeoJson {
             self.latitude = latitude
             self.altitude = altitude
             
-            let boundingCoordinates = (minLongitude: longitude, minLatitude: latitude, maxLongitude: longitude, maxLatitude: latitude)
-            boundingBox = BoundingBox(boundingCoordinates: boundingCoordinates)
             hashValue = [longitude.hashValue, latitude.hashValue, altitude?.hashValue ?? 0].reduce(5381) { ($0 << 5) &+ $0 &+ Int($1) }
         }
         

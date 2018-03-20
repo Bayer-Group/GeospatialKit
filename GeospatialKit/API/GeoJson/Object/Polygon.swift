@@ -29,14 +29,25 @@ extension GeoJson {
         }
         
         private let logger: LoggerProtocol
+        private let geodesicCalculator: GeodesicCalculatorProtocol
         
         public let linearRings: [GeoJsonLineString]
         
-        public let points: [GeoJsonPoint]
-        public let boundingBox: GeoJsonBoundingBox
-        public let centroid: GeodesicPoint
+        public var points: [GeoJsonPoint] {
+            return linearRings.flatMap { $0.points }
+        }
         
-        public let area: Double
+        public var boundingBox: GeoJsonBoundingBox {
+            return BoundingBox.best(linearRings.map { $0.boundingBox })!
+        }
+        
+        public var centroid: GeodesicPoint {
+            return geodesicCalculator.centroid(polygonRings: linearRings)
+        }
+        
+        public var area: Double {
+            return geodesicCalculator.area(polygonRings: linearRings)
+        }
         
         internal convenience init?(logger: LoggerProtocol, geodesicCalculator: GeodesicCalculatorProtocol, coordinatesJson: [Any]) {
             guard let linearRingsJson = coordinatesJson as? [[Any]] else { logger.error("A valid Polygon must have valid coordinates"); return nil }
@@ -85,6 +96,7 @@ extension GeoJson {
             guard linearRings.count >= 1 else { logger.error("A valid Polygon must have at least one LinearRing"); return nil }
             
             self.logger = logger
+            self.geodesicCalculator = geodesicCalculator
             
             // TODO: Save up errors to present which rings were incorrect.
             for linearRing in linearRings {
@@ -94,12 +106,6 @@ extension GeoJson {
             }
             
             self.linearRings = linearRings
-            
-            points = linearRings.flatMap { $0.points }
-            boundingBox = BoundingBox.best(linearRings.map { $0.boundingBox })!
-            
-            area = geodesicCalculator.area(polygonRings: linearRings)
-            centroid = geodesicCalculator.centroid(polygonRings: linearRings)
         }
         
         public func distance(to point: GeodesicPoint, errorDistance: Double) -> Double { return linearRings.first!.distance(to: point, errorDistance: errorDistance) }

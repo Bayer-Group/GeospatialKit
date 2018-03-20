@@ -26,10 +26,17 @@ extension GeoJson {
         }
         
         private let logger: LoggerProtocol
+        private let geodesicCalculator: GeodesicCalculatorProtocol
         
         public let points: [GeoJsonPoint]
-        public let boundingBox: GeoJsonBoundingBox
-        public let centroid: GeodesicPoint
+        
+        public var boundingBox: GeoJsonBoundingBox {
+            return BoundingBox.best(points.flatMap { $0.boundingBox })!
+        }
+        
+        public var centroid: GeodesicPoint {
+            return geodesicCalculator.centroid(points: points)
+        }
         
         internal convenience init?(logger: LoggerProtocol, geodesicCalculator: GeodesicCalculatorProtocol, coordinatesJson: [Any]) {
             guard let pointsJson = coordinatesJson as? [[Any]] else { logger.error("A valid MultiPoint must have valid coordinates"); return nil }
@@ -50,12 +57,9 @@ extension GeoJson {
             guard points.count >= 1 else { logger.error("A valid MultiPoint must have at least one Point"); return nil }
             
             self.logger = logger
+            self.geodesicCalculator = geodesicCalculator
             
             self.points = points
-            
-            boundingBox = BoundingBox.best(points.flatMap { $0.boundingBox })!
-            
-            centroid = geodesicCalculator.centroid(points: points)
         }
         
         public func distance(to point: GeodesicPoint, errorDistance: Double) -> Double {
