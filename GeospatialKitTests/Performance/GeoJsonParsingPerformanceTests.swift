@@ -2,7 +2,7 @@ import XCTest
 
 @testable import GeospatialKit
 
-class GeoJsonParsingPerformanceTest: XCTestCase {
+final class GeoJsonParsingPerformanceTest: XCTestCase {
     
     func testPolygonBoundingBox() {
         let geospatial = Geospatial(configuration: ConfigurationModel(logLevel: .debug))

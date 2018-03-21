@@ -12,7 +12,7 @@ extension GeoJson {
         return MultiLineString(logger: logger, geodesicCalculator: geodesicCalculator, lineStrings: lineStrings)
     }
     
-    public class MultiLineString: GeoJsonMultiLineString, Equatable {
+    public final class MultiLineString: GeoJsonMultiLineString, Equatable {
         public let type: GeoJsonObjectType = .multiLineString
         public var geoJsonCoordinates: [Any] { return lineStrings.map { $0.geoJsonCoordinates } }
         

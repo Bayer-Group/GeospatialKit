@@ -1,6 +1,6 @@
 @testable import GeospatialKit
 
-class MockGeohashCoder: GeohashCoderProtocol {
+final class MockGeohashCoder: GeohashCoderProtocol {
     private(set) var geohashFromPointCallCount = 0
     private(set) var geohashBoxFromPointCallCount = 0
     private(set) var geohashBoxFromGeohashCallCount = 0

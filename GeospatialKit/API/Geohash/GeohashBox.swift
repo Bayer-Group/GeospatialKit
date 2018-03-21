@@ -8,7 +8,7 @@ public enum GeohashCompassPoint {
     case north, south, east, west
 }
 
-public class GeohashBox: BoundingBox, GeoJsonGeohashBox {
+public final class GeohashBox: BoundingBox, GeoJsonGeohashBox {
     private let geohashCoder: GeohashCoderProtocol
     
     public let geohash: String

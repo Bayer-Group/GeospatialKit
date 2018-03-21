@@ -1,4 +1,4 @@
 @testable import GeospatialKit
 
-class MockGeoJsonMultiPoint: MockGeoJsonMultiCoordinatesGeometry, GeoJsonMultiPoint {
+final class MockGeoJsonMultiPoint: MockGeoJsonMultiCoordinatesGeometry, GeoJsonMultiPoint {
 }

@@ -1,6 +1,6 @@
 @testable import GeospatialKit
 
-class MockMapManager: MapManagerProtocol {
+final class MockMapManager: MapManagerProtocol {
     private(set) var overlaysCallCount = 0
     private(set) var annotationsCallCount = 0
     private(set) var annotationsDebugCallCount = 0

@@ -12,7 +12,7 @@ extension GeoJson {
         return MultiPolygon(logger: logger, geodesicCalculator: geodesicCalculator, polygons: polygons)
     }
     
-    public class MultiPolygon: GeoJsonMultiPolygon, Equatable {
+    public final class MultiPolygon: GeoJsonMultiPolygon, Equatable {
         public let type: GeoJsonObjectType = .multiPolygon
         public var geoJsonCoordinates: [Any] { return polygons.map { $0.geoJsonCoordinates } }
         

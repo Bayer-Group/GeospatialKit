@@ -15,7 +15,7 @@ extension GeoJson {
         return Feature(logger: logger, geometry: geometry, id: id, properties: properties)
     }
     
-    public class Feature: GeoJsonFeature, Equatable {
+    public final class Feature: GeoJsonFeature, Equatable {
         public let type: GeoJsonObjectType = .feature
         public var geoJson: GeoJsonDictionary {
             var geoJson: GeoJsonDictionary = ["type": type.rawValue, "geometry": geometry?.geoJson ?? NSNull(), "properties": properties ?? NSNull()]

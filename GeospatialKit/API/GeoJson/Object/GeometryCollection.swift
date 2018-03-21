@@ -10,7 +10,7 @@ extension GeoJson {
         return GeometryCollection(logger: logger, geometries: geometries)
     }
     
-    public class GeometryCollection: GeoJsonGeometryCollection, Equatable {
+    public final class GeometryCollection: GeoJsonGeometryCollection, Equatable {
         public let type: GeoJsonObjectType = .geometryCollection
         public var geoJson: GeoJsonDictionary { return ["type": type.rawValue, "geometries": objectGeometries?.map { $0.geoJson } ?? [] ] }
         

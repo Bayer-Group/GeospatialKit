@@ -1,7 +1,7 @@
 @testable import GeospatialKit
 
 // swiftlint:disable force_cast force_try
-class MockData {
+final class MockData {
     static let geoJson = GeoJson(logger: MockLogger(), geodesicCalculator: GeodesicCalculator(logger: MockLogger()))
     
     static let geoJsonTestData: [GeoJsonDictionary] = { return read(fileName: "GeoJsonTestData")["geoJsonObjects"] as! [GeoJsonDictionary] }()

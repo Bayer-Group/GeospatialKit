@@ -15,7 +15,7 @@ extension GeoJson {
         return LineString(logger: logger, geodesicCalculator: geodesicCalculator, points: points)
     }
     
-    public class LineString: GeoJsonLineString, Equatable {
+    public final class LineString: GeoJsonLineString, Equatable {
         public let type: GeoJsonObjectType = .lineString
         public var geoJsonCoordinates: [Any] { return points.map { $0.geoJsonCoordinates } }
         

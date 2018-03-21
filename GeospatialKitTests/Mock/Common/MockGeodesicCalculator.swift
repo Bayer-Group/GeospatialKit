@@ -1,6 +1,6 @@
 @testable import GeospatialKit
 
-class MockGeodesicCalculator: GeodesicCalculatorProtocol {
+final class MockGeodesicCalculator: GeodesicCalculatorProtocol {
     private(set) var lineLengthCallCount = 0
     private(set) var polygonAreaCallCount = 0
     private(set) var distanceToPointCallCount = 0

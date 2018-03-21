@@ -13,7 +13,7 @@ extension GeoJson {
         return Polygon(logger: logger, geodesicCalculator: geodesicCalculator, linearRings: linearRings)
     }
     
-    public class Polygon: GeoJsonPolygon, Equatable {
+    public final class Polygon: GeoJsonPolygon, Equatable {
         public let type: GeoJsonObjectType = .polygon
         public var geoJsonCoordinates: [Any] { return linearRings.map { $0.geoJsonCoordinates } }
         

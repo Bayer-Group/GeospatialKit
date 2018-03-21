@@ -10,7 +10,7 @@ extension GeoJson {
         return MultiPoint(logger: logger, geodesicCalculator: geodesicCalculator, points: points)
     }
     
-    public class MultiPoint: GeoJsonMultiPoint, Equatable {
+    public final class MultiPoint: GeoJsonMultiPoint, Equatable {
         public let type: GeoJsonObjectType = .multiPoint
         public var geoJsonCoordinates: [Any] { return points.map { $0.geoJsonCoordinates } }
         

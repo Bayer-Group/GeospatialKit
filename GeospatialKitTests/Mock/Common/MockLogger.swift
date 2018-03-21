@@ -1,6 +1,6 @@
 @testable import GeospatialKit
 
-class MockLogger: LoggerProtocol {
+final class MockLogger: LoggerProtocol {
     let logger = Logger(applicationPrefix: "Logger: ", minimumLogLevelShown: .debug)
     
     var writeToLogCount: Int = 0

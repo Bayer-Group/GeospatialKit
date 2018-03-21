@@ -24,7 +24,7 @@ extension GeoJson {
         return Point(logger: logger, geodesicCalculator: geodesicCalculator, longitude: longitude, latitude: latitude, altitude: altitude)
     }
     
-    public class Point: GeoJsonPoint, Hashable {
+    public final class Point: GeoJsonPoint, Hashable {
         public let type: GeoJsonObjectType = .point
         public var geoJsonCoordinates: [Any] { return altitude != nil ? [longitude, latitude, altitude!] : [longitude, latitude] }
         

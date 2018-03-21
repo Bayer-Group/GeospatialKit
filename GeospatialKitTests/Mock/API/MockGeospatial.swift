@@ -1,6 +1,6 @@
 @testable import GeospatialKit
 
-class MockGeospatial: GeospatialProtocol {
+final class MockGeospatial: GeospatialProtocol {
     private(set) var parseWktCallCount = 0
     
     var parseWktResult: GeoJsonObject?
