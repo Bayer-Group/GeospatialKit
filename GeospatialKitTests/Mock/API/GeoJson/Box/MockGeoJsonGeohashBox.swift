@@ -1,6 +1,6 @@
 @testable import GeospatialKit
 
-class MockGeoJsonGeohashBox: MockGeoJsonBoundingBox, GeoJsonGeohashBox {
+final class MockGeoJsonGeohashBox: MockGeoJsonBoundingBox, GeoJsonGeohashBox {
     private(set) var geohashCallCount = 0
     private(set) var geohashNeighborCallCount = 0
     

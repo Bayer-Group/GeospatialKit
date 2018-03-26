@@ -15,7 +15,7 @@ extension GeoJson {
         return LineString(logger: logger, geodesicCalculator: geodesicCalculator, points: points)
     }
     
-    public class LineString: GeoJsonLineString, Equatable {
+    public final class LineString: GeoJsonLineString, Equatable {
         public let type: GeoJsonObjectType = .lineString
         public var geoJsonCoordinates: [Any] { return points.map { $0.geoJsonCoordinates } }
         
@@ -34,10 +34,19 @@ extension GeoJson {
         private let geodesicCalculator: GeodesicCalculatorProtocol
         
         public let points: [GeoJsonPoint]
-        public let boundingBox: GeoJsonBoundingBox
-        public let centroid: GeodesicPoint
         
-        public let length: Double
+        public var boundingBox: GeoJsonBoundingBox {
+            return BoundingBox.best(points.flatMap { $0.boundingBox })!
+        }
+        
+        public var centroid: GeodesicPoint {
+            return geodesicCalculator.centroid(linePoints: points)
+        }
+        
+        public var length: Double {
+            return geodesicCalculator.length(lineSegments: segments)
+        }
+        
         public let segments: [GeoJsonLineSegment]
         
         internal convenience init?(logger: LoggerProtocol, geodesicCalculator: GeodesicCalculatorProtocol, coordinatesJson: [Any]) {
@@ -62,18 +71,12 @@ extension GeoJson {
             self.geodesicCalculator = geodesicCalculator
             
             self.points = points
-            
-            boundingBox = BoundingBox.best(points.flatMap { $0.boundingBox })!
-            
-            centroid = geodesicCalculator.centroid(linePoints: points)
-            
+
             segments = points.enumerated().flatMap { (offset, point) in
                 if points.count == offset + 1 { return nil }
                 
                 return (point, points[offset + 1])
             }
-            
-            length = geodesicCalculator.length(lineSegments: segments)
         }
         
         public func distance(to point: GeodesicPoint, errorDistance: Double) -> Double {

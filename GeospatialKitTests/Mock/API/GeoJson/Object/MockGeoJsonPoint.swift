@@ -1,6 +1,6 @@
 @testable import GeospatialKit
 
-class MockGeoJsonPoint: MockGeoJsonCoordinatesGeometry, GeoJsonPoint {
+final class MockGeoJsonPoint: MockGeoJsonCoordinatesGeometry, GeoJsonPoint {
     private(set) var locationCallCount: Int = 0
     private(set) var locationCoordinateCallCount: Int = 0
     private(set) var longitudeCallCount: Int = 0

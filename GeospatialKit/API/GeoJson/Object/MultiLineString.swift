@@ -12,7 +12,7 @@ extension GeoJson {
         return MultiLineString(logger: logger, geodesicCalculator: geodesicCalculator, lineStrings: lineStrings)
     }
     
-    public class MultiLineString: GeoJsonMultiLineString, Equatable {
+    public final class MultiLineString: GeoJsonMultiLineString, Equatable {
         public let type: GeoJsonObjectType = .multiLineString
         public var geoJsonCoordinates: [Any] { return lineStrings.map { $0.geoJsonCoordinates } }
         
@@ -28,12 +28,21 @@ extension GeoJson {
         }
         
         private let logger: LoggerProtocol
+        private let geodesicCalculator: GeodesicCalculatorProtocol
         
         public let lineStrings: [GeoJsonLineString]
         
-        public let points: [GeoJsonPoint]
-        public let boundingBox: GeoJsonBoundingBox
-        public let centroid: GeodesicPoint
+        public var points: [GeoJsonPoint] {
+            return lineStrings.flatMap { $0.points }
+        }
+        
+        public var boundingBox: GeoJsonBoundingBox {
+            return BoundingBox.best(lineStrings.map { $0.boundingBox })!
+        }
+        
+        public var centroid: GeodesicPoint {
+            return geodesicCalculator.centroid(lines: lineStrings)
+        }
         
         internal convenience init?(logger: LoggerProtocol, geodesicCalculator: GeodesicCalculatorProtocol, coordinatesJson: [Any]) {
             guard let lineStringsJson = coordinatesJson as? [[Any]] else { logger.error("A valid MultiLineString must have valid coordinates"); return nil }
@@ -54,15 +63,9 @@ extension GeoJson {
             guard lineStrings.count >= 1 else { logger.error("A valid MultiLineString must have at least one LineString"); return nil }
             
             self.logger = logger
+            self.geodesicCalculator = geodesicCalculator
             
             self.lineStrings = lineStrings
-            
-            boundingBox = BoundingBox.best(lineStrings.map { $0.boundingBox })!
-            
-            let points = lineStrings.flatMap { $0.points }
-            self.points = points
-            
-            centroid = geodesicCalculator.centroid(lines: lineStrings)
         }
         
         public func distance(to point: GeodesicPoint, errorDistance: Double) -> Double { return lineStrings.map { $0.distance(to: point, errorDistance: errorDistance) }.min()! }

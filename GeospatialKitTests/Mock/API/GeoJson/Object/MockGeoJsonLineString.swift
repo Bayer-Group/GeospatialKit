@@ -1,6 +1,6 @@
 @testable import GeospatialKit
 
-class MockGeoJsonLineString: MockGeoJsonMultiCoordinatesGeometry, GeoJsonLineString {
+final class MockGeoJsonLineString: MockGeoJsonMultiCoordinatesGeometry, GeoJsonLineString {
     var segments: [GeoJsonLineSegment] = []
     
     private(set) var lengthCallCount = 0

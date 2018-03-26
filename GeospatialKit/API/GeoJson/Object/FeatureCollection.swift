@@ -12,7 +12,7 @@ extension GeoJson {
         return FeatureCollection(logger: logger, features: features)
     }
     
-    public class FeatureCollection: GeoJsonFeatureCollection, Equatable {
+    public final class FeatureCollection: GeoJsonFeatureCollection, Equatable {
         public let type: GeoJsonObjectType = .featureCollection
         public var geoJson: GeoJsonDictionary { return ["type": type.rawValue, "features": features.map { $0.geoJson } ] }
         

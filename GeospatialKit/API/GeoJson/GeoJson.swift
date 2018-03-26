@@ -99,7 +99,7 @@ public protocol GeoJsonProtocol {
     func point(longitude: Double, latitude: Double) -> GeoJsonPoint
 }
 
-public class GeoJson: GeoJsonProtocol {
+public final class GeoJson: GeoJsonProtocol {
     internal let logger: LoggerProtocol
     internal let geodesicCalculator: GeodesicCalculatorProtocol
     

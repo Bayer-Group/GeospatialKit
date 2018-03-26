@@ -1,6 +1,6 @@
 @testable import GeospatialKit
 
-class MockImageManager: ImageManagerProtocol {
+final class MockImageManager: ImageManagerProtocol {
     private(set) var createCallCount = 0
     private(set) var createDebugCallCount = 0
     

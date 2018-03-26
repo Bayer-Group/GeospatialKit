@@ -1,6 +1,6 @@
 @testable import GeospatialKit
 
-class MockGeoJsonFeature: MockGeoJsonGeometry, GeoJsonFeature {
+final class MockGeoJsonFeature: MockGeoJsonGeometry, GeoJsonFeature {
     var geometryResult: GeoJsonGeometry? = MockGeoJsonPolygon()
     var idResult: Any?
     var idAsStringResult: String?
