@@ -80,7 +80,12 @@ class LineStringTests: XCTestCase {
     
     func testBoundingBox() {
         let resultBoundingBox = lineString.boundingBox
+        
+        #if swift(>=4.1)
+        let boundingBox = BoundingBox.best(points.compactMap { $0.boundingBox })
+        #else
         let boundingBox = BoundingBox.best(points.flatMap { $0.boundingBox })
+        #endif
         
         XCTAssertEqual(resultBoundingBox as? BoundingBox, boundingBox as? BoundingBox)
     }
@@ -189,19 +194,19 @@ class LineStringTests: XCTestCase {
     
     // GeoJsonMultiCoordinatesGeometry Tests
     
-    // swiftlint:disable force_cast
     func testPoints() {
-        XCTAssertEqual(lineString.points as! [Point], points)
+        XCTAssertEqual((lineString.points as? [Point])!, points)
     }
     
     func testCentroid() {
+        // swiftlint:disable:next force_cast
         XCTAssertEqual(lineString.centroid as! SimplePoint, GeoTestHelper.simplePoint(2.0, 2.00030459421549, 4.0))
     }
     
     func testCentroid_Negative() {
+        // swiftlint:disable:next force_cast
         XCTAssertEqual(lineString.centroid as! SimplePoint, GeoTestHelper.simplePoint(2.0, 2.00030459421549, 4.0))
     }
-    // swiftlint:enable force_cast
     
     // LineString Tests
     

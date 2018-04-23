@@ -30,7 +30,12 @@ class FeatureCollectionTests: XCTestCase {
     
     func testObjectBoundingBox() {
         let resultBoundingBox = featureCollection.objectBoundingBox
+        
+        #if swift(>=4.1)
+        let boundingBox = BoundingBox.best(featureCollection.features.compactMap { $0.geometry?.objectBoundingBox })
+        #else
         let boundingBox = BoundingBox.best(featureCollection.features.flatMap { $0.geometry?.objectBoundingBox })
+        #endif
         
         XCTAssertEqual(resultBoundingBox as? BoundingBox, boundingBox as? BoundingBox)
     }

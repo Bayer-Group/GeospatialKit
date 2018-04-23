@@ -115,7 +115,12 @@ class PolygonTests: XCTestCase {
     
     func testBoundingBox() {
         let resultBoundingBox = polygon.boundingBox
+        
+        #if swift(>=4.1)
+        let boundingBox = BoundingBox.best(linearRings.compactMap { $0.boundingBox })
+        #else
         let boundingBox = BoundingBox.best(linearRings.flatMap { $0.boundingBox })
+        #endif
         
         XCTAssertEqual(resultBoundingBox as? BoundingBox, boundingBox as? BoundingBox)
     }
@@ -277,13 +282,13 @@ class PolygonTests: XCTestCase {
         XCTAssertEqual((negativeRingArea / mainRingArea).description, "0.360002924349192")
         XCTAssertEqual(polygon.centroid as! SimplePoint, GeoTestHelper.simplePoint(100.5, 0.5))
     }
+    // swiftlint:enable force_cast
     
     // Polygon Tests
     
     func testLinearRings() {
-        XCTAssertEqual(polygon.linearRings as! [LineString], linearRings)
+        XCTAssertEqual((polygon.linearRings as? [LineString])!, linearRings)
     }
-    // swiftlint:enable force_cast
     
     // TODO: Verify
     func testArea() {

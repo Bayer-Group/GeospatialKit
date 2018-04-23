@@ -99,7 +99,12 @@ class MultiLineStringTests: XCTestCase {
     
     func testBoundingBox() {
         let resultBoundingBox = multiLineString.boundingBox
+        
+        #if swift(>=4.1)
+        let boundingBox = BoundingBox.best(lineStrings.compactMap { $0.boundingBox })
+        #else
         let boundingBox = BoundingBox.best(lineStrings.flatMap { $0.boundingBox })
+        #endif
         
         XCTAssertEqual(resultBoundingBox as? BoundingBox, boundingBox as? BoundingBox)
     }
@@ -151,7 +156,7 @@ class MultiLineStringTests: XCTestCase {
     // MultiLineString Tests
     
     func testLineStrings() {
-        XCTAssertEqual(multiLineString.lineStrings as! [LineString], lineStrings)
+        XCTAssertEqual((multiLineString.lineStrings as? [LineString])!, lineStrings)
     }
     
     func testEquals() {
