@@ -40,7 +40,11 @@ class GeometryCollectionTests: XCTestCase {
     
     func testObjectBoundingBox() {
         let resultBoundingBox = geometryCollection.objectBoundingBox
+        #if swift(>=4.1)
+        let boundingBox = BoundingBox.best(geometryCollection.objectGeometries!.compactMap { $0.objectBoundingBox })
+        #else
         let boundingBox = BoundingBox.best(geometryCollection.objectGeometries!.flatMap { $0.objectBoundingBox })
+        #endif
         
         XCTAssertEqual(resultBoundingBox as? BoundingBox, boundingBox as? BoundingBox)
     }

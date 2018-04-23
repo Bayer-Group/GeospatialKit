@@ -57,14 +57,28 @@ extension GeoJson {
             
             self.features = features
             
+            #if swift(>=4.1)
+            let geometries = features.compactMap { $0.objectGeometries }.flatMap { $0 }
+            #else
             let geometries = features.flatMap { $0.objectGeometries }.flatMap { $0 }
+            #endif
             
             self.objectGeometries = geometries.count > 0 ? geometries : nil
             
+            #if swift(>=4.1)
+            objectBoundingBox = BoundingBox.best(geometries.compactMap { $0.objectBoundingBox })
+            #else
             objectBoundingBox = BoundingBox.best(geometries.flatMap { $0.objectBoundingBox })
+            #endif
         }
         
-        public func objectDistance(to point: GeodesicPoint, errorDistance: Double) -> Double? { return features.flatMap { $0.objectDistance(to: point, errorDistance: errorDistance) }.min() }
+        public func objectDistance(to point: GeodesicPoint, errorDistance: Double) -> Double? {
+            #if swift(>=4.1)
+            return features.compactMap { $0.objectDistance(to: point, errorDistance: errorDistance) }.min()
+            #else
+            return features.flatMap { $0.objectDistance(to: point, errorDistance: errorDistance) }.min()
+            #endif
+        }
         
         public func contains(_ point: GeodesicPoint, errorDistance: Double) -> Bool { return features.first { $0.contains(point, errorDistance: errorDistance) } != nil }
         

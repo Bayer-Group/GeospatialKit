@@ -81,7 +81,12 @@ class MultiPolygonTests: XCTestCase {
     
     func testBoundingBox() {
         let resultBoundingBox = multiPolygon.boundingBox
+        
+        #if swift(>=4.1)
+        let boundingBox = BoundingBox.best(polygons.compactMap { $0.boundingBox })
+        #else
         let boundingBox = BoundingBox.best(polygons.flatMap { $0.boundingBox })
+        #endif
         
         XCTAssertEqual(resultBoundingBox as? BoundingBox, boundingBox as? BoundingBox)
     }
@@ -92,8 +97,8 @@ class MultiPolygonTests: XCTestCase {
     
     // GeoJsonMultiCoordinatesGeometry Tests
     
-    // swiftlint:disable force_cast
     func testPoints() {
+        // swiftlint:disable:next force_cast
         XCTAssertEqual(multiPolygon.points as! [Point], multiPolygon.polygons.flatMap { $0.points as! [Point] })
     }
     
@@ -104,9 +109,8 @@ class MultiPolygonTests: XCTestCase {
     // MultiPolygon Tests
     
     func testPolygons() {
-        XCTAssertEqual(multiPolygon.polygons as! [Polygon], polygons)
+        XCTAssertEqual((multiPolygon.polygons as? [Polygon])!, polygons)
     }
-    // swiftlint:enable force_cast
     
     func testEquals() {
         XCTAssertEqual(multiPolygon, multiPolygon)

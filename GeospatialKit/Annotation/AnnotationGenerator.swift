@@ -18,7 +18,11 @@ internal struct AnnotationGenerator: AnnotationGeneratorProtocol {
         case let point as GeoJsonPoint:
             annotations += [annotation(for: point)]
         case let multiPoint as GeoJsonMultiPoint:
+            #if swift(>=4.1)
+            annotations += multiPoint.points.compactMap { annotation(for: $0) }
+            #else
             annotations += multiPoint.points.flatMap { annotation(for: $0) }
+            #endif
         case let polygon as GeoJsonPolygon:
             if debug {
                 if polygon.linearRings.count > 1 {

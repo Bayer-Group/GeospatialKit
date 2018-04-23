@@ -97,7 +97,12 @@ class MultiPointTests: XCTestCase {
     
     func testBoundingBox() {
         let resultBoundingBox = multiPoint.boundingBox
+        
+        #if swift(>=4.1)
+        let boundingBox = BoundingBox.best(points.compactMap { $0.boundingBox })
+        #else
         let boundingBox = BoundingBox.best(points.flatMap { $0.boundingBox })
+        #endif
         
         XCTAssertEqual(resultBoundingBox as? BoundingBox, boundingBox as? BoundingBox)
     }

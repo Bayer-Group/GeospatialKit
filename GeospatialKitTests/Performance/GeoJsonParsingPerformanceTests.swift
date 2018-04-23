@@ -7,7 +7,11 @@ final class GeoJsonParsingPerformanceTest: XCTestCase {
     func testPolygonBoundingBox() {
         let geospatial = Geospatial(configuration: ConfigurationModel(logLevel: .debug))
         
+        #if swift(>=4.1)
+        let geoJsons = MockData.geoJsonTestData.compactMap { $0["geoJson"] as? GeoJsonDictionary }
+        #else
         let geoJsons = MockData.geoJsonTestData.flatMap { $0["geoJson"] as? GeoJsonDictionary }
+        #endif
         
         var cacheForMemoryUsageInfo = [GeoJsonObject]()
         
