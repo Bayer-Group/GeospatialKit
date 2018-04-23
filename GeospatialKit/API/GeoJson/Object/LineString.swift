@@ -36,7 +36,11 @@ extension GeoJson {
         public let points: [GeoJsonPoint]
         
         public var boundingBox: GeoJsonBoundingBox {
+            #if swift(>=4.1)
+            return BoundingBox.best(points.compactMap { $0.boundingBox })!
+            #else
             return BoundingBox.best(points.flatMap { $0.boundingBox })!
+            #endif
         }
         
         public var centroid: GeodesicPoint {
@@ -71,12 +75,20 @@ extension GeoJson {
             self.geodesicCalculator = geodesicCalculator
             
             self.points = points
-
-            segments = points.enumerated().flatMap { (offset, point) in
+            
+            #if swift(>=4.1)
+            segments = points.enumerated().compactMap { (offset, point) in
                 if points.count == offset + 1 { return nil }
                 
                 return (point, points[offset + 1])
             }
+            #else
+            segments = points.enumerated().flatMap { (offset, point) in
+                if points.count == offset + 1 { return nil }
+            
+                return (point, points[offset + 1])
+            }
+            #endif
         }
         
         public func distance(to point: GeodesicPoint, errorDistance: Double) -> Double {

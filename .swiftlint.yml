@@ -1,5 +1,6 @@
 excluded:
   - Carthage
+  - CarthageAlt
 
 disabled_rules:
  - trailing_whitespace
@@ -11,3 +12,12 @@ identifier_name:
   excluded:
     - id
     - Log
+    - φ1
+    - φ2
+    - φ3
+    - λ1
+    - λ2
+    - λ3
+    - Δλ
+    - Bx
+    - By

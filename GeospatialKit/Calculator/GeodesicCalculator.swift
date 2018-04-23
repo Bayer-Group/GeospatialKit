@@ -94,10 +94,10 @@ extension GeodesicCalculator {
         var area = 0.0
         
         for index in 0 ..< points.count {
-            let p1 = points[index > 0 ? index - 1 : points.count - 1]
-            let p2 = points[index]
+            let point1 = points[index > 0 ? index - 1 : points.count - 1]
+            let point2 = points[index]
             
-            area += (p2.longitude - p1.longitude) * (2 + sin(p1.latitude) + sin(p2.latitude))
+            area += (point2.longitude - point1.longitude) * (2 + sin(point1.latitude) + sin(point2.latitude))
         }
         
         area = -(area * earthRadius * earthRadius / 2)
@@ -170,12 +170,12 @@ extension GeodesicCalculator {
         
         let dLat = point2.latitude - point1.latitude
         let dLon = point2.longitude - point1.longitude
-        let a = sin(dLat/2) * sin(dLat/2) + sin(dLon/2) * sin(dLon/2) * cos(point1.latitude) * cos(point2.latitude)
+        let partialCalculation1 = sin(dLat/2) * sin(dLat/2) + sin(dLon/2) * sin(dLon/2) * cos(point1.latitude) * cos(point2.latitude)
         
-        let partialCalculation = sqrt(a)
-        let c = partialCalculation > 1 || partialCalculation < -1 ? 0 : 2 * asin(partialCalculation)
+        let partialCalculation2 = sqrt(partialCalculation1)
+        let angularDistance = partialCalculation2 > 1 || partialCalculation2 < -1 ? 0 : 2 * asin(partialCalculation2)
         
-        return earthRadius * c
+        return angularDistance * earthRadius
     }
     
     // TODO: It would be nice to understand this better as there seems to be too much to calling this twice.
