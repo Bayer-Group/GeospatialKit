@@ -4,7 +4,7 @@ import GeospatialKit
 class MainViewController: UIViewController {
     let geoJsonObjects = IntegrationData.geoJsonTestData["geoJsonObjects"] as! [GeoJsonDictionary]
     
-    let geospatial = Geospatial(configuration: ConfigurationModel(logLevel: .debug))
+    let geospatial = GeospatialCocoa(configuration: ConfigurationModel(logLevel: .debug))
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let displayViewController = segue.destination as! DisplayViewController

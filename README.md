@@ -5,77 +5,33 @@
 
 What is GeospatialKit?
 
-GeospatialKit is an interface to translate a GeoJson document / dictionary into a swift object which fully conforms to the latest [GeoJson specification - August 2016](https://tools.ietf.org/html/rfc7946).
+GeospatialKit is an extension to [GeospatialSwift](https://github.com/MonsantoCo/GeospatialSwift) which adds support for cocoa functionaity.
 
-A GeoJsonObject can be transformed to a bounding box, be projected as an image, or zoomed and rendered to a map.
+A GeoJsonObject can now be projected as an image or zoomed and rendered to a map.
 
 ## Features
 
-* Fully unit tested - 92+% coverage
+* Unit tested with high coverage
 * Ongoing development
+
+## Installation
+
+``` github "MonsantoCo/GeospatialKit" ~> 0.1.0 ```
 
 ### Geospatial Example
 
 * An Example application which supplies the most common use cases of GeoJson
 * Parses all use cases into GeoJsonObjects and displays the options in a table view
 
-## Geospatial
+## GeospatialCocoa
 
-Geospatial
+GeospatialCocoa
 
-* The main interface consisting of 4 sub interface
-
-### GeoJson
-
-Geospatial.geoJson
-
-* Full GeoJson specification support to create a GeoJsonObject
-* A GeoJsonObject is the base object of GeospatialKit functionality
-* Bounding Box generated from any GeoJsonObject
-* GeoJson generated from any GeoJsonObject
-
-### GeoJsonObjects
-
-* Minimum distance to a given point (Optional error distance)
-* Bounding Box
-* GeoJson as a Dictionary
-* Contains a given point (Optional Error Distance)
-* Points making up the shape
-* All objects are equatable
-
-* Point
-  * Normalize
-  * Bearing to a given point
-  * Midpoint to a given point
-* MultiPoint
-  * Centroid
-* LineString
-  * Centroid
-  * Length
-* MultiLineString
-  * Centroid
-* Polygon
-  * Centroid
-  * Area
-* MultiPolygon
-  * Centroid
-* GeometryCollection
-* Feature
-* FeatureCollection
-
-
-### Geohash
-
-Geospatial.geohash
-
-* Find the geohash of any coordinate
-* Find the center coordinate of any geohash
-* Find all 9 neighboring geohash given a coordinate
-* Create a bounding box (GeohashBox) from a geohash
+* The main interface consists of 2 new sub interface and includes those in the Geospacial Interface from GeospatialSwift. 
 
 ### Mapping
 
-Geospatial.map
+GeospatialCocoa.map
 
 * Simple API to assist in displaying a GeoJsonObject on a map
 * Easily zoom in on the GeoJsonObject by setting the region to geoJsonObject.boundingBox.region
@@ -85,16 +41,7 @@ Geospatial.map
 
 ### Imaging
 
-Geospatial.image
+GeospatialCocoa.image
 
 * Create an image from any GeoJsonObject using point projection
 * Displays an image view as created from a GeoJsonObect
-
-### WKT - Not Fully Supported
-
-Geospatial.parse(wkt: String) -> GeoJsonObject
-
-* Minimal WKT parsing support which transforms to a GeoJsonObject.
-* POINT, LINESTRING, MULTILINESTRING, POLYGON, MULTPOLYGON.
-* This is currently only intended to parse a very simple WKT string
-

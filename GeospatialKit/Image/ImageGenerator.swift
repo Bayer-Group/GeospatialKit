@@ -4,6 +4,7 @@ public protocol ImageGeneratorProtocol {
 
 internal struct ImageGenerator: ImageGeneratorProtocol {
     let logger: LoggerProtocol
+    let calculator: GeodesicCalculatorProtocol
     
     static let debugAlpha: CGFloat = 0.2
     
@@ -62,7 +63,6 @@ extension ImageGenerator {
             
             if debug {
                 if polygon.linearRings.count > 1 {
-                    let calculator = GeodesicCalculator(logger: Logger(applicationPrefix: "Debug", minimumLogLevelShown: .debug))
                     polygon.linearRings.forEach { drawPin(pointProjector: pointProjector, point: calculator.centroid(linearRingSegments: $0.segments)) }
                 }
                 
@@ -82,15 +82,15 @@ extension ImageGenerator {
     
     // TODO: Draw the pin to better proportions?
     private func drawPin(pointProjector: PointProjector, point: GeodesicPoint) {
-        if let pinImage = UIImage(named: "UIMapPinActive", in: Bundle(for: Geospatial.self), compatibleWith: nil) {
-            var point: CGPoint = pointProjector.asPoints([point]).first!
-            point.x -= pinImage.size.width / 2
-            // TODO: Remove "/ 2" if the pin bottom should be the exact location.
-            point.y -= pinImage.size.height // / 2
-            
-            let rect = CGRect(origin: point, size: pinImage.size)
-            pinImage.draw(in: rect)
-        }
+        let pinImage = UIImage.localImage(named: "UIMapPinActive")
+        
+        var point: CGPoint = pointProjector.asPoints([point]).first!
+        point.x -= pinImage.size.width / 2
+        // TODO: Remove "/ 2" if the pin bottom should be the exact location.
+        point.y -= pinImage.size.height // / 2
+        
+        let rect = CGRect(origin: point, size: pinImage.size)
+        pinImage.draw(in: rect)
     }
     
     private func drawLine(imageRenderModel: ImageRenderModel, context: CGContext, pointProjector: PointProjector, line: GeoJsonLineString, debug: Bool) {

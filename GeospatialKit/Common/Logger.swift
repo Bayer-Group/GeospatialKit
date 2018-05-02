@@ -42,21 +42,3 @@ internal struct Logger: LoggerProtocol {
         return "\(emojisForLogLevels[colorId])\(message())\(emojisForLogLevels[colorId])"
     }
 }
-
-public enum LogLevel: Int {
-    case debug = 1
-    case info
-    case warning
-    case error
-    case none
-    
-    var name: String {
-        switch self {
-        case .debug: return "Debug"
-        case .info: return "Info"
-        case .warning: return "Warning"
-        case .error: return "Error"
-        case .none: return "None"
-        }
-    }
-}

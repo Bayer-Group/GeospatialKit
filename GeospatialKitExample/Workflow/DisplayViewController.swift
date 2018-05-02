@@ -4,10 +4,10 @@ class DisplayViewController: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
     @IBOutlet weak var mapView: MKMapView!
     
-    var geospatial: Geospatial!
+    var geospatial: GeospatialCocoa!
     var geoJsonObject: GeoJsonObject! {
         didSet {
-            guard let boundingBoxes = geoJsonObject.objectGeometries?.flatMap({ $0.objectBoundingBox }) else { return }
+            guard let boundingBoxes = geoJsonObject.objectGeometries?.compactMap({ $0.objectBoundingBox }) else { return }
             geohashBoxes = boundingBoxes.flatMap { geospatial.geohash.geohashBoxes(for: $0, precision: 4) }
         }
     }

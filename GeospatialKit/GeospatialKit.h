@@ -1,5 +1,7 @@
 #import <MapKit/MapKit.h>
 
+@import GeospatialSwift;
+
 //! Project version number for GeospatialKit.
 FOUNDATION_EXPORT double GeospatialKitVersionNumber;
 

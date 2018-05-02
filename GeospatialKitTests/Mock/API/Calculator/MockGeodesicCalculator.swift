@@ -1,15 +1,18 @@
-@testable import GeospatialKit
+@testable import GeospatialSwift
 
 final class MockGeodesicCalculator: GeodesicCalculatorProtocol {
     private(set) var lineLengthCallCount = 0
     private(set) var polygonAreaCallCount = 0
     private(set) var distanceToPointCallCount = 0
     private(set) var distanceToLineCallCount = 0
+    private(set) var containsCallCount = 0
     private(set) var midpointCallCount = 0
     private(set) var initialBearingCallCount = 0
     private(set) var averageBearingCallCount = 0
     private(set) var finalBearingCallCount = 0
     private(set) var normalizeCallCount = 0
+    private(set) var lawOfCosinesDistanceCallCount = 0
+    private(set) var haversineDistanceCallCount = 0
     
     private(set) static var normalizeStaticCallCount = 0
     
@@ -17,7 +20,10 @@ final class MockGeodesicCalculator: GeodesicCalculatorProtocol {
     var polygonAreaResult: Double = 0
     var distanceToPointResult: Double = 0
     var distanceToLineResult: Double = 0
+    var containsResult: Bool = false
     var bearingResult: Double = 0
+    var lawOfCosinesDistanceResult: Double = 0
+    var haversineDistanceResult: Double = 0
     
     init() {
         MockGeodesicCalculator.normalizeStaticCallCount = 0
@@ -71,6 +77,12 @@ final class MockGeodesicCalculator: GeodesicCalculatorProtocol {
         return distanceToPointResult
     }
     
+    func contains(point: GeodesicPoint, polygonRings: [GeoJsonLineString]) -> Bool {
+        containsCallCount += 1
+        
+        return containsResult
+    }
+    
     func midpoint(point1: GeodesicPoint, point2: GeodesicPoint) -> GeodesicPoint {
         midpointCallCount += 1
         
@@ -99,6 +111,18 @@ final class MockGeodesicCalculator: GeodesicCalculatorProtocol {
         finalBearingCallCount += 1
         
         return bearingResult
+    }
+    
+    func lawOfCosinesDistance(point1: GeodesicPoint, point2: GeodesicPoint) -> Double {
+        lawOfCosinesDistanceCallCount += 1
+        
+        return lawOfCosinesDistanceResult
+    }
+    
+    func haversineDistance(point1: GeodesicPoint, point2: GeodesicPoint) -> Double {
+        haversineDistanceCallCount += 1
+        
+        return haversineDistanceResult
     }
     
     static func normalize(point: GeodesicPoint) -> GeodesicPoint {
