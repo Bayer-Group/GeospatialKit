@@ -4,6 +4,7 @@ internal protocol AnnotationGeneratorProtocol {
 
 internal struct AnnotationGenerator: AnnotationGeneratorProtocol {
     let logger: LoggerProtocol
+    let calculator: GeodesicCalculatorProtocol
     
     func annotations(for geoJsonObject: GeoJsonObject, debug: Bool) -> [MKAnnotation] {
         guard let geometries = geoJsonObject.objectGeometries else { logger.info("No geometry objects for: \(geoJsonObject.geoJson)."); return [] }
@@ -26,7 +27,6 @@ internal struct AnnotationGenerator: AnnotationGeneratorProtocol {
         case let polygon as GeoJsonPolygon:
             if debug {
                 if polygon.linearRings.count > 1 {
-                    let calculator = GeodesicCalculator(logger: Logger(applicationPrefix: "Debug", minimumLogLevelShown: .debug))
                     annotations += polygon.linearRings.map { annotation(for: calculator.centroid(linearRingSegments: $0.segments)) }
                 }
             }

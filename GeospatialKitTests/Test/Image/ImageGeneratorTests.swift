@@ -9,6 +9,7 @@ class ImageGeneratorTests: XCTestCase {
     
     var logger: MockLogger!
     var geodesicCalculator: MockGeodesicCalculator!
+    var mockGeodesicCalculator: MockGeodesicCalculator!
     
     let imageWidth = 150.0
     let imageHeight = 100.0
@@ -18,8 +19,9 @@ class ImageGeneratorTests: XCTestCase {
         
         logger = MockLogger()
         geodesicCalculator = MockGeodesicCalculator()
+        mockGeodesicCalculator = MockGeodesicCalculator()
         
-        imageGenerator = ImageGenerator(logger: logger)
+        imageGenerator = ImageGenerator(logger: logger, calculator: mockGeodesicCalculator)
         
         imageRenderModel = ImageRenderModel(backgroundColor: UIColor.blue.cgColor, shapeFillColor: UIColor.black.cgColor, shapeLineColor: UIColor.brown.cgColor, width: imageWidth, height: imageHeight)
     }
