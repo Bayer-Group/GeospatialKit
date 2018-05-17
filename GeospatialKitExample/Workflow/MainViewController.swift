@@ -2,6 +2,8 @@ import GeospatialKit
 
 // swiftlint:disable force_cast
 class MainViewController: UIViewController {
+    internal let timberHandler = TimberHandler()
+    
     let geoJsonObjects = IntegrationData.geoJsonTestData["geoJsonObjects"] as! [GeoJsonDictionary]
     
     let geospatial = GeospatialCocoa()

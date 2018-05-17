@@ -18,6 +18,7 @@
 		1E4491C81ED7322700D74485 /* PointProjectorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4491C71ED7322700D74485 /* PointProjectorTests.swift */; };
 		1E4491CC1ED732F900D74485 /* OverlayGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4491CB1ED732F900D74485 /* OverlayGeneratorTests.swift */; };
 		1E4491CE1ED7331500D74485 /* AnnotationGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4491CD1ED7331500D74485 /* AnnotationGeneratorTests.swift */; };
+		1E45950E20AE14270095552A /* TimberHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E45950D20AE14270095552A /* TimberHandler.swift */; };
 		1E528EC71EC20CDF00A2A9C9 /* GeospatialKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1E528EBD1EC20CDF00A2A9C9 /* GeospatialKit.framework */; };
 		1E528ECE1EC20CDF00A2A9C9 /* GeospatialKit.h in Headers */ = {isa = PBXBuildFile; fileRef = 1E528EC01EC20CDF00A2A9C9 /* GeospatialKit.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		1E528EE41EC20D3800A2A9C9 /* GeospatialCocoa.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E528EE31EC20D3800A2A9C9 /* GeospatialCocoa.swift */; };
@@ -103,6 +104,7 @@
 		1E4491C71ED7322700D74485 /* PointProjectorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PointProjectorTests.swift; sourceTree = "<group>"; };
 		1E4491CB1ED732F900D74485 /* OverlayGeneratorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OverlayGeneratorTests.swift; sourceTree = "<group>"; };
 		1E4491CD1ED7331500D74485 /* AnnotationGeneratorTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = AnnotationGeneratorTests.swift; sourceTree = "<group>"; };
+		1E45950D20AE14270095552A /* TimberHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TimberHandler.swift; sourceTree = "<group>"; };
 		1E528EBD1EC20CDF00A2A9C9 /* GeospatialKit.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = GeospatialKit.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		1E528EC01EC20CDF00A2A9C9 /* GeospatialKit.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GeospatialKit.h; sourceTree = "<group>"; };
 		1E528EC11EC20CDF00A2A9C9 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -389,6 +391,7 @@
 				1E528EFE1EC20E0000A2A9C9 /* MainViewController.swift */,
 				1ED4B96E1EC35A6A00D2288E /* DisplayViewController.swift */,
 				1ED4B9701EC360A800D2288E /* GeoJsonCell.swift */,
+				1E45950D20AE14270095552A /* TimberHandler.swift */,
 			);
 			path = Workflow;
 			sourceTree = "<group>";
@@ -819,6 +822,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1ED4B96F1EC35A6A00D2288E /* DisplayViewController.swift in Sources */,
+				1E45950E20AE14270095552A /* TimberHandler.swift in Sources */,
 				1ED4B9711EC360A800D2288E /* GeoJsonCell.swift in Sources */,
 				1E0CDEB41ED617720066D74F /* IntegrationData.swift in Sources */,
 				1E528EFF1EC20E0000A2A9C9 /* MainViewController.swift in Sources */,

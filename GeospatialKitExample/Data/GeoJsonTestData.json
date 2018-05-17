@@ -289,5 +289,10 @@
 			"type": "GeometryCollection",
 			"geometries": []
 		}
+	}, {
+		"name": "Invalid Geometry",
+		"geoJson": {
+			"type": "Invalid"
+		}
 	}]
 }
