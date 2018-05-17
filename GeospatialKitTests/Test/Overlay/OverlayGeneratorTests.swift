@@ -10,7 +10,7 @@ class OverlayGeneratorTests: XCTestCase {
     override func setUp() {
         super.setUp()
         
-        overlayGenerator = OverlayGenerator(logger: MockLogger())
+        overlayGenerator = OverlayGenerator()
         
         overlayRenderModel = OverlayRenderModel(lineWidth: 1, strokeColor: .black, fillColor: .blue, alpha: 0.8)
     }

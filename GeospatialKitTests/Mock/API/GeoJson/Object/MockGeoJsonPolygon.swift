@@ -1,6 +1,6 @@
 @testable import GeospatialKit
 
-final class MockGeoJsonPolygon: MockGeoJsonMultiCoordinatesGeometry, GeoJsonPolygon {
+final class MockGeoJsonPolygon: MockGeoJsonClosedGeometry, GeoJsonPolygon {
     private(set) var linearRingsCallCount: Int = 0
     private(set) var areaCallCount: Int = 0
     

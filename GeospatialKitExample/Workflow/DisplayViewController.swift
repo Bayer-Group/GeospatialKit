@@ -7,7 +7,7 @@ class DisplayViewController: UIViewController {
     var geospatial: GeospatialCocoa!
     var geoJsonObject: GeoJsonObject! {
         didSet {
-            guard let boundingBoxes = geoJsonObject.objectGeometries?.compactMap({ $0.objectBoundingBox }) else { return }
+            guard let geoJsonObject = geoJsonObject, let boundingBoxes = geoJsonObject.objectGeometries?.compactMap({ $0.objectBoundingBox }) else { return }
             geohashBoxes = boundingBoxes.flatMap { geospatial.geohash.geohashBoxes(for: $0, precision: 4) }
         }
     }
@@ -16,6 +16,8 @@ class DisplayViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        guard let geoJsonObject = geoJsonObject else { return }
         
         mapView.addOverlays(geospatial.map.overlays(for: geoJsonObject))
         mapView.addAnnotations(geospatial.map.annotations(for: geoJsonObject, debug: true))

@@ -6,8 +6,6 @@ internal protocol OverlayGeneratorProtocol {
 }
 
 internal struct OverlayGenerator: OverlayGeneratorProtocol {
-    let logger: LoggerProtocol
-    
     func overlay(for polygon: GeoJsonPolygon) -> MKPolygon {
         let linearRingsCoordinates = polygon.linearRings.map { $0.points.map { $0.locationCoordinate } }
         
@@ -19,7 +17,7 @@ internal struct OverlayGenerator: OverlayGeneratorProtocol {
     }
     
     func overlays(for geoJsonObject: GeoJsonObject) -> [MKOverlay] {
-        guard let geometries = geoJsonObject.objectGeometries else { logger.info("No geometry objects for: \(geoJsonObject.geoJson)."); return [] }
+        guard let geometries = geoJsonObject.objectGeometries else { Log.info("No geometry objects for: \(geoJsonObject.geoJson)."); return [] }
         
         return geometries.flatMap { overlays(for: $0) }
     }

@@ -2,9 +2,11 @@ import GeospatialKit
 
 // swiftlint:disable force_cast
 class MainViewController: UIViewController {
+    internal let timberHandler = TimberHandler()
+    
     let geoJsonObjects = IntegrationData.geoJsonTestData["geoJsonObjects"] as! [GeoJsonDictionary]
     
-    let geospatial = GeospatialCocoa(configuration: ConfigurationModel(logLevel: .debug))
+    let geospatial = GeospatialCocoa()
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         let displayViewController = segue.destination as! DisplayViewController

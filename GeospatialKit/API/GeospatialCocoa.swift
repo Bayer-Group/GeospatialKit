@@ -1,5 +1,3 @@
-public typealias ConfigurationModel = GeospatialSwift.ConfigurationModel
-
 /**
  A protocol provided for unit testing.
  */
@@ -25,12 +23,10 @@ final public class GeospatialCocoa: Geospatial, GeospatialCocoaProtocol {
     /**
      Initialize the interface using a configuration to describe how the interface should react to requests.
      */
-    public override init(configuration: ConfigurationModel) {
-        let logger = Logger(applicationPrefix: "🗺️ GeospatialKit 🗺️", minimumLogLevelShown: configuration.logLevel)
+    public override init() {
+        super.init()
         
-        super.init(configuration: configuration)
-        
-        image = ImageManager(logger: logger, calculator: calculator)
-        map = MapManager(logger: logger, calculator: calculator)
+        image = ImageManager(calculator: calculator)
+        map = MapManager(calculator: calculator)
     }
 }
