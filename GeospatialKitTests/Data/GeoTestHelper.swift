@@ -1,7 +1,7 @@
 @testable import GeospatialKit
 
 class GeoTestHelper {
-    static let geospatial = Geospatial(configuration: ConfigurationModel(logLevel: .debug))
+    static let geospatial = Geospatial()
     
     static func parse(_ geoJsonDictionary: GeoJsonDictionary) -> GeoJsonObject {
         return geospatial.geoJson.parse(geoJson: geoJsonDictionary)!

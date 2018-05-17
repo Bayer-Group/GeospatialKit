@@ -5,7 +5,7 @@ import XCTest
 final class GeoJsonParsingPerformanceTest: XCTestCase {
     
     func testPolygonBoundingBox() {
-        let geospatial = Geospatial(configuration: ConfigurationModel(logLevel: .debug))
+        let geospatial = GeoTestHelper.geospatial
         
         #if swift(>=4.1)
         let geoJsons = MockData.geoJsonTestData.compactMap { $0["geoJson"] as? GeoJsonDictionary }
@@ -23,5 +23,4 @@ final class GeoJsonParsingPerformanceTest: XCTestCase {
             }
         }
     }
-    
 }

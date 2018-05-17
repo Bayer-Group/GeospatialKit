@@ -3,11 +3,10 @@ internal protocol AnnotationGeneratorProtocol {
 }
 
 internal struct AnnotationGenerator: AnnotationGeneratorProtocol {
-    let logger: LoggerProtocol
     let calculator: GeodesicCalculatorProtocol
     
     func annotations(for geoJsonObject: GeoJsonObject, debug: Bool) -> [MKAnnotation] {
-        guard let geometries = geoJsonObject.objectGeometries else { logger.info("No geometry objects for: \(geoJsonObject.geoJson)."); return [] }
+        guard let geometries = geoJsonObject.objectGeometries else { Log.info("No geometry objects for: \(geoJsonObject.geoJson)."); return [] }
         
         return geometries.flatMap { annotations(for: $0, debug: debug) }
     }

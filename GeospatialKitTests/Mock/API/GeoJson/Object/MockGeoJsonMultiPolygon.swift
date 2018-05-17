@@ -1,6 +1,6 @@
-@testable import GeospatialKit
+@testable import GeospatialSwift
 
-final class MockGeoJsonMultiPolygon: MockGeoJsonMultiCoordinatesGeometry, GeoJsonMultiPolygon {
+final class MockGeoJsonMultiPolygon: MockGeoJsonClosedGeometry, GeoJsonMultiPolygon {
     private(set) var polygonsCallCount = 0
     
     var polygonsResult: [GeoJsonPolygon] = []

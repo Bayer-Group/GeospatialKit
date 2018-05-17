@@ -3,7 +3,6 @@ public protocol ImageGeneratorProtocol {
 }
 
 internal struct ImageGenerator: ImageGeneratorProtocol {
-    let logger: LoggerProtocol
     let calculator: GeodesicCalculatorProtocol
     
     static let debugAlpha: CGFloat = 0.2
@@ -15,14 +14,14 @@ internal struct ImageGenerator: ImageGeneratorProtocol {
         let desiredImageRect = CGRect(x: 0, y: 0, width: width, height: height)
         
         UIGraphicsBeginImageContextWithOptions(desiredImageRect.size, false, 1.0)
-        guard let context = UIGraphicsGetCurrentContext() else { logger.error("No Graphics Context"); return nil }
+        guard let context = UIGraphicsGetCurrentContext() else { Log.error("No Graphics Context", errorType: .internal); return nil }
         
         context.setFillColor(imageRenderModel.backgroundColor)
         context.fill(desiredImageRect)
         
         // TODO: Is this the right place to do this?
         guard let geometries = geoJsonObject.objectGeometries, let imageBoundingBox = geoJsonObject.objectBoundingBox?.imageBoundingBox else {
-            logger.info("No geometry objects or bounding box for: \(geoJsonObject.geoJson).")
+            Log.info("No geometry objects or bounding box for: \(geoJsonObject.geoJson).")
             let image = UIGraphicsGetImageFromCurrentImageContext()
             UIGraphicsEndImageContext()
             

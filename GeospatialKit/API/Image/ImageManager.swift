@@ -8,8 +8,8 @@ public struct ImageManager: ImageManagerProtocol {
     
     static let debugAlpha: CGFloat = 0.2
     
-    init(logger: LoggerProtocol, calculator: GeodesicCalculatorProtocol) {
-        imageGenerator = ImageGenerator(logger: logger, calculator: calculator)
+    init(calculator: GeodesicCalculatorProtocol) {
+        imageGenerator = ImageGenerator(calculator: calculator)
     }
     
     /**
