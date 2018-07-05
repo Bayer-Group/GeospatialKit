@@ -29,7 +29,7 @@ final class MockGeodesicCalculator: GeodesicCalculatorProtocol {
         MockGeodesicCalculator.normalizeStaticCallCount = 0
     }
     
-    func length(lineSegments: [GeoJsonLineSegment]) -> Double {
+    func length(lineSegments: [GeodesicLineSegment]) -> Double {
         lineLengthCallCount += 1
         
         return lineLengthResult
@@ -49,7 +49,7 @@ final class MockGeodesicCalculator: GeodesicCalculatorProtocol {
         return polygonRings.first!.points.first!
     }
     
-    func centroid(linearRingSegments: [GeoJsonLineSegment]) -> GeodesicPoint {
+    func centroid(linearRingSegments: [GeodesicLineSegment]) -> GeodesicPoint {
         return linearRingSegments.first!.point1
     }
     
@@ -65,7 +65,7 @@ final class MockGeodesicCalculator: GeodesicCalculatorProtocol {
         return points.first!
     }
     
-    func distance(point: GeodesicPoint, lineSegment: GeoJsonLineSegment) -> Double {
+    func distance(point: GeodesicPoint, lineSegment: GeodesicLineSegment) -> Double {
         distanceToLineCallCount += 1
         
         return distanceToLineResult
