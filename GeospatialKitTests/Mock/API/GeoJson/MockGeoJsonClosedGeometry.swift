@@ -1,4 +1,4 @@
-@testable import GeospatialSwift
+@testable import GeospatialKit
 
 class MockGeoJsonClosedGeometry: MockGeoJsonMultiCoordinatesGeometry, GeoJsonClosedGeometry {
     private(set) var edgeDistanceCallCount = 0

@@ -1,4 +1,4 @@
-@testable import GeospatialSwift
+@testable import GeospatialKit
 
 class MockGeoJsonGeometry: MockGeoJsonObject, GeoJsonGeometry {
 }

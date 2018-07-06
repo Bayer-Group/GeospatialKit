@@ -1,4 +1,4 @@
-@testable import GeospatialSwift
+@testable import GeospatialKit
 
 class MockGeoJsonMultiCoordinatesGeometry: MockGeoJsonCoordinatesGeometry, GeoJsonMultiCoordinatesGeometry {
     private(set) var pointsCallCount = 0

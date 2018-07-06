@@ -1,4 +1,4 @@
-@testable import GeospatialSwift
+@testable import GeospatialKit
 
 final class MockGeohashCoder: GeohashCoderProtocol {
     private(set) var geohashFromPointCallCount = 0

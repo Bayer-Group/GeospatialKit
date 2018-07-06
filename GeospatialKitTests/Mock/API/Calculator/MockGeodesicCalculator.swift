@@ -1,4 +1,4 @@
-@testable import GeospatialSwift
+@testable import GeospatialKit
 
 final class MockGeodesicCalculator: GeodesicCalculatorProtocol {
     private(set) var lineLengthCallCount = 0

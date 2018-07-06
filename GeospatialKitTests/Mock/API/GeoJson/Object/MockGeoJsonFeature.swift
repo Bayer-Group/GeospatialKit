@@ -1,4 +1,4 @@
-@testable import GeospatialSwift
+@testable import GeospatialKit
 
 final class MockGeoJsonFeature: MockGeoJsonGeometry, GeoJsonFeature {
     override init() {

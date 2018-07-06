@@ -15,6 +15,8 @@ public struct ImageRenderModel {
     internal let width: Double
     internal let height: Double
     
+    // TODO: Add optional background image.
+    
     // Should be device specific but 3 is the max per any current device.
     internal let pixelsToPointsMultipler: Double
     

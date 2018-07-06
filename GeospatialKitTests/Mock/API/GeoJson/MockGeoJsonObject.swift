@@ -1,4 +1,4 @@
-@testable import GeospatialSwift
+@testable import GeospatialKit
 
 class MockGeoJsonObject: GeoJsonObject {
     private(set) var geoJsonObjectTypeCallCount = 0
