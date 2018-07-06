@@ -26,7 +26,7 @@ final public class GeospatialCocoa: Geospatial, GeospatialCocoaProtocol {
     public override init() {
         super.init()
         
-        image = ImageManager(calculator: calculator)
-        map = MapManager(calculator: calculator)
+        image = ImageManager()
+        map = MapManager()
     }
 }

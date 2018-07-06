@@ -3,8 +3,6 @@ public protocol ImageGeneratorProtocol {
 }
 
 internal struct ImageGenerator: ImageGeneratorProtocol {
-    let calculator: GeodesicCalculatorProtocol
-    
     static let debugAlpha: CGFloat = 0.2
     
     func create(for geoJsonObject: GeoJsonObject, with imageRenderModel: ImageRenderModel, debug: Bool) -> UIImage? {
@@ -42,35 +40,22 @@ internal struct ImageGenerator: ImageGeneratorProtocol {
 }
 
 extension ImageGenerator {
-    // swiftlint:disable:next cyclomatic_complexity
     fileprivate func drawGeometry(imageRenderModel: ImageRenderModel, pointProjector: PointProjector, geometry: GeoJsonGeometry, context: CGContext, debug: Bool) {
         switch geometry {
         case let point as GeoJsonPoint:
             drawPin(pointProjector: pointProjector, point: point)
         case let multiPoint as GeoJsonMultiPoint:
             multiPoint.points.forEach { drawPin(pointProjector: pointProjector, point: $0) }
-            
-            if debug { drawPin(pointProjector: pointProjector, point: multiPoint.centroid) }
         case let lineString as GeoJsonLineString:
             drawLine(imageRenderModel: imageRenderModel, context: context, pointProjector: pointProjector, line: lineString, debug: debug)
         case let multiLineString as GeoJsonMultiLineString:
             multiLineString.lineStrings.forEach { drawLine(imageRenderModel: imageRenderModel, context: context, pointProjector: pointProjector, line: $0, debug: debug) }
-            
-            if debug { drawPin(pointProjector: pointProjector, point: multiLineString.centroid) }
         case let polygon as GeoJsonPolygon:
             drawPolygon(imageRenderModel: imageRenderModel, context: context, pointProjector: pointProjector, polygon: polygon, debug: debug)
             
-            if debug {
-                if polygon.linearRings.count > 1 {
-                    polygon.linearRings.forEach { drawPin(pointProjector: pointProjector, point: calculator.centroid(linearRingSegments: $0.segments)) }
-                }
-                
-                drawPin(pointProjector: pointProjector, point: polygon.centroid)
-            }
+            if debug { drawPin(pointProjector: pointProjector, point: polygon.centroid) }
         case let multiPolygon as GeoJsonMultiPolygon:
             multiPolygon.polygons.forEach { drawPolygon(imageRenderModel: imageRenderModel, context: context, pointProjector: pointProjector, polygon: $0, debug: debug) }
-            
-            if debug { drawPin(pointProjector: pointProjector, point: multiPolygon.centroid) }
         case let geometryCollection as GeoJsonGeometryCollection:
             geometryCollection.objectGeometries?.forEach {
                 drawGeometry(imageRenderModel: imageRenderModel, pointProjector: pointProjector, geometry: $0, context: context, debug: debug)
@@ -97,7 +82,6 @@ extension ImageGenerator {
         
         if debug {
             points.forEach { drawPin(pointProjector: pointProjector, point: $0) }
-            drawPin(pointProjector: pointProjector, point: line.centroid)
         }
         
         let cgPoints: [CGPoint] = pointProjector.asPoints(points)
@@ -120,7 +104,6 @@ extension ImageGenerator {
         for (index, line) in lines.enumerated() {
             if debug {
                 line.points.forEach { drawPin(pointProjector: pointProjector, point: $0) }
-                drawPin(pointProjector: pointProjector, point: line.centroid)
             }
             
             let points: [CGPoint] = pointProjector.asPoints(line.points)

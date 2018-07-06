@@ -9,9 +9,9 @@ public struct MapManager: MapManagerProtocol {
     internal let overlayGenerator: OverlayGeneratorProtocol
     internal let annotationGenerator: AnnotationGeneratorProtocol
     
-    init(calculator: GeodesicCalculatorProtocol) {
+    init() {
         overlayGenerator = OverlayGenerator()
-        annotationGenerator = AnnotationGenerator(calculator: calculator)
+        annotationGenerator = AnnotationGenerator()
     }
     
     /**

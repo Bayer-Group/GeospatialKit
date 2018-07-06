@@ -8,7 +8,7 @@ class AnnotationGeneratorTests: XCTestCase {
     override func setUp() {
         super.setUp()
         
-        annotationGenerator = AnnotationGenerator(calculator: MockGeodesicCalculator())
+        annotationGenerator = AnnotationGenerator()
     }
     
     func testAnnotationsPoint() {

@@ -6,7 +6,7 @@ internal struct PointProjector {
     
     // Future: Could add option for rotation for other projections
     // Future: Could add a coordinate system rather than width and height which might not assume (0,0) as the base coordinate
-    init(boundingBox: GeoJsonBoundingBox, width: Double, height: Double) {
+    init(boundingBox: GeodesicBoundingBox, width: Double, height: Double) {
         // Rotated 90 degrees for UIView coordinate system, MKMapPoint representing upper left corner of geometry bounds
         let projectedUpperLeft = MKMapPointForCoordinate(CLLocationCoordinate2D(latitude: boundingBox.maxLatitude, longitude: boundingBox.minLongitude))
         

@@ -1,4 +1,4 @@
-public extension GeoJsonBoundingBox {
+public extension GeodesicBoundingBox {
     internal var imageMinimumAdjustment: Double { return 0.00005 }
     internal var mapRegionInset: Double { return 1.2 }
     
@@ -10,5 +10,5 @@ public extension GeoJsonBoundingBox {
         return MKCoordinateRegionMake(centerCoordinate, coordinateSpan)
     }
     
-    public var imageBoundingBox: GeoJsonBoundingBox { return adjusted(minimumAdjustment: imageMinimumAdjustment) }
+    public var imageBoundingBox: GeodesicBoundingBox { return adjusted(minimumAdjustment: imageMinimumAdjustment) }
 }

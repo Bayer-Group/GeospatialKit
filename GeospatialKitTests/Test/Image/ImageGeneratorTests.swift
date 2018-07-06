@@ -17,7 +17,7 @@ class ImageGeneratorTests: XCTestCase {
         
         mockGeodesicCalculator = MockGeodesicCalculator()
         
-        imageGenerator = ImageGenerator(calculator: mockGeodesicCalculator)
+        imageGenerator = ImageGenerator()
         
         imageRenderModel = ImageRenderModel(backgroundColor: UIColor.blue.cgColor, shapeFillColor: UIColor.black.cgColor, shapeLineColor: UIColor.brown.cgColor, width: imageWidth, height: imageHeight)
     }
