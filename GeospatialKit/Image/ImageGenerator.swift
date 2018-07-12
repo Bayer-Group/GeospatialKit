@@ -166,9 +166,7 @@ extension ImageGenerator {
             
             context.drawPath(using: .fillStroke)
             
-            if debug {
-                line.points.forEach { drawPin(imageRenderModel: imageRenderModel, pointProjector: pointProjector, context: context, snapshot: snapshot, point: $0) }
-            }
+            if debug { line.points.forEach { drawPin(imageRenderModel: imageRenderModel, pointProjector: pointProjector, context: context, snapshot: snapshot, point: $0) } }
         }
         
         if debug { drawPin(imageRenderModel: imageRenderModel, pointProjector: pointProjector, context: context, snapshot: snapshot, point: polygon.centroid) }
