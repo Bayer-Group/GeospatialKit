@@ -1,6 +1,16 @@
 public protocol ImageManagerProtocol {
-    func create(for geoJsonObject: GeoJsonObject, with imageRenderModel: ImageRenderModel) -> UIImage?
-    func create(for geoJsonObject: GeoJsonObject, with imageRenderModel: ImageRenderModel, debug: Bool) -> UIImage?
+    func image(for geoJsonObject: GeoJsonObject, with imageRenderModel: ImageRenderModel, debug: Bool) -> UIImage?
+    func snapshot(for geoJsonObject: GeoJsonObject, with imageRenderModel: ImageRenderModel, debug: Bool, completion: @escaping (UIImage?) -> Void)
+}
+
+extension ImageManagerProtocol {
+    public func image(for geoJsonObject: GeoJsonObject, with imageRenderModel: ImageRenderModel) -> UIImage? {
+        return image(for: geoJsonObject, with: imageRenderModel, debug: false)
+    }
+    
+    public func snapshot(for geoJsonObject: GeoJsonObject, with imageRenderModel: ImageRenderModel, completion: @escaping (UIImage?) -> Void) {
+        snapshot(for: geoJsonObject, with: imageRenderModel, debug: false, completion: completion)
+    }
 }
 
 public struct ImageManager: ImageManagerProtocol {
@@ -20,10 +30,16 @@ public struct ImageManager: ImageManagerProtocol {
      
      - returns: A UIImage for a GeoJsonObject which can be rendered. For example, an empty Feature Collection cannot be rendered whereas a Polygon can.
      */
-    public func create(for geoJsonObject: GeoJsonObject, with imageRenderModel: ImageRenderModel) -> UIImage? {
-        return imageGenerator.create(for: geoJsonObject, with: imageRenderModel, debug: false)
+    public func image(for geoJsonObject: GeoJsonObject, with imageRenderModel: ImageRenderModel, debug: Bool) -> UIImage? {
+        return imageGenerator.image(for: geoJsonObject, with: imageRenderModel, debug: debug)
     }
-    public func create(for geoJsonObject: GeoJsonObject, with imageRenderModel: ImageRenderModel, debug: Bool) -> UIImage? {
-        return imageGenerator.create(for: geoJsonObject, with: imageRenderModel, debug: debug)
+    
+    /**
+     Same as create but with a Map background
+     
+     - returns: A UIImage as with Create overlayed onto a Map
+     */
+    public func snapshot(for geoJsonObject: GeoJsonObject, with imageRenderModel: ImageRenderModel, debug: Bool, completion: @escaping (UIImage?) -> Void) {
+        imageGenerator.snapshot(for: geoJsonObject, with: imageRenderModel, debug: debug, completion: completion)
     }
 }

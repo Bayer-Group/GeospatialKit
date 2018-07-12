@@ -6,27 +6,27 @@
  - shapeLineColor: The line color
  - width: The width in points of the rendered image
  - height: The height in points of the rendered image
- - pixelsToPointsMultipler: The pixels per points ratio. Defaults to 3.0 to support all devices.
+ - height: The height in points of the rendered image
  */
 public struct ImageRenderModel {
-    internal let backgroundColor: CGColor
-    internal let shapeFillColor: CGColor
-    internal let shapeLineColor: CGColor
+    internal let backgroundColor: UIColor
+    internal let shapeFillColor: UIColor
+    internal let shapeLineColor: UIColor
+    internal let pinTintColor: UIColor?
     internal let width: Double
     internal let height: Double
+    internal let lineWidth: CGFloat
+    internal let mapType: MKMapType
     
-    // TODO: Add optional background image.
-    
-    // Should be device specific but 3 is the max per any current device.
-    internal let pixelsToPointsMultipler: Double
-    
-    // Width and height should be set from the image view after the image view's layout have been finalized
-    public init(backgroundColor: CGColor, shapeFillColor: CGColor, shapeLineColor: CGColor, width: Double, height: Double, pixelsToPointsMultipler: Double = 3.0) {
+//    // Width and height should be set from the image view after the image view's layout have been finalized
+    public init(backgroundColor: UIColor, shapeFillColor: UIColor, shapeLineColor: UIColor, pinTintColor: UIColor? = nil, width: Double, height: Double, lineWidth: CGFloat, mapType: MKMapType = MKMapType.satellite) {
         self.backgroundColor = backgroundColor
         self.shapeFillColor = shapeFillColor
         self.shapeLineColor = shapeLineColor
+        self.pinTintColor = pinTintColor
         self.width = width
         self.height = height
-        self.pixelsToPointsMultipler = pixelsToPointsMultipler
+        self.lineWidth = lineWidth
+        self.mapType = mapType
     }
 }

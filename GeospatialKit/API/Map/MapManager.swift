@@ -1,8 +1,14 @@
 public protocol MapManagerProtocol {
-    func overlays(for geoJsonObject: GeoJsonObject) -> [MKOverlay]
-    func annotations(for geoJsonObject: GeoJsonObject) -> [MKAnnotation]
     func annotations(for geoJsonObject: GeoJsonObject, debug: Bool) -> [MKAnnotation]
+    func annotationView(for annotation: MKAnnotation, with overlayRenderModel: OverlayRenderModel, from mapView: MKMapView, reuseId: String) -> MKAnnotationView
+    func overlays(for geoJsonObject: GeoJsonObject) -> [MKOverlay]
     func renderer(for overlay: MKOverlay, with overlayRenderModel: OverlayRenderModel) -> MKOverlayRenderer
+}
+
+extension MapManagerProtocol {
+    func annotations(for geoJsonObject: GeoJsonObject) -> [MKAnnotation] {
+        return annotations(for: geoJsonObject, debug: false)
+    }
 }
 
 public struct MapManager: MapManagerProtocol {
@@ -12,6 +18,28 @@ public struct MapManager: MapManagerProtocol {
     init() {
         overlayGenerator = OverlayGenerator()
         annotationGenerator = AnnotationGenerator()
+    }
+    
+    /**
+     Returns annotations for the qualifying componenets of the GeoJsonObject
+     
+     - geoJsonObject: The GeoJsonObject used to create annotations
+     
+     - returns: annotations for qualifying components
+     */
+    public func annotations(for geoJsonObject: GeoJsonObject, debug: Bool) -> [MKAnnotation] {
+        return annotationGenerator.annotations(for: geoJsonObject, debug: debug)
+    }
+    
+    /**
+     Returns an annotationView for the annotation using the overlayRenderModel
+     
+     - geoJsonObject: The GeoJsonObject used to create annotations
+     
+     - returns: annotations for qualifying components
+     */
+    public func annotationView(for annotation: MKAnnotation, with overlayRenderModel: OverlayRenderModel, from mapView: MKMapView, reuseId: String) -> MKAnnotationView {
+        return annotationGenerator.annotationView(for: annotation, with: overlayRenderModel, from: mapView, reuseId: reuseId)
     }
     
     /**
@@ -26,20 +54,6 @@ public struct MapManager: MapManagerProtocol {
     }
     
     /**
-     Returns annotations for the qualifying componenets of the GeoJsonObject
-     
-     - geoJsonObject: The GeoJsonObject used to create annotations
-     
-     - returns: annotations for qualifying components
-     */
-    public func annotations(for geoJsonObject: GeoJsonObject) -> [MKAnnotation] {
-        return annotations(for: geoJsonObject, debug: false)
-    }
-    public func annotations(for geoJsonObject: GeoJsonObject, debug: Bool) -> [MKAnnotation] {
-        return annotationGenerator.annotations(for: geoJsonObject, debug: debug)
-    }
-    
-    /**
      Returns a renderer for the overlay using the overlayRenderModel
      
      - overlay: The overlay for the renderer
@@ -49,5 +63,11 @@ public struct MapManager: MapManagerProtocol {
      */
     public func renderer(for overlay: MKOverlay, with overlayRenderModel: OverlayRenderModel) -> MKOverlayRenderer {
         return overlayGenerator.renderer(for: overlay, with: overlayRenderModel)
+    }
+}
+
+extension MapManager {
+    public func annotations(for geoJsonObject: GeoJsonObject) -> [MKAnnotation] {
+        return annotations(for: geoJsonObject, debug: false)
     }
 }

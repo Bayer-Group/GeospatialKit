@@ -1,5 +1,5 @@
 internal struct PointProjector {
-    private let insetPercent = 0.20
+    private let insetPercent: Double = 1 / 6
     
     private let scale: Double
     private let projectedOffset: (x: Double, y: Double)

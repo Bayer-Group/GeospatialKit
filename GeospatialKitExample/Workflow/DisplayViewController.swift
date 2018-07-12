@@ -2,7 +2,16 @@ import GeospatialKit
 
 class DisplayViewController: UIViewController {
     @IBOutlet weak var imageView: UIImageView!
+    @IBOutlet weak var mapImageView: UIImageView!
     @IBOutlet weak var mapView: MKMapView!
+    
+    let backgroundColor = UIColor.darkGray
+    let strokeColor = UIColor.white
+    let fillColor = UIColor.green
+    let pinTintColor = UIColor.red
+    let alpha: CGFloat = 0.5
+    
+    var overlayRenderModel: OverlayRenderModel { return OverlayRenderModel(lineWidth: 0.8, strokeColor: strokeColor, fillColor: fillColor, pinTintColor: pinTintColor, alpha: 0.5) }
     
     var geospatial: GeospatialCocoa!
     var geoJsonObject: GeoJsonObject! {
@@ -36,23 +45,28 @@ class DisplayViewController: UIViewController {
     
     private func refreshViews() {
         DispatchQueue.main.async { [weak self] in
-            guard let imageView = self?.imageView, let mapView = self?.mapView, let geoJsonObject = self?.geoJsonObject else { return }
+            guard let capturedSelf = self else { return }
             
-            let imageRenderModel = ImageRenderModel(backgroundColor: UIColor.gray.cgColor, shapeFillColor: UIColor.blue.cgColor, shapeLineColor: UIColor.green.cgColor, width: Double(imageView.bounds.width), height: Double(imageView.bounds.height))
+            let imageRenderModel = ImageRenderModel(backgroundColor: capturedSelf.backgroundColor, shapeFillColor: capturedSelf.fillColor.withAlphaComponent(capturedSelf.alpha), shapeLineColor: capturedSelf.strokeColor.withAlphaComponent(capturedSelf.alpha), pinTintColor: capturedSelf.pinTintColor, width: Double(capturedSelf.imageView.bounds.width), height: Double(capturedSelf.imageView.bounds.height), lineWidth: 5.0)
             
-            imageView.image = self?.geospatial.image.create(for: geoJsonObject, with: imageRenderModel, debug: true)
+            capturedSelf.imageView.image = capturedSelf.geospatial.image.image(for: capturedSelf.geoJsonObject, with: imageRenderModel, debug: true)
+            capturedSelf.mapImageView.image = capturedSelf.imageView.image
             
-            guard let boundingBox = geoJsonObject.objectBoundingBox else { print("🗺️ GeospatialExample 🗺️ No Bounding Box"); return }
+            DispatchQueue.main.async {
+                capturedSelf.geospatial.image.snapshot(for: capturedSelf.geoJsonObject, with: imageRenderModel, debug: true) { image in
+                    capturedSelf.mapImageView.image = image
+                }
+            }
             
-            mapView.setRegion(boundingBox.region, animated: false)
+            guard let boundingBox = capturedSelf.geoJsonObject.objectBoundingBox else { print("🗺️ GeospatialExample 🗺️ No Bounding Box"); return }
+            
+            capturedSelf.mapView.setRegion(boundingBox.region, animated: false)
         }
     }
 }
 
 extension DisplayViewController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, rendererFor overlay: MKOverlay) -> MKOverlayRenderer {
-        let overlayRenderModel = OverlayRenderModel(lineWidth: 1.0, strokeColor: .white, fillColor: .green, alpha: 0.5)
-        
         return geospatial.map.renderer(for: overlay, with: overlayRenderModel)
     }
     
@@ -62,14 +76,7 @@ extension DisplayViewController: MKMapViewDelegate {
             
             return nil
         } else {
-            let reuseId = "pointPin"
-            let reusableAnnotationView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId) as? MKPinAnnotationView
-            let pinView = reusableAnnotationView ?? MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
-            
-            pinView.annotation = annotation
-            pinView.pinTintColor = MKPinAnnotationView.redPinColor()
-            
-            return pinView
+            return geospatial.map.annotationView(for: annotation, with: overlayRenderModel, from: mapView, reuseId: "pointPin")
         }
     }
 }

@@ -1,5 +1,6 @@
 internal protocol AnnotationGeneratorProtocol {
     func annotations(for geoJsonObject: GeoJsonObject, debug: Bool) -> [MKAnnotation]
+    func annotationView(for annotation: MKAnnotation, with overlayRenderModel: OverlayRenderModel, from mapView: MKMapView, reuseId: String) -> MKAnnotationView
 }
 
 internal struct AnnotationGenerator: AnnotationGeneratorProtocol {
@@ -7,6 +8,17 @@ internal struct AnnotationGenerator: AnnotationGeneratorProtocol {
         guard let geometries = geoJsonObject.objectGeometries else { Log.info("No geometry objects for: \(geoJsonObject.geoJson)."); return [] }
         
         return geometries.flatMap { annotations(for: $0, debug: debug) }
+    }
+    
+    func annotationView(for annotation: MKAnnotation, with overlayRenderModel: OverlayRenderModel, from mapView: MKMapView, reuseId: String) -> MKAnnotationView {
+        let reusableAnnotationView = mapView.dequeueReusableAnnotationView(withIdentifier: reuseId) as? MKPinAnnotationView
+        let pinView = reusableAnnotationView ?? MKPinAnnotationView(annotation: annotation, reuseIdentifier: reuseId)
+        
+        if let pinTintColor = overlayRenderModel.pinTintColor { pinView.pinTintColor = pinTintColor }
+        
+        pinView.annotation = annotation
+        
+        return pinView
     }
     
     // swiftlint:disable:next cyclomatic_complexity
@@ -39,7 +51,10 @@ internal struct AnnotationGenerator: AnnotationGeneratorProtocol {
     
     private func annotation(for point: GeodesicPoint) -> MKAnnotation {
         let annotation = MKPointAnnotation()
+//        let annotationView = MKPinAnnotationView()
+//        if let overlayRenderModel = overlayRenderModel { annotationView.pinTintColor = overlayRenderModel.pinTintColor }
         annotation.coordinate = point.locationCoordinate
+//        annotationView.annotation = annotation
         
         return annotation
     }
