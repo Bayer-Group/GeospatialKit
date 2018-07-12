@@ -9,20 +9,20 @@ final class MockMapManager: MapManagerProtocol {
         return overlaysResult
     }
     
+    private(set) var annotationViewCallCount = 0
+    var annotationViewResult: MKAnnotationView = MKAnnotationView()
+    func annotationView(for annotation: MKAnnotation, with overlayRenderModel: OverlayRenderModel, from mapView: MKMapView, reuseId: String) -> MKAnnotationView {
+        annotationViewCallCount += 1
+        
+        return annotationViewResult
+    }
+    
     private(set) var annotationsCallCount = 0
     var annotationsResult: [MKAnnotation] = []
-    func annotations(for geoJsonObject: GeoJsonObject) -> [MKAnnotation] {
+    func annotations(for geoJsonObject: GeoJsonObject, debug: Bool) -> [MKAnnotation] {
         annotationsCallCount += 1
         
         return annotationsResult
-    }
-    
-    private(set) var annotationsDebugCallCount = 0
-    var annotationsDebugResult: [MKAnnotation] = []
-    func annotations(for geoJsonObject: GeoJsonObject, debug: Bool) -> [MKAnnotation] {
-        annotationsDebugCallCount += 1
-        
-        return annotationsDebugResult
     }
     
     private(set) var rendererCallCount = 0

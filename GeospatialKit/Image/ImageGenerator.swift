@@ -42,10 +42,10 @@ internal struct ImageGenerator: ImageGeneratorProtocol {
     
     func snapshot(for geoJsonObject: GeoJsonObject, with imageRenderModel: ImageRenderModel, debug: Bool, completion: @escaping (UIImage?) -> Void) {
         guard let region = geoJsonObject.objectBoundingBox?.region else { completion(nil); return }
-
+        
         // Code outside of this class should decide whether or not to display the zoomed in map or not.
 //        guard region.span.latitudeDelta > 0.008 || region.span.longitudeDelta > 0.008 else {
-//            completion(self.create(for: geoJsonObject, with: imageRenderModel, snapshot: nil, debug: debug))
+//            completion(image(for: geoJsonObject, with: imageRenderModel, snapshot: nil, debug: debug))
 //            return
 //        }
         
@@ -97,9 +97,7 @@ extension ImageGenerator {
         }
     }
     
-    // TODO: Draw the pin to better proportions?
     private func drawPin(imageRenderModel: ImageRenderModel, pointProjector: PointProjector, context: CGContext, snapshot: MKMapSnapshot?, point: GeodesicPoint) {
-        //UIImage.localImage(named: "UIMapPinActive")
         let pinView = MKPinAnnotationView(annotation: nil, reuseIdentifier: nil)
         if let pinTintColor = imageRenderModel.pinTintColor { pinView.pinTintColor = pinTintColor }
         let pinImage = pinView.image!

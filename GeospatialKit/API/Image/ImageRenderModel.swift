@@ -18,7 +18,7 @@ public struct ImageRenderModel {
     internal let lineWidth: CGFloat
     internal let mapType: MKMapType
     
-//    // Width and height should be set from the image view after the image view's layout have been finalized
+    // Width and height should be set from the image view after the image view's layout have been finalized
     public init(backgroundColor: UIColor, shapeFillColor: UIColor, shapeLineColor: UIColor, pinTintColor: UIColor? = nil, width: Double, height: Double, lineWidth: CGFloat, mapType: MKMapType = MKMapType.satellite) {
         self.backgroundColor = backgroundColor
         self.shapeFillColor = shapeFillColor
