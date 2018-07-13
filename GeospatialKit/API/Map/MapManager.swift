@@ -5,7 +5,7 @@ public protocol MapManagerProtocol {
     func renderer(for overlay: MKOverlay, with overlayRenderModel: OverlayRenderModel) -> MKOverlayRenderer
 }
 
-extension MapManagerProtocol {
+public extension MapManagerProtocol {
     func annotations(for geoJsonObject: GeoJsonObject) -> [MKAnnotation] {
         return annotations(for: geoJsonObject, debug: false)
     }
@@ -63,11 +63,5 @@ public struct MapManager: MapManagerProtocol {
      */
     public func renderer(for overlay: MKOverlay, with overlayRenderModel: OverlayRenderModel) -> MKOverlayRenderer {
         return overlayGenerator.renderer(for: overlay, with: overlayRenderModel)
-    }
-}
-
-extension MapManager {
-    public func annotations(for geoJsonObject: GeoJsonObject) -> [MKAnnotation] {
-        return annotations(for: geoJsonObject, debug: false)
     }
 }
