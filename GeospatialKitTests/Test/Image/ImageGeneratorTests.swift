@@ -2,7 +2,7 @@ import XCTest
 
 @testable import GeospatialKit
 
-// TODO-: Add snapshot tests.
+// SOMEDAY: Add snapshot tests.
 class ImageGeneratorTests: XCTestCase {
     var imageGenerator: ImageGenerator!
     

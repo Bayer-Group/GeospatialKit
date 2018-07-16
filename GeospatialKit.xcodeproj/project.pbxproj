@@ -43,7 +43,6 @@
 		1E9A9BB820EEF59D003F381B /* MockGeoJson.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9A9BB120EEF59D003F381B /* MockGeoJson.swift */; };
 		1E9A9BB920EEF59D003F381B /* MockGeoJsonGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9A9BB220EEF59D003F381B /* MockGeoJsonGeometry.swift */; };
 		1E9A9BBA20EEF59D003F381B /* MockGeoJsonCoordinatesGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9A9BB320EEF59D003F381B /* MockGeoJsonCoordinatesGeometry.swift */; };
-		1E9A9BBB20EEF59D003F381B /* MockGeoJsonMultiCoordinatesGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9A9BB420EEF59D003F381B /* MockGeoJsonMultiCoordinatesGeometry.swift */; };
 		1E9A9BBC20EEF59D003F381B /* MockGeoJsonClosedGeometry.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9A9BB520EEF59D003F381B /* MockGeoJsonClosedGeometry.swift */; };
 		1E9A9BC620EEF5A7003F381B /* MockGeoJsonMultiPolygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9A9BBD20EEF5A6003F381B /* MockGeoJsonMultiPolygon.swift */; };
 		1E9A9BC720EEF5A7003F381B /* MockGeoJsonFeatureCollection.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E9A9BBE20EEF5A6003F381B /* MockGeoJsonFeatureCollection.swift */; };
@@ -136,7 +135,6 @@
 		1E9A9BB120EEF59D003F381B /* MockGeoJson.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockGeoJson.swift; sourceTree = "<group>"; };
 		1E9A9BB220EEF59D003F381B /* MockGeoJsonGeometry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockGeoJsonGeometry.swift; sourceTree = "<group>"; };
 		1E9A9BB320EEF59D003F381B /* MockGeoJsonCoordinatesGeometry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockGeoJsonCoordinatesGeometry.swift; sourceTree = "<group>"; };
-		1E9A9BB420EEF59D003F381B /* MockGeoJsonMultiCoordinatesGeometry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockGeoJsonMultiCoordinatesGeometry.swift; sourceTree = "<group>"; };
 		1E9A9BB520EEF59D003F381B /* MockGeoJsonClosedGeometry.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockGeoJsonClosedGeometry.swift; sourceTree = "<group>"; };
 		1E9A9BBD20EEF5A6003F381B /* MockGeoJsonMultiPolygon.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockGeoJsonMultiPolygon.swift; sourceTree = "<group>"; };
 		1E9A9BBE20EEF5A6003F381B /* MockGeoJsonFeatureCollection.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MockGeoJsonFeatureCollection.swift; sourceTree = "<group>"; };
@@ -286,7 +284,6 @@
 				1E9A9BB320EEF59D003F381B /* MockGeoJsonCoordinatesGeometry.swift */,
 				1E9A9BB220EEF59D003F381B /* MockGeoJsonGeometry.swift */,
 				1E9A9BB020EEF59D003F381B /* MockGeoJsonLinearGeometry.swift */,
-				1E9A9BB420EEF59D003F381B /* MockGeoJsonMultiCoordinatesGeometry.swift */,
 				1E9A9BAF20EEF59D003F381B /* MockGeoJsonObject.swift */,
 				1E10770120409BAE00B5AD00 /* Object */,
 				1E10770220409BB300B5AD00 /* Box */,
@@ -829,7 +826,6 @@
 				1E9A9BC820EEF5A7003F381B /* MockGeoJsonPoint.swift in Sources */,
 				1E9A9BC720EEF5A7003F381B /* MockGeoJsonFeatureCollection.swift in Sources */,
 				9F197BC42061C2220002EB5D /* GeoJsonParsingPerformanceTests.swift in Sources */,
-				1E9A9BBB20EEF59D003F381B /* MockGeoJsonMultiCoordinatesGeometry.swift in Sources */,
 				1E9A9BD220EEF5AF003F381B /* MockGeoJsonGeohashBox.swift in Sources */,
 				1E9A9BB920EEF59D003F381B /* MockGeoJsonGeometry.swift in Sources */,
 				1E9A9BBA20EEF59D003F381B /* MockGeoJsonCoordinatesGeometry.swift in Sources */,
