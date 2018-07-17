@@ -8,38 +8,6 @@ internal struct ImageGenerator: ImageGeneratorProtocol {
         return image(for: geoJsonObject, with: imageRenderModel, snapshot: nil, debug: debug)
     }
     
-    private func image(for geoJsonObject: GeoJsonObject, with imageRenderModel: ImageRenderModel, snapshot: MKMapSnapshot?, debug: Bool) -> UIImage? {
-        let width = imageRenderModel.width * Double(UIScreen.main.scale)
-        let height = imageRenderModel.height * Double(UIScreen.main.scale)
-        
-        let desiredImageRect = CGRect(x: 0, y: 0, width: width, height: height)
-        
-        let rendererFormat = UIGraphicsImageRendererFormat()
-        rendererFormat.opaque = false
-        rendererFormat.scale = 1.0
-        
-        let renderer = UIGraphicsImageRenderer(size: desiredImageRect.size, format: rendererFormat)
-        return renderer.image { context in
-            if let snapshot = snapshot {
-                snapshot.image.draw(in: desiredImageRect)
-            } else {
-                imageRenderModel.backgroundColor.setFill()
-                context.fill(desiredImageRect)
-            }
-            
-            guard let geometries = geoJsonObject.objectGeometries, let imageBoundingBox = geoJsonObject.objectBoundingBox?.imageBoundingBox else {
-                Log.info("No geometry objects or bounding box for: \(geoJsonObject.geoJson).")
-                return
-            }
-            
-            let pointProjector = PointProjector(boundingBox: imageBoundingBox, width: width, height: height)
-            
-            geometries.forEach {
-                drawGeometry(imageRenderModel: imageRenderModel, pointProjector: pointProjector, geometry: $0, context: context.cgContext, snapshot: snapshot, debug: debug)
-            }
-        }
-    }
-    
     func snapshot(for geoJsonObject: GeoJsonObject, with imageRenderModel: ImageRenderModel, debug: Bool, completion: @escaping (UIImage?) -> Void) {
         guard let region = geoJsonObject.objectBoundingBox?.region else { completion(nil); return }
         
@@ -73,7 +41,39 @@ internal struct ImageGenerator: ImageGeneratorProtocol {
 }
 
 extension ImageGenerator {
-    fileprivate func drawGeometry(imageRenderModel: ImageRenderModel, pointProjector: PointProjector, geometry: GeoJsonGeometry, context: CGContext, snapshot: MKMapSnapshot?, debug: Bool) {
+    private func image(for geoJsonObject: GeoJsonObject, with imageRenderModel: ImageRenderModel, snapshot: MKMapSnapshot?, debug: Bool) -> UIImage? {
+        let width = imageRenderModel.width * Double(UIScreen.main.scale)
+        let height = imageRenderModel.height * Double(UIScreen.main.scale)
+        
+        let desiredImageRect = CGRect(x: 0, y: 0, width: width, height: height)
+        
+        let rendererFormat = UIGraphicsImageRendererFormat()
+        rendererFormat.opaque = false
+        rendererFormat.scale = 1.0
+        
+        let renderer = UIGraphicsImageRenderer(size: desiredImageRect.size, format: rendererFormat)
+        return renderer.image { context in
+            if let snapshot = snapshot {
+                snapshot.image.draw(in: desiredImageRect)
+            } else {
+                imageRenderModel.backgroundColor.setFill()
+                context.fill(desiredImageRect)
+            }
+            
+            guard let geometries = geoJsonObject.objectGeometries, let imageBoundingBox = geoJsonObject.objectBoundingBox?.imageBoundingBox else {
+                Log.info("No geometry objects or bounding box for: \(geoJsonObject.geoJson).")
+                return
+            }
+            
+            let pointProjector = PointProjector(boundingBox: imageBoundingBox, width: width, height: height)
+            
+            geometries.forEach {
+                drawGeometry(imageRenderModel: imageRenderModel, pointProjector: pointProjector, geometry: $0, context: context.cgContext, snapshot: snapshot, debug: debug)
+            }
+        }
+    }
+    
+    private func drawGeometry(imageRenderModel: ImageRenderModel, pointProjector: PointProjector, geometry: GeoJsonGeometry, context: CGContext, snapshot: MKMapSnapshot?, debug: Bool) {
         switch geometry {
         case let point as GeoJsonPoint:
             drawPin(imageRenderModel: imageRenderModel, pointProjector: pointProjector, context: context, snapshot: snapshot, point: point)

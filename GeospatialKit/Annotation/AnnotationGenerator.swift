@@ -29,13 +29,13 @@ internal struct AnnotationGenerator: AnnotationGeneratorProtocol {
         case let point as GeoJsonPoint:
             annotations += [annotation(for: point)]
         case let multiPoint as GeoJsonMultiPoint:
-            annotations += multiPoint.points.compactMap { annotation(for: $0) }
+            annotations += multiPoint.points.map { annotation(for: $0) }
         case let polygon as GeoJsonPolygon:
             if debug { annotations += [annotation(for: polygon.centroid)] }
         case let multiLine as GeoJsonMultiLineString:
-            if debug { annotations += multiLine.points.compactMap { annotation(for: $0) } }
+            if debug { annotations += multiLine.points.map { annotation(for: $0) } }
         case let multiPolygon as GeoJsonMultiPolygon:
-            if debug { annotations += multiPolygon.polygons.compactMap { annotation(for: $0.centroid) } }
+            if debug { annotations += multiPolygon.polygons.map { annotation(for: $0.centroid) } }
         case let geometryCollection as GeoJsonGeometryCollection:
             annotations += geometryCollection.objectGeometries?.flatMap { self.annotations(for: $0, debug: debug) } ?? []
         default:
@@ -51,10 +51,7 @@ internal struct AnnotationGenerator: AnnotationGeneratorProtocol {
     
     private func annotation(for point: GeodesicPoint) -> MKAnnotation {
         let annotation = MKPointAnnotation()
-//        let annotationView = MKPinAnnotationView()
-//        if let overlayRenderModel = overlayRenderModel { annotationView.pinTintColor = overlayRenderModel.pinTintColor }
         annotation.coordinate = point.locationCoordinate
-//        annotationView.annotation = annotation
         
         return annotation
     }

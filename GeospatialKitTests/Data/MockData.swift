@@ -49,7 +49,7 @@ final class MockData {
 }
 
 extension MockData {
-    fileprivate static func read(fileName: String) -> GeoJsonDictionary {
+    private static func read(fileName: String) -> GeoJsonDictionary {
         let data = try! Data(contentsOf: Bundle(for: MockData.self).url(forResource: fileName, withExtension: ".json")!)
         
         let jsonData = try! JSONSerialization.jsonObject(with: data, options: .init(rawValue: 0))
@@ -57,14 +57,14 @@ extension MockData {
         return jsonData as! GeoJsonDictionary
     }
     
-    fileprivate static let linesPoints: [[GeoJsonPoint]] = [
+    private static let linesPoints: [[GeoJsonPoint]] = [
         [GeoTestHelper.point(1, 2, 3), GeoTestHelper.point(2, 2, 4), GeoTestHelper.point(2, 3, 5)],
         [GeoTestHelper.point(2, 3, 3), GeoTestHelper.point(3, 3, 4), GeoTestHelper.point(3, 4, 5), GeoTestHelper.point(4, 5, 6)]
     ]
     
-    fileprivate static let polygonPoints: [[GeoJsonPoint]] = polygonPointsList.first!
+    private static let polygonPoints: [[GeoJsonPoint]] = polygonPointsList.first!
     
-    fileprivate static let polygonPointsList: [[[GeoJsonPoint]]] = [
+    private static let polygonPointsList: [[[GeoJsonPoint]]] = [
         [
             [GeoTestHelper.point(1, 2, 3), GeoTestHelper.point(2, 2, 4), GeoTestHelper.point(2, 3, 5), GeoTestHelper.point(1, 3, 4), GeoTestHelper.point(1, 2, 3)],
             [GeoTestHelper.point(2, 3, 3), GeoTestHelper.point(3, 3, 4), GeoTestHelper.point(3, 4, 5), GeoTestHelper.point(2, 4, 4), GeoTestHelper.point(2, 3, 3)]
@@ -75,5 +75,5 @@ extension MockData {
         ]
     ]
     
-    fileprivate static let linearRingsList: [[GeoJsonLineString]] = polygonPointsList.map { $0.map { geoJson.lineString(points: $0)! } }
+    private static let linearRingsList: [[GeoJsonLineString]] = polygonPointsList.map { $0.map { geoJson.lineString(points: $0)! } }
 }

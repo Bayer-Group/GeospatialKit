@@ -54,6 +54,8 @@ class DisplayViewController: UIViewController {
             
             DispatchQueue.main.async {
                 capturedSelf.geospatial.image.snapshot(for: capturedSelf.geoJsonObject, with: imageRenderModel, debug: true) { image in
+                    guard let image = image else { return }
+                    
                     capturedSelf.mapImageView.image = image
                 }
             }

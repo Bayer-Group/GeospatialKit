@@ -1,21 +1,9 @@
 internal protocol OverlayGeneratorProtocol {
-    func overlay(for lineString: GeoJsonLineString) -> MKPolyline
-    func overlay(for polygon: GeoJsonPolygon) -> MKPolygon
     func overlays(for geoJsonObject: GeoJsonObject) -> [MKOverlay]
     func renderer(for overlay: MKOverlay, with overlayRenderModel: OverlayRenderModel) -> MKOverlayRenderer
 }
 
 internal struct OverlayGenerator: OverlayGeneratorProtocol {
-    func overlay(for polygon: GeoJsonPolygon) -> MKPolygon {
-        let linearRingsCoordinates = polygon.linearRings.map { $0.points.map { $0.locationCoordinate } }
-        
-        let firstCoordinates = linearRingsCoordinates.first!
-        
-        let interiorPolygons = linearRingsCoordinates.tail?.map { MKPolygon(coordinates: $0, count: $0.count) }
-        
-        return MKPolygon(coordinates: firstCoordinates, count: firstCoordinates.count, interiorPolygons: interiorPolygons)
-    }
-    
     func overlays(for geoJsonObject: GeoJsonObject) -> [MKOverlay] {
         guard let geometries = geoJsonObject.objectGeometries else { Log.info("No geometry objects for: \(geoJsonObject.geoJson)."); return [] }
         
@@ -62,9 +50,19 @@ internal struct OverlayGenerator: OverlayGeneratorProtocol {
         }
     }
     
-    func overlay(for lineString: GeoJsonLineString) -> MKPolyline {
+    private func overlay(for lineString: GeoJsonLineString) -> MKPolyline {
         let coordinates = lineString.points.map { $0.locationCoordinate }
         
         return MKPolyline(coordinates: coordinates, count: coordinates.count)
+    }
+    
+    private func overlay(for polygon: GeoJsonPolygon) -> MKPolygon {
+        let linearRingsCoordinates = polygon.linearRings.map { $0.points.map { $0.locationCoordinate } }
+        
+        let firstCoordinates = linearRingsCoordinates.first!
+        
+        let interiorPolygons = linearRingsCoordinates.tail?.map { MKPolygon(coordinates: $0, count: $0.count) }
+        
+        return MKPolygon(coordinates: firstCoordinates, count: firstCoordinates.count, interiorPolygons: interiorPolygons)
     }
 }
