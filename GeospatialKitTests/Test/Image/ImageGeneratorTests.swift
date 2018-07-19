@@ -12,7 +12,7 @@ class ImageGeneratorTests: XCTestCase {
     
     let imageWidth = 150.0
     let imageHeight = 100.0
-    let lineWidth: CGFloat = 3.0
+    let lineWidth = 3.0
     
     override func setUp() {
         super.setUp()
@@ -21,7 +21,7 @@ class ImageGeneratorTests: XCTestCase {
         
         imageGenerator = ImageGenerator()
         
-        imageRenderModel = ImageRenderModel(backgroundColor: UIColor.blue, shapeFillColor: UIColor.black, shapeLineColor: UIColor.brown, width: imageWidth, height: imageHeight, lineWidth: lineWidth)
+        imageRenderModel = ImageRenderModel(backgroundColor: UIColor.blue, shapeFillColor: UIColor.black, shapeLineColor: UIColor.brown, width: imageWidth, height: imageHeight, lineWidth: lineWidth, inset: 0)
     }
     
     func testCreatePoint() {

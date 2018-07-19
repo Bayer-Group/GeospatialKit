@@ -9,7 +9,7 @@ internal struct ImageGenerator: ImageGeneratorProtocol {
     }
     
     func snapshot(for geoJsonObject: GeoJsonObject, with imageRenderModel: ImageRenderModel, debug: Bool, completion: @escaping (UIImage?) -> Void) {
-        guard let region = geoJsonObject.objectBoundingBox?.region else { completion(nil); return }
+        guard let region = geoJsonObject.objectBoundingBox?.mappingBoundingBox(insetPercent: imageRenderModel.inset).region else { completion(nil); return }
         
         // Code outside of this class should decide whether or not to display the zoomed in map or not.
 //        guard region.span.latitudeDelta > 0.008 || region.span.longitudeDelta > 0.008 else {
@@ -60,12 +60,12 @@ extension ImageGenerator {
                 context.fill(desiredImageRect)
             }
             
-            guard let geometries = geoJsonObject.objectGeometries, let imageBoundingBox = geoJsonObject.objectBoundingBox?.imageBoundingBox else {
+            guard let geometries = geoJsonObject.objectGeometries, let insetBoundingBox = geoJsonObject.objectBoundingBox?.mappingBoundingBox(insetPercent: imageRenderModel.inset) else {
                 Log.info("No geometry objects or bounding box for: \(geoJsonObject.geoJson).")
                 return
             }
             
-            let pointProjector = PointProjector(boundingBox: imageBoundingBox, width: width, height: height)
+            let pointProjector = PointProjector(boundingBox: insetBoundingBox, width: width, height: height)
             
             geometries.forEach {
                 drawGeometry(imageRenderModel: imageRenderModel, pointProjector: pointProjector, geometry: $0, context: context.cgContext, snapshot: snapshot, debug: debug)
@@ -133,7 +133,7 @@ extension ImageGenerator {
         context.move(to: CGPoint(x: cgPoints[0].x, y: cgPoints[0].y))
         cgPoints.forEach { context.addLine(to: CGPoint(x: $0.x, y: $0.y)) }
         
-        context.setLineWidth(imageRenderModel.lineWidth)
+        context.setLineWidth(CGFloat(imageRenderModel.lineWidth))
         
         context.setStrokeColor(imageRenderModel.shapeLineColor.cgColor)
         
@@ -159,7 +159,7 @@ extension ImageGenerator {
             // Note: Closing path is not needed if first and end points are the same. This should be the case in the parsers.
             context.closePath()
             
-            context.setLineWidth(imageRenderModel.lineWidth)
+            context.setLineWidth(CGFloat(imageRenderModel.lineWidth))
             context.setStrokeColor(imageRenderModel.shapeLineColor.cgColor)
             
             context.setFillColor(index == 0 ? imageRenderModel.shapeFillColor.cgColor : imageRenderModel.backgroundColor.cgColor)

@@ -78,15 +78,15 @@
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bnf-Lj-6Xi">
                                         <rect key="frame" x="0.0" y="0.0" width="375" height="201"/>
                                     </imageView>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="iUY-q0-ZXd">
-                                        <rect key="frame" x="0.0" y="201" width="375" height="201"/>
-                                    </imageView>
                                     <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="satellite" translatesAutoresizingMaskIntoConstraints="NO" id="mK1-ec-4CX">
-                                        <rect key="frame" x="0.0" y="402" width="375" height="201"/>
+                                        <rect key="frame" x="0.0" y="201" width="375" height="201"/>
                                         <connections>
                                             <outlet property="delegate" destination="yDp-vg-nER" id="UWh-Wq-JTU"/>
                                         </connections>
                                     </mapView>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="iUY-q0-ZXd">
+                                        <rect key="frame" x="0.0" y="402" width="375" height="201"/>
+                                    </imageView>
                                 </subviews>
                             </stackView>
                         </subviews>

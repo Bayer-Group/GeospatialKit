@@ -47,7 +47,7 @@ class DisplayViewController: UIViewController {
         DispatchQueue.main.async { [weak self] in
             guard let capturedSelf = self else { return }
             
-            let imageRenderModel = ImageRenderModel(backgroundColor: capturedSelf.backgroundColor, shapeFillColor: capturedSelf.fillColor.withAlphaComponent(capturedSelf.alpha), shapeLineColor: capturedSelf.strokeColor.withAlphaComponent(capturedSelf.alpha), pinTintColor: capturedSelf.pinTintColor, width: Double(capturedSelf.imageView.bounds.width), height: Double(capturedSelf.imageView.bounds.height), lineWidth: 5.0)
+            let imageRenderModel = ImageRenderModel(backgroundColor: capturedSelf.backgroundColor, shapeFillColor: capturedSelf.fillColor.withAlphaComponent(capturedSelf.alpha), shapeLineColor: capturedSelf.strokeColor.withAlphaComponent(capturedSelf.alpha), pinTintColor: capturedSelf.pinTintColor, width: Double(capturedSelf.imageView.bounds.width), height: Double(capturedSelf.imageView.bounds.height), lineWidth: 5.0, inset: 0.20)
             
             capturedSelf.imageView.image = capturedSelf.geospatial.image.image(for: capturedSelf.geoJsonObject, with: imageRenderModel, debug: true)
             capturedSelf.mapImageView.image = capturedSelf.imageView.image
@@ -60,9 +60,19 @@ class DisplayViewController: UIViewController {
                 }
             }
             
-            guard let boundingBox = capturedSelf.geoJsonObject.objectBoundingBox else { print("🗺️ GeospatialExample 🗺️ No Bounding Box"); return }
+            guard let insetBoundingBox = capturedSelf.geoJsonObject.objectBoundingBox?.mappingBoundingBox(insetPercent: 0.20) else { print("🗺️ GeospatialExample 🗺️ No Bounding Box"); return }
             
-            capturedSelf.mapView.setRegion(boundingBox.region, animated: false)
+            capturedSelf.mapView.setRegion(insetBoundingBox.region, animated: false)
+            
+//            DispatchQueue.main.async {
+//                print(insetBoundingBox.region)
+//                print(capturedSelf.mapView.region)
+//                print(capturedSelf.mapView.regionThatFits(capturedSelf.mapView.region))
+//
+//                MKCoordinateRegion(center: __C.CLLocationCoordinate2D(latitude: -0.050000000000000711, longitude: -0.050000000000000711), span: __C.MKCoordinateSpan(latitudeDelta: 28.140000000000001, longitudeDelta: 28.140000000000001))
+//                MKCoordinateRegion(center: __C.CLLocationCoordinate2D(latitude: -0.050000000000011369, longitude: -0.049999999999946004), span: __C.MKCoordinateSpan(latitudeDelta: 28.139999862599879, longitudeDelta: 51.415709046523006))
+//                MKCoordinateRegion(center: __C.CLLocationCoordinate2D(latitude: -0.04999999681780104, longitude: -0.049999999999926104), span: __C.MKCoordinateSpan(latitudeDelta: 28.14000000000479, longitudeDelta: 51.415709046522977))
+//            }
         }
     }
 }

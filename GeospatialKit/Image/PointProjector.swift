@@ -1,6 +1,4 @@
 internal struct PointProjector {
-    private let insetPercent: Double = 1 / 6
-    
     private let scale: Double
     private let projectedOffset: (x: Double, y: Double)
     
@@ -16,12 +14,8 @@ internal struct PointProjector {
         let projectedWidth = projectedLowerRight.x - projectedUpperLeft.x
         let projectedHeight = projectedLowerRight.y - projectedUpperLeft.y
         
-        // Max width and height to fit with the inset.
-        let maxWidth = width - (width * insetPercent)
-        let maxHeight = height - (height * insetPercent)
-        
         // Scale to convert projected scale to fit the UIView scale.
-        scale = min(maxWidth / projectedWidth, maxHeight / projectedHeight)
+        scale = min(width / projectedWidth, height / projectedHeight)
         
         // Insets set to width and height scale
         let insetX = (width - (projectedWidth * scale)) / 2

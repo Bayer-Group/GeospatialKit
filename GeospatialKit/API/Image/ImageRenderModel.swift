@@ -15,11 +15,12 @@ public struct ImageRenderModel {
     internal let pinTintColor: UIColor?
     internal let width: Double
     internal let height: Double
-    internal let lineWidth: CGFloat
+    internal let lineWidth: Double
+    internal let inset: Double
     internal let mapType: MKMapType
     
     // Width and height should be set from the image view after the image view's layout have been finalized
-    public init(backgroundColor: UIColor, shapeFillColor: UIColor, shapeLineColor: UIColor, pinTintColor: UIColor? = nil, width: Double, height: Double, lineWidth: CGFloat, mapType: MKMapType = MKMapType.satellite) {
+    public init(backgroundColor: UIColor, shapeFillColor: UIColor, shapeLineColor: UIColor, pinTintColor: UIColor? = nil, width: Double, height: Double, lineWidth: Double, inset: Double, mapType: MKMapType = MKMapType.satellite) {
         self.backgroundColor = backgroundColor
         self.shapeFillColor = shapeFillColor
         self.shapeLineColor = shapeLineColor
@@ -27,6 +28,7 @@ public struct ImageRenderModel {
         self.width = width
         self.height = height
         self.lineWidth = lineWidth
+        self.inset = inset
         self.mapType = mapType
     }
 }

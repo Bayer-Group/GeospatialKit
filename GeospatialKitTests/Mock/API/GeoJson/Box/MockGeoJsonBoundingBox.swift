@@ -1,4 +1,4 @@
-@testable import GeospatialKit
+@testable import GeospatialSwift
 
 class MockGeoJsonBoundingBox: GeodesicBoundingBox {
     var description: String = ""
@@ -79,12 +79,20 @@ class MockGeoJsonBoundingBox: GeodesicBoundingBox {
         return bestResult
     }
     
-    private(set) var adjustedCallCount = 0
-    lazy var adjustedResult: GeodesicBoundingBox = MockGeoJsonBoundingBox()
-    func adjusted(minimumAdjustment: Double) -> GeodesicBoundingBox {
-        adjustedCallCount += 1
+    private(set) var validBoundingBoxCallCount = 0
+    lazy var validBoundingBoxResult: GeodesicBoundingBox = MockGeoJsonBoundingBox()
+    func validBoundingBox(minimumAdjustment: Double) -> GeodesicBoundingBox {
+        validBoundingBoxCallCount += 1
         
-        return adjustedResult
+        return validBoundingBoxResult
+    }
+    
+    private(set) var insetBoundingBoxCallCount = 0
+    lazy var insetBoundingBoxResult: GeodesicBoundingBox = MockGeoJsonBoundingBox()
+    func insetBoundingBox(topPercent: Double, leftPercent: Double, bottomPercent: Double, rightPercent: Double) -> GeodesicBoundingBox {
+        insetBoundingBoxCallCount += 1
+        
+        return insetBoundingBoxResult
     }
     
     private(set) var containsCallCount = 0
