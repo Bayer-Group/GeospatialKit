@@ -11,12 +11,6 @@ internal struct ImageGenerator: ImageGeneratorProtocol {
     func snapshot(for geoJsonObject: GeoJsonObject, with imageRenderModel: ImageRenderModel, debug: Bool, completion: @escaping (UIImage?) -> Void) {
         guard let region = geoJsonObject.objectBoundingBox?.mappingBoundingBox(insetPercent: imageRenderModel.inset).region else { completion(nil); return }
         
-        // Code outside of this class should decide whether or not to display the zoomed in map or not.
-//        guard region.span.latitudeDelta > 0.008 || region.span.longitudeDelta > 0.008 else {
-//            completion(image(for: geoJsonObject, with: imageRenderModel, snapshot: nil, debug: debug))
-//            return
-//        }
-        
         let width = imageRenderModel.width * Double(UIScreen.main.scale)
         let height = imageRenderModel.height * Double(UIScreen.main.scale)
         
@@ -143,32 +137,32 @@ extension ImageGenerator {
     }
     
     private func drawPolygon(imageRenderModel: ImageRenderModel, context: CGContext, snapshot: MKMapSnapshot?, pointProjector: PointProjector, polygon: GeoJsonPolygon, debug: Bool) {
-        let lines = polygon.linearRings
+        context.setLineWidth(CGFloat(imageRenderModel.lineWidth))
+        context.setStrokeColor(imageRenderModel.shapeLineColor.cgColor)
+        context.setFillColor(imageRenderModel.shapeFillColor.cgColor)
         
-        for (index, line) in lines.enumerated() {
+        context.beginPath()
+        
+        polygon.linearRings.reversed().forEach { linearRing in
             let points: [CGPoint]
             if let snapshot = snapshot {
-                points = line.points.map { snapshot.point(for: $0.locationCoordinate) }
+                points = linearRing.points.map { snapshot.point(for: $0.locationCoordinate) }
             } else {
-                points = pointProjector.asPoints(line.points)
+                points = pointProjector.asPoints(linearRing.points)
             }
             
-            context.beginPath()
             context.move(to: CGPoint(x: points[0].x, y: points[0].y))
             points.forEach { context.addLine(to: CGPoint(x: $0.x, y: $0.y)) }
-            // Note: Closing path is not needed if first and end points are the same. This should be the case in the parsers.
-            context.closePath()
-            
-            context.setLineWidth(CGFloat(imageRenderModel.lineWidth))
-            context.setStrokeColor(imageRenderModel.shapeLineColor.cgColor)
-            
-            context.setFillColor(index == 0 ? imageRenderModel.shapeFillColor.cgColor : imageRenderModel.backgroundColor.cgColor)
-            
-            context.drawPath(using: .fillStroke)
-            
-            if debug { line.points.forEach { drawPin(imageRenderModel: imageRenderModel, pointProjector: pointProjector, context: context, snapshot: snapshot, point: $0) } }
         }
         
-        if debug { drawPin(imageRenderModel: imageRenderModel, pointProjector: pointProjector, context: context, snapshot: snapshot, point: polygon.centroid) }
+        context.closePath()
+        
+        context.drawPath(using: .eoFillStroke)
+        
+        if debug {
+            drawPin(imageRenderModel: imageRenderModel, pointProjector: pointProjector, context: context, snapshot: snapshot, point: polygon.centroid)
+            
+            polygon.linearRings.forEach { $0.points.forEach { drawPin(imageRenderModel: imageRenderModel, pointProjector: pointProjector, context: context, snapshot: snapshot, point: $0) } }
+        }
     }
 }

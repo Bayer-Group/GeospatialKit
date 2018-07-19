@@ -52,6 +52,8 @@ class DisplayViewController: UIViewController {
             capturedSelf.imageView.image = capturedSelf.geospatial.image.image(for: capturedSelf.geoJsonObject, with: imageRenderModel, debug: true)
             capturedSelf.mapImageView.image = capturedSelf.imageView.image
             
+            // For small geometries: region.span.latitudeDelta > 0.008 || region.span.longitudeDelta > 0.008
+            
             DispatchQueue.main.async {
                 capturedSelf.geospatial.image.snapshot(for: capturedSelf.geoJsonObject, with: imageRenderModel, debug: true) { image in
                     guard let image = image else { return }
@@ -63,16 +65,6 @@ class DisplayViewController: UIViewController {
             guard let insetBoundingBox = capturedSelf.geoJsonObject.objectBoundingBox?.mappingBoundingBox(insetPercent: 0.20) else { print("🗺️ GeospatialExample 🗺️ No Bounding Box"); return }
             
             capturedSelf.mapView.setRegion(insetBoundingBox.region, animated: false)
-            
-//            DispatchQueue.main.async {
-//                print(insetBoundingBox.region)
-//                print(capturedSelf.mapView.region)
-//                print(capturedSelf.mapView.regionThatFits(capturedSelf.mapView.region))
-//
-//                MKCoordinateRegion(center: __C.CLLocationCoordinate2D(latitude: -0.050000000000000711, longitude: -0.050000000000000711), span: __C.MKCoordinateSpan(latitudeDelta: 28.140000000000001, longitudeDelta: 28.140000000000001))
-//                MKCoordinateRegion(center: __C.CLLocationCoordinate2D(latitude: -0.050000000000011369, longitude: -0.049999999999946004), span: __C.MKCoordinateSpan(latitudeDelta: 28.139999862599879, longitudeDelta: 51.415709046523006))
-//                MKCoordinateRegion(center: __C.CLLocationCoordinate2D(latitude: -0.04999999681780104, longitude: -0.049999999999926104), span: __C.MKCoordinateSpan(latitudeDelta: 28.14000000000479, longitudeDelta: 51.415709046522977))
-//            }
         }
     }
 }
