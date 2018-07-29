@@ -30,8 +30,6 @@ extension ImageManagerProtocol {
 public struct ImageManager: ImageManagerProtocol {
     internal let imageGenerator: ImageGeneratorProtocol
     
-    static let debugAlpha: CGFloat = 0.2
-    
     init() {
         imageGenerator = ImageGenerator()
     }
