@@ -4,6 +4,8 @@
 public protocol GeospatialCocoaProtocol: GeospatialProtocol {
     var image: ImageManagerProtocol! { get }
     var map: MapManagerProtocol! { get }
+    
+    func drawing(context: CGContext, drawingRenderModel: DrawingRenderModel) -> GeometryProjectorProtocol
 }
 
 /**
@@ -28,5 +30,9 @@ final public class GeospatialCocoa: Geospatial, GeospatialCocoaProtocol {
         
         image = ImageManager()
         map = MapManager()
+    }
+    
+    public func drawing(context: CGContext, drawingRenderModel: DrawingRenderModel) -> GeometryProjectorProtocol {
+        return GeometryProjector(context: context, drawingRenderModel: drawingRenderModel, debug: false)
     }
 }

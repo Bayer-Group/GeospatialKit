@@ -22,13 +22,13 @@ class OverlayGeneratorTests: XCTestCase {
     }
     
     func testOverlaysMultiPoint() {
-        let overlays = overlayGenerator.overlays(for: MockData.testGeoJsonObject(geoJsonDataName: "MultiPoint"))
+        let overlays = overlayGenerator.overlays(for: MockData.testGeoJsonObject(geoJsonDataName: "MultiPoint 3 Point"))
         
         XCTAssertEqual(overlays.count, 0)
     }
     
     func testOverlaysLineString() {
-        let overlays = overlayGenerator.overlays(for: MockData.testGeoJsonObject(geoJsonDataName: "LineString"))
+        let overlays = overlayGenerator.overlays(for: MockData.testGeoJsonObject(geoJsonDataName: "LineString 4 Point"))
         
         XCTAssertEqual(overlays.count, 1)
         
@@ -38,9 +38,9 @@ class OverlayGeneratorTests: XCTestCase {
     }
     
     func testOverlaysMultiLineString() {
-        let overlays = overlayGenerator.overlays(for: MockData.testGeoJsonObject(geoJsonDataName: "MultiLineString"))
+        let overlays = overlayGenerator.overlays(for: MockData.testGeoJsonObject(geoJsonDataName: "MultiLineString 3 Line"))
         
-        XCTAssertEqual(overlays.count, 2)
+        XCTAssertEqual(overlays.count, 3)
         
         var renderer = overlayGenerator.renderer(for: overlays[0], with: overlayRenderModel)
         
@@ -52,7 +52,7 @@ class OverlayGeneratorTests: XCTestCase {
     }
     
     func testOverlaysPolygon() {
-        let overlays = overlayGenerator.overlays(for: MockData.testGeoJsonObject(geoJsonDataName: "Polygon"))
+        let overlays = overlayGenerator.overlays(for: MockData.testGeoJsonObject(geoJsonDataName: "Polygon 6 Line"))
         
         XCTAssertEqual(overlays.count, 1)
         
@@ -72,9 +72,9 @@ class OverlayGeneratorTests: XCTestCase {
     }
     
     func testOverlaysMultiPolygon() {
-        let overlays = overlayGenerator.overlays(for: MockData.testGeoJsonObject(geoJsonDataName: "MultiPolygon"))
+        let overlays = overlayGenerator.overlays(for: MockData.testGeoJsonObject(geoJsonDataName: "MultiPolygon 3"))
         
-        XCTAssertEqual(overlays.count, 2)
+        XCTAssertEqual(overlays.count, 3)
         
         var renderer = overlayGenerator.renderer(for: overlays[0], with: overlayRenderModel)
         

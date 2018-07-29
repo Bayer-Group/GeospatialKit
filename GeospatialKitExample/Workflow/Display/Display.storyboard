@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14113" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="yDp-vg-nER">
+    <device id="retina4_7" orientation="portrait">
+        <adaptation id="fullscreen"/>
+    </device>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14088"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Display-->
+        <scene sceneID="emT-Jl-PdZ">
+            <objects>
+                <viewController title="Display" id="yDp-vg-nER" customClass="DisplayViewController" customModule="GeospatialKitExample" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="5YH-ab-bTl">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" distribution="fillEqually" translatesAutoresizingMaskIntoConstraints="NO" id="QJv-Za-iOJ">
+                                <rect key="frame" x="0.0" y="20" width="375" height="647"/>
+                                <subviews>
+                                    <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="satellite" translatesAutoresizingMaskIntoConstraints="NO" id="mK1-ec-4CX">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="215.5"/>
+                                        <connections>
+                                            <outlet property="delegate" destination="yDp-vg-nER" id="UWh-Wq-JTU"/>
+                                        </connections>
+                                    </mapView>
+                                    <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4mx-Ls-LKo" customClass="DrawingViewWrapper" customModule="GeospatialKitExample" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="215.5" width="375" height="216"/>
+                                        <subviews>
+                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bnf-Lj-6Xi">
+                                                <rect key="frame" x="0.0" y="0.0" width="375" height="216"/>
+                                            </imageView>
+                                        </subviews>
+                                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstItem="bnf-Lj-6Xi" firstAttribute="top" secondItem="4mx-Ls-LKo" secondAttribute="top" id="4JQ-26-eoH"/>
+                                            <constraint firstItem="bnf-Lj-6Xi" firstAttribute="leading" secondItem="4mx-Ls-LKo" secondAttribute="leading" id="LX5-Sz-X5g"/>
+                                            <constraint firstAttribute="trailing" secondItem="bnf-Lj-6Xi" secondAttribute="trailing" id="X5j-H1-c0A"/>
+                                            <constraint firstAttribute="bottom" secondItem="bnf-Lj-6Xi" secondAttribute="bottom" id="hSK-Tv-j9N"/>
+                                        </constraints>
+                                        <connections>
+                                            <outlet property="drawingView" destination="bnf-Lj-6Xi" id="eLg-Yt-lnH"/>
+                                        </connections>
+                                    </view>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="iUY-q0-ZXd">
+                                        <rect key="frame" x="0.0" y="431.5" width="375" height="215.5"/>
+                                    </imageView>
+                                </subviews>
+                            </stackView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstAttribute="bottom" secondItem="QJv-Za-iOJ" secondAttribute="bottom" id="389-Ae-DpL"/>
+                            <constraint firstItem="QJv-Za-iOJ" firstAttribute="top" secondItem="3Zg-nX-u6w" secondAttribute="top" id="AxS-eO-Hr7"/>
+                            <constraint firstAttribute="trailing" secondItem="QJv-Za-iOJ" secondAttribute="trailing" id="QA5-b3-ccz"/>
+                            <constraint firstItem="QJv-Za-iOJ" firstAttribute="leading" secondItem="5YH-ab-bTl" secondAttribute="leading" id="guX-5K-x8B"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="3Zg-nX-u6w"/>
+                    </view>
+                    <connections>
+                        <outlet property="drawingViewWrapper" destination="4mx-Ls-LKo" id="yHx-wf-ga9"/>
+                        <outlet property="mapImageView" destination="iUY-q0-ZXd" id="Paq-Iz-g40"/>
+                        <outlet property="mapView" destination="mK1-ec-4CX" id="jhI-Gu-gCp"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="V44-s9-hjD" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1794" y="36"/>
+        </scene>
+    </scenes>
+</document>

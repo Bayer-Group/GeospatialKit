@@ -9,5 +9,7 @@ public extension GeodesicBoundingBox {
         return MKCoordinateRegion(center: center, span: span)
     }
     
-    public func mappingBoundingBox(insetPercent: Double) -> GeodesicBoundingBox { return validBoundingBox(minimumAdjustment: imageMinimumAdjustment).insetBoundingBox(percent: insetPercent) }
+    public func mappingBoundingBox(insetPercent: Double) -> GeodesicBoundingBox {
+        return validBoundingBox(minimumAdjustment: imageMinimumAdjustment).insetBoundingBox(percent: insetPercent)
+    }
 }

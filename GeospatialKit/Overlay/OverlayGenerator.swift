@@ -39,12 +39,15 @@ internal struct OverlayGenerator: OverlayGeneratorProtocol {
         case let lineString as GeoJsonLineString:
             return [overlay(for: lineString)]
         case let multiLineString as GeoJsonMultiLineString:
+            // SOMEDAY: Should this be the same overlay?
             return multiLineString.lineStrings.flatMap { overlays(for: $0) }
         case let polygon as GeoJsonPolygon:
             return [overlay(for: polygon)]
         case let multiPolygon as GeoJsonMultiPolygon:
+            // SOMEDAY: Should this be the same overlay?
             return multiPolygon.polygons.flatMap { overlays(for: $0) }
         case let geometryCollection as GeoJsonGeometryCollection:
+            // SOMEDAY: Should this be the same overlay?
             return geometryCollection.objectGeometries?.flatMap { overlays(for: $0) } ?? []
         default: return []
         }

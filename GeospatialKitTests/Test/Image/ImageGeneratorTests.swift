@@ -6,7 +6,7 @@ import XCTest
 class ImageGeneratorTests: XCTestCase {
     var imageGenerator: ImageGenerator!
     
-    var imageRenderModel: ImageRenderModel!
+    var drawingRenderModel: DrawingRenderModel!
    
     var mockGeodesicCalculator: MockGeodesicCalculator!
     
@@ -21,106 +21,109 @@ class ImageGeneratorTests: XCTestCase {
         
         imageGenerator = ImageGenerator()
         
-        imageRenderModel = ImageRenderModel(backgroundColor: UIColor.blue, shapeFillColor: UIColor.black, shapeLineColor: UIColor.brown, width: imageWidth, height: imageHeight, lineWidth: lineWidth, inset: 0)
+        drawingRenderModel = DrawingRenderModel(backgroundColor: UIColor.blue, shapeFillColor: UIColor.black, shapeLineColor: UIColor.brown, lineWidth: lineWidth, inset: 0)
     }
     
     func testCreatePoint() {
-        let image = imageGenerator.image(for: MockData.testGeoJsonObject(geoJsonDataName: "Point"), with: imageRenderModel, debug: false)
+        let image = imageGenerator.image(for: MockData.testGeoJsonObject(geoJsonDataName: "Point"), with: drawingRenderModel, width: imageWidth, height: imageHeight, debug: false)
         
         commonTests(image: image)
     }
     
     func testCreateMultiPoint() {
-        let image = imageGenerator.image(for: MockData.testGeoJsonObject(geoJsonDataName: "MultiPoint"), with: imageRenderModel, debug: false)
+        let image = imageGenerator.image(for: MockData.testGeoJsonObject(geoJsonDataName: "MultiPoint 3 Point"), with: drawingRenderModel, width: imageWidth, height: imageHeight, debug: false)
         
         commonTests(image: image)
     }
     
     func testCreateLineString() {
-        let image = imageGenerator.image(for: MockData.testGeoJsonObject(geoJsonDataName: "LineString"), with: imageRenderModel, debug: false)
+        let image = imageGenerator.image(for: MockData.testGeoJsonObject(geoJsonDataName: "LineString 4 Point"), with: drawingRenderModel, width: imageWidth, height: imageHeight, debug: false)
         
         commonTests(image: image)
     }
     
     func testCreateMultiLineString() {
-        let image = imageGenerator.image(for: MockData.testGeoJsonObject(geoJsonDataName: "MultiLineString"), with: imageRenderModel, debug: false)
+        let image = imageGenerator.image(for: MockData.testGeoJsonObject(geoJsonDataName: "MultiLineString 3 Line"), with: drawingRenderModel, width: imageWidth, height: imageHeight, debug: false)
         
         commonTests(image: image)
     }
     
     func testCreatePolygon() {
-        let image = imageGenerator.image(for: MockData.testGeoJsonObject(geoJsonDataName: "Polygon"), with: imageRenderModel, debug: false)
+        let image = imageGenerator.image(for: MockData.testGeoJsonObject(geoJsonDataName: "Polygon 6 Line"), with: drawingRenderModel, width: imageWidth, height: imageHeight, debug: false)
         
         commonTests(image: image)
     }
     
     func testCreatePolygonMultipleRings() {
-        let image = imageGenerator.image(for: MockData.testGeoJsonObject(geoJsonDataName: "Polygon: Multiple Rings"), with: imageRenderModel, debug: false)
+        let image = imageGenerator.image(for: MockData.testGeoJsonObject(geoJsonDataName: "Polygon: Multiple Rings"), with: drawingRenderModel, width: imageWidth, height: imageHeight, debug: false)
         
         commonTests(image: image)
     }
     
     func testCreateMultiPolygon() {
-        let image = imageGenerator.image(for: MockData.testGeoJsonObject(geoJsonDataName: "MultiPolygon"), with: imageRenderModel, debug: false)
+        let image = imageGenerator.image(for: MockData.testGeoJsonObject(geoJsonDataName: "MultiPolygon 3"), with: drawingRenderModel, width: imageWidth, height: imageHeight, debug: false)
         
         commonTests(image: image)
     }
     
     func testCreateGeometryCollection() {
-        let image = imageGenerator.image(for: MockData.testGeoJsonObject(geoJsonDataName: "GeometryCollection"), with: imageRenderModel, debug: false)
+        let image = imageGenerator.image(for: MockData.testGeoJsonObject(geoJsonDataName: "GeometryCollection"), with: drawingRenderModel, width: imageWidth, height: imageHeight, debug: false)
         
         commonTests(image: image)
     }
     
     func testCreateGeometryCollectionEmptyGeometries() {
-        let image = imageGenerator.image(for: MockData.testGeoJsonObject(geoJsonDataName: "GeometryCollection: Empty geometries"), with: imageRenderModel, debug: false)
+        let image = imageGenerator.image(for: MockData.testGeoJsonObject(geoJsonDataName: "GeometryCollection: Empty geometries"), with: drawingRenderModel, width: imageWidth, height: imageHeight, debug: false)
         
         commonTests(image: image)
     }
     
     func testCreateFeature() {
-        let image = imageGenerator.image(for: MockData.testGeoJsonObject(geoJsonDataName: "Feature"), with: imageRenderModel, debug: false)
+        let image = imageGenerator.image(for: MockData.testGeoJsonObject(geoJsonDataName: "Feature"), with: drawingRenderModel, width: imageWidth, height: imageHeight, debug: false)
         
         commonTests(image: image)
     }
     
     func testCreateFeatureGeometryCollection() {
-        let image = imageGenerator.image(for: MockData.testGeoJsonObject(geoJsonDataName: "Feature: Geometry Collection"), with: imageRenderModel, debug: false)
+        let image = imageGenerator.image(for: MockData.testGeoJsonObject(geoJsonDataName: "Feature: Geometry Collection"), with: drawingRenderModel, width: imageWidth, height: imageHeight, debug: false)
         
         commonTests(image: image)
     }
     
     func testCreateFeatureNullGeometry() {
-        let image = imageGenerator.image(for: MockData.testGeoJsonObject(geoJsonDataName: "Feature: null geometry"), with: imageRenderModel, debug: false)
+        let image = imageGenerator.image(for: MockData.testGeoJsonObject(geoJsonDataName: "Feature: null geometry"), with: drawingRenderModel, width: imageWidth, height: imageHeight, debug: false)
         
         commonTests(image: image)
     }
     
     func testCreateFeatureCollection() {
-        let image = imageGenerator.image(for: MockData.testGeoJsonObject(geoJsonDataName: "FeatureCollection"), with: imageRenderModel, debug: false)
+        let image = imageGenerator.image(for: MockData.testGeoJsonObject(geoJsonDataName: "FeatureCollection"), with: drawingRenderModel, width: imageWidth, height: imageHeight, debug: false)
         
         commonTests(image: image)
     }
     
     func testCreateFeatureCollection2Features1NullGeometry() {
-        let image = imageGenerator.image(for: MockData.testGeoJsonObject(geoJsonDataName: "FeatureCollection: 2 Features, 1 null geometry"), with: imageRenderModel, debug: false)
+        let image = imageGenerator.image(for: MockData.testGeoJsonObject(geoJsonDataName: "FeatureCollection: 2 Features, 1 null geometry"), with: drawingRenderModel, width: imageWidth, height: imageHeight, debug: false)
         
         commonTests(image: image)
     }
     
     func testCreateFeatureCollection1FeatureNullGeometry() {
-        let image = imageGenerator.image(for: MockData.testGeoJsonObject(geoJsonDataName: "FeatureCollection: 1 Feature, null geometry"), with: imageRenderModel, debug: false)
+        let image = imageGenerator.image(for: MockData.testGeoJsonObject(geoJsonDataName: "FeatureCollection: 1 Feature, null geometry"), with: drawingRenderModel, width: imageWidth, height: imageHeight, debug: false)
         
         commonTests(image: image)
     }
     
     func testCreateAllMockData() {
-        XCTAssertEqual(MockData.geoJsonTestData.count, 15)
+        XCTAssertEqual(MockData.geoJsonTestData.count, 24)
         
         MockData.geoJsonTestData.forEach { geoJsonData in
             // swiftlint:disable:next force_cast
+            guard (geoJsonData["name"] as! String) != "Invalid Geometry" else { return }
+            
+            // swiftlint:disable:next force_cast
             let geoJsonObject = GeoTestHelper.parse(geoJsonData["geoJson"] as! GeoJsonDictionary)
-            let image = imageGenerator.image(for: geoJsonObject, with: imageRenderModel, debug: false)
+            let image = imageGenerator.image(for: geoJsonObject, with: drawingRenderModel, width: imageWidth, height: imageHeight, debug: false)
             
             commonTests(image: image)
         }

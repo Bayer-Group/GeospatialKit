@@ -119,6 +119,39 @@
 			"id": "12345"
 		}
 	}, {
+		"name": "Feature: Geometry Collection",
+		"geoJson": {
+			"type": "Feature",
+			"bbox": [-10.0, -10.0, 10.0, 10.0],
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [{
+						"type": "Point",
+						"coordinates": [100.0, 0.0]
+					},
+					{
+						"type": "LineString",
+						"coordinates": [
+							[101.0, 0.0],
+							[102.0, 1.0]
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[100.0, 0.0],
+								[101.0, 0.0],
+								[101.0, 1.0],
+								[100.0, 1.0],
+								[100.0, 0.0]
+							]
+						]
+					}
+				]
+			}
+		}
+	}, {
 		"name": "Feature: null geometry",
 		"geoJson": {
 			"type": "Feature",

@@ -18,25 +18,25 @@ class AnnotationGeneratorTests: XCTestCase {
     }
     
     func testAnnotationsMultiPoint() {
-        let annotations = annotationGenerator.annotations(for: MockData.testGeoJsonObject(geoJsonDataName: "MultiPoint"), debug: false)
+        let annotations = annotationGenerator.annotations(for: MockData.testGeoJsonObject(geoJsonDataName: "MultiPoint 3 Point"), debug: false)
         
-        XCTAssertEqual(annotations.count, 2)
+        XCTAssertEqual(annotations.count, 3)
     }
     
     func testAnnotationsLineString() {
-        let annotations = annotationGenerator.annotations(for: MockData.testGeoJsonObject(geoJsonDataName: "LineString"), debug: false)
+        let annotations = annotationGenerator.annotations(for: MockData.testGeoJsonObject(geoJsonDataName: "LineString 4 Point"), debug: false)
         
         XCTAssertEqual(annotations.count, 0)
     }
     
     func testAnnotationsMultiLineString() {
-        let annotations = annotationGenerator.annotations(for: MockData.testGeoJsonObject(geoJsonDataName: "MultiLineString"), debug: false)
+        let annotations = annotationGenerator.annotations(for: MockData.testGeoJsonObject(geoJsonDataName: "MultiLineString 3 Line"), debug: false)
         
         XCTAssertEqual(annotations.count, 0)
     }
     
     func testAnnotationsPolygon() {
-        let annotations = annotationGenerator.annotations(for: MockData.testGeoJsonObject(geoJsonDataName: "Polygon"), debug: false)
+        let annotations = annotationGenerator.annotations(for: MockData.testGeoJsonObject(geoJsonDataName: "Polygon 6 Line"), debug: false)
         
         XCTAssertEqual(annotations.count, 0)
     }
@@ -48,7 +48,7 @@ class AnnotationGeneratorTests: XCTestCase {
     }
     
     func testAnnotationsMultiPolygon() {
-        let annotations = annotationGenerator.annotations(for: MockData.testGeoJsonObject(geoJsonDataName: "MultiPolygon"), debug: false)
+        let annotations = annotationGenerator.annotations(for: MockData.testGeoJsonObject(geoJsonDataName: "MultiPolygon 3"), debug: false)
         
         XCTAssertEqual(annotations.count, 0)
     }
