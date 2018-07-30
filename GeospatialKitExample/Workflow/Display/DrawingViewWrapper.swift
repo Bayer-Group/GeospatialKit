@@ -40,7 +40,7 @@ class DrawingViewWrapper: UIView {
     // This code should just sets up a global scale and pan and limit the scale and pan
     // The redraw view step for just image can redraw the layer appropriately
     
-    // TODO: Double click to zoom
+    // SOMEDAY: Double click to zoom
     
     @objc private func didPinch(_ pinch: UIPinchGestureRecognizer) {
         guard pinch.state == .changed else { return }
@@ -49,7 +49,7 @@ class DrawingViewWrapper: UIView {
         
         let imageScale = drawingView.frame.size.width / bounds.size.width
         
-        // TODO: Only allow zoom to go to 10x or something. Perhaps this should be based on minimum latitudeDelta longitudeDelta on bounding box.
+        // SOMEDAY: Only allow zoom to go to 10x or something. Perhaps this should be based on minimum latitudeDelta longitudeDelta on bounding box.
         let scale = pinch.scale < 1 ? max(pinch.scale, 1 / imageScale) : pinch.scale > 1 ? min(pinch.scale, 10 / imageScale) : 1
         
         let location = pinch.location(in: self)
@@ -92,7 +92,7 @@ class DrawingViewWrapper: UIView {
         
         let point = adjustTransform(point: CGPoint(x: translation.x / imageScale, y: translation.y / imageScale))
         
-        // TODO: Occasionally there is a graphical artifact when panning while zoomed. Perhaps from the adjustTransform.
+        // SOMEDAY: Occasionally there is a graphical artifact when panning while zoomed. Perhaps from the adjustTransform.
         let transform = drawingView.transform.translatedBy(x: point.x, y: point.y)
         drawingView.transform = transform
     }
