@@ -29,21 +29,7 @@
                                     </mapView>
                                     <view clipsSubviews="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="4mx-Ls-LKo" customClass="DrawingViewWrapper" customModule="GeospatialKitExample" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="215.5" width="375" height="216"/>
-                                        <subviews>
-                                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="bnf-Lj-6Xi">
-                                                <rect key="frame" x="0.0" y="0.0" width="375" height="216"/>
-                                            </imageView>
-                                        </subviews>
                                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                        <constraints>
-                                            <constraint firstItem="bnf-Lj-6Xi" firstAttribute="top" secondItem="4mx-Ls-LKo" secondAttribute="top" id="4JQ-26-eoH"/>
-                                            <constraint firstItem="bnf-Lj-6Xi" firstAttribute="leading" secondItem="4mx-Ls-LKo" secondAttribute="leading" id="LX5-Sz-X5g"/>
-                                            <constraint firstAttribute="trailing" secondItem="bnf-Lj-6Xi" secondAttribute="trailing" id="X5j-H1-c0A"/>
-                                            <constraint firstAttribute="bottom" secondItem="bnf-Lj-6Xi" secondAttribute="bottom" id="hSK-Tv-j9N"/>
-                                        </constraints>
-                                        <connections>
-                                            <outlet property="drawingView" destination="bnf-Lj-6Xi" id="eLg-Yt-lnH"/>
-                                        </connections>
                                     </view>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="iUY-q0-ZXd">
                                         <rect key="frame" x="0.0" y="431.5" width="375" height="215.5"/>

@@ -409,8 +409,8 @@
 		1E10770F20409C6E00B5AD00 /* Workflow */ = {
 			isa = PBXGroup;
 			children = (
-				1EB09AD2210E4219003895A6 /* Display */,
 				1EB09ACD210E41D3003895A6 /* Main */,
+				1EB09AD2210E4219003895A6 /* Display */,
 			);
 			path = Workflow;
 			sourceTree = "<group>";
@@ -528,9 +528,9 @@
 		1E528EFB1EC20E0000A2A9C9 /* GeospatialKitExample */ = {
 			isa = PBXGroup;
 			children = (
-				1E3A422C210BBB5500F97839 /* Extensions */,
 				1E10771020409C7000B5AD00 /* Data */,
 				1E10770F20409C6E00B5AD00 /* Workflow */,
+				1E3A422C210BBB5500F97839 /* Extensions */,
 				1E528F1B1EC20E8F00A2A9C9 /* Supporting Files */,
 			);
 			path = GeospatialKitExample;

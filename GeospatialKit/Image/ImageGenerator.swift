@@ -54,13 +54,6 @@ extension ImageGenerator {
         
         let renderer = UIGraphicsImageRenderer(size: desiredImageRect.size, format: rendererFormat)
         return renderer.image { context in
-            if let snapshotSettings = snapshotSettings {
-                snapshotSettings.snapshot.image.draw(in: desiredImageRect)
-            } else {
-                drawingRenderModel.backgroundColor.setFill()
-                context.fill(desiredImageRect)
-            }
-            
             let drawing = GeometryProjector(context: context.cgContext, drawingRenderModel: drawingRenderModel, snapshotSettings: snapshotSettings, debug: debug)
             
             drawing.draw(geoJsonObject: geoJsonObject, width: width, height: height)

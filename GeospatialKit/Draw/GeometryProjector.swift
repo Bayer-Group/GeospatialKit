@@ -18,6 +18,15 @@ class GeometryProjector: GeometryProjectorProtocol {
     }
     
     func draw(geoJsonObject: GeoJsonObject, width: Double, height: Double, zoom: Double = 1, centerOffset: CGPoint? = nil) {
+        let desiredImageRect = CGRect(x: 0, y: 0, width: width, height: height)
+        
+        if let snapshotSettings = snapshotSettings {
+            snapshotSettings.snapshot.image.draw(in: desiredImageRect)
+        } else {
+            drawingRenderModel.backgroundColor.setFill()
+            context.fill(desiredImageRect)
+        }
+        
         guard let geometries = geoJsonObject.objectGeometries, let insetBoundingBox = geoJsonObject.objectBoundingBox?.mappingBoundingBox(insetPercent: drawingRenderModel.inset) else {
             Log.info("No geometry objects or bounding box for: \(geoJsonObject.geoJson).")
             return

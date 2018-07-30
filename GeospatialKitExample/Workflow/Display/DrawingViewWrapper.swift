@@ -2,19 +2,39 @@ import UIKit
 import GeospatialKit
 
 class DrawingViewWrapper: UIView {
-    @IBOutlet weak var drawingView: UIImageView!
+    private weak var drawingView: UIView!
     
     var geospatial: GeospatialCocoa!
     var geoJsonObject: GeoJsonObject!
     var drawingRenderModel: DrawingRenderModel!
     
     override func awakeFromNib() {
+        // Toggle between drawing in a view or image view.
+        //let drawingView = UIView()
+        let drawingView = UIImageView()
+        drawingView.translatesAutoresizingMaskIntoConstraints = false
+        addSubview(drawingView)
+        
+        let constraints = [drawingView.topAnchor.constraint(equalTo: topAnchor), drawingView.bottomAnchor.constraint(equalTo: bottomAnchor), drawingView.leftAnchor.constraint(equalTo: leftAnchor), drawingView.rightAnchor.constraint(equalTo: rightAnchor)]
+        constraints.forEach { $0.isActive = true }
+        NSLayoutConstraint.activate(constraints)
+        
         addGestureRecognizer(UIPinchGestureRecognizer(target: self, action: #selector(didPinch(_:))))
         addGestureRecognizer(UIPanGestureRecognizer(target: self, action: #selector(didPan(_:))))
+        
+        self.drawingView = drawingView
     }
     
     func refresh() {
-        drawingView.image = geospatial.image.image(for: geoJsonObject, with: drawingRenderModel, width: Double(drawingView.bounds.width), height: Double(drawingView.bounds.height), debug: false)
+        (drawingView as? UIImageView)?.image = geospatial.image.image(for: geoJsonObject, with: drawingRenderModel, width: Double(drawingView.bounds.width), height: Double(drawingView.bounds.height), debug: false)
+    }
+    
+    override func draw(_ rect: CGRect) {
+        super.draw(rect)
+        
+        if !(drawingView is UIImageView), let context = UIGraphicsGetCurrentContext() {
+            geospatial.drawing(context: context, drawingRenderModel: drawingRenderModel).draw(geoJsonObject: geoJsonObject, width: Double(drawingView.bounds.width), height: Double(drawingView.bounds.height), zoom: 1, centerOffset: nil)
+        }
     }
     
     // This code should just sets up a global scale and pan and limit the scale and pan
