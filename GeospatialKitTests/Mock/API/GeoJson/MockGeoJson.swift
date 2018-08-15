@@ -1,4 +1,4 @@
-@testable import GeospatialKit
+@testable import GeospatialSwift
 
 final class MockGeoJson: GeoJsonProtocol {
     private(set) var parseCallCount = 0

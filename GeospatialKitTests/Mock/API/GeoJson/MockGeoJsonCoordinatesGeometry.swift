@@ -1,4 +1,4 @@
-@testable import GeospatialKit
+@testable import GeospatialSwift
 
 class MockGeoJsonCoordinatesGeometry: MockGeoJsonGeometry, GeoJsonCoordinatesGeometry {
     private(set) var geoJsonCoordinatesCallCount = 0
@@ -19,7 +19,7 @@ class MockGeoJsonCoordinatesGeometry: MockGeoJsonGeometry, GeoJsonCoordinatesGeo
     
     private(set) var distanceCallCount = 0
     var distanceResult: Double = 0
-    func distance(to point: GeodesicPoint, errorDistance: Double) -> Double {
+    func distance(to point: GeodesicPoint, tolerance: Double) -> Double {
         distanceCallCount += 1
         
         return distanceResult
@@ -27,7 +27,7 @@ class MockGeoJsonCoordinatesGeometry: MockGeoJsonGeometry, GeoJsonCoordinatesGeo
     
     private(set) var pointsCallCount = 0
     var pointsResult: [GeoJsonPoint] = []
-    var points: [GeoJsonPoint] {
+    var points: [GeodesicPoint] {
         pointsCallCount += 1
         
         return pointsResult

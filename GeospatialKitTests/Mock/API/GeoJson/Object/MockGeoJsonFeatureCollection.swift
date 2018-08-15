@@ -1,4 +1,4 @@
-@testable import GeospatialKit
+@testable import GeospatialSwift
 
 final class MockGeoJsonFeatureCollection: MockGeoJsonObject, GeoJsonFeatureCollection {
     private(set) var featuresCallCount = 0

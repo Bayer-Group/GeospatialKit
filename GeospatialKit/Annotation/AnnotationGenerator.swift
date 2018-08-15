@@ -43,7 +43,7 @@ internal struct AnnotationGenerator: AnnotationGeneratorProtocol {
         }
         
         if debug, let coordinatesGeometry = geometry as? GeoJsonCoordinatesGeometry, !(coordinatesGeometry is GeoJsonPoint) {
-            return annotations + coordinatesGeometry.points.flatMap { self.annotations(for: $0, debug: debug) }
+            return annotations + coordinatesGeometry.points.map { annotation(for: $0) }
         }
         
         return annotations

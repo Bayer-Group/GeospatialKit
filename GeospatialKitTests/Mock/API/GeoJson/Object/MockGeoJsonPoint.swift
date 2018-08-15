@@ -1,4 +1,4 @@
-@testable import GeospatialKit
+@testable import GeospatialSwift
 
 final class MockGeoJsonPoint: MockGeoJsonCoordinatesGeometry, GeoJsonPoint {
     override init() {
@@ -37,6 +37,14 @@ final class MockGeoJsonPoint: MockGeoJsonCoordinatesGeometry, GeoJsonPoint {
         normalizeCallCount += 1
         
         return normalizeResult
+    }
+    
+    private(set) var normalizePostitiveCallCount: Int = 0
+    var normalizePostitiveResult: GeodesicPoint = SimplePoint(longitude: 0, latitude: 0)
+    var normalizePostitive: GeodesicPoint {
+        normalizePostitiveCallCount += 1
+        
+        return normalizePostitiveResult
     }
     
     private(set) var initialBearingCallCount: Int = 0
