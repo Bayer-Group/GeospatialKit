@@ -17,6 +17,7 @@ class GeometryProjector: GeometryProjectorProtocol {
         self.debug = debug
     }
     
+    #warning("Zoom and centerOffset?")
     func draw(geoJsonObject: GeoJsonObject, width: Double, height: Double, zoom: Double = 1, centerOffset: CGPoint? = nil) {
         let desiredImageRect = CGRect(x: 0, y: 0, width: width, height: height)
         

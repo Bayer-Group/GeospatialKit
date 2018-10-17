@@ -1,13 +1,21 @@
 public protocol MapManagerProtocol {
-    func annotations(for geoJsonObject: GeoJsonObject, debug: Bool) -> [MKAnnotation]
+    func annotations(for geoJsonObject: GeoJsonObject, withProperties properties: [String: Any], debug: Bool) -> [GeospatialMapAnnotation]
     func annotationView(for annotation: MKAnnotation, with overlayRenderModel: OverlayRenderModel, from mapView: MKMapView, reuseId: String) -> MKAnnotationView
-    func overlays(for geoJsonObject: GeoJsonObject) -> [MKOverlay]
+    func overlays(for geoJsonObject: GeoJsonObject, withProperties properties: [String: Any]) -> [GeospatialMapOverlay]
     func renderer(for overlay: MKOverlay, with overlayRenderModel: OverlayRenderModel) -> MKOverlayRenderer
 }
 
 public extension MapManagerProtocol {
-    func annotations(for geoJsonObject: GeoJsonObject) -> [MKAnnotation] {
-        return annotations(for: geoJsonObject, debug: false)
+    func annotations(for geoJsonObject: GeoJsonObject) -> [GeospatialMapAnnotation] {
+        return annotations(for: geoJsonObject, withProperties: [:], debug: false)
+    }
+    
+    func annotations(for geoJsonObject: GeoJsonObject, withProperties properties: [String: Any]) -> [GeospatialMapAnnotation] {
+        return annotations(for: geoJsonObject, withProperties: properties, debug: false)
+    }
+    
+    func overlays(for geoJsonObject: GeoJsonObject) -> [GeospatialMapOverlay] {
+        return overlays(for: geoJsonObject, withProperties: [:])
     }
 }
 
@@ -27,8 +35,8 @@ public struct MapManager: MapManagerProtocol {
      
      - returns: annotations for qualifying components
      */
-    public func annotations(for geoJsonObject: GeoJsonObject, debug: Bool) -> [MKAnnotation] {
-        return annotationGenerator.annotations(for: geoJsonObject, debug: debug)
+    public func annotations(for geoJsonObject: GeoJsonObject, withProperties properties: [String: Any], debug: Bool) -> [GeospatialMapAnnotation] {
+        return annotationGenerator.annotations(for: geoJsonObject, withProperties: properties, debug: debug)
     }
     
     /**
@@ -49,8 +57,8 @@ public struct MapManager: MapManagerProtocol {
      
      - returns: overlays for qualifying components
      */
-    public func overlays(for geoJsonObject: GeoJsonObject) -> [MKOverlay] {
-        return overlayGenerator.overlays(for: geoJsonObject)
+    public func overlays(for geoJsonObject: GeoJsonObject, withProperties properties: [String: Any]) -> [GeospatialMapOverlay] {
+        return overlayGenerator.overlays(for: geoJsonObject, withProperties: properties)
     }
     
     /**

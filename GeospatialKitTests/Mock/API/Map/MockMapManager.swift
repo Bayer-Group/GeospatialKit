@@ -2,8 +2,8 @@
 
 final class MockMapManager: MapManagerProtocol {
     private(set) var overlaysCallCount = 0
-    var overlaysResult: [MKOverlay] = []
-    func overlays(for geoJsonObject: GeoJsonObject) -> [MKOverlay] {
+    var overlaysResult: [GeospatialMapOverlay] = []
+    func overlays(for geoJsonObject: GeoJsonObject, withProperties properties: [String: Any]) -> [GeospatialMapOverlay] {
         overlaysCallCount += 1
         
         return overlaysResult
@@ -18,8 +18,8 @@ final class MockMapManager: MapManagerProtocol {
     }
     
     private(set) var annotationsCallCount = 0
-    var annotationsResult: [MKAnnotation] = []
-    func annotations(for geoJsonObject: GeoJsonObject, debug: Bool) -> [MKAnnotation] {
+    var annotationsResult: [GeospatialMapAnnotation] = []
+    func annotations(for geoJsonObject: GeoJsonObject, withProperties properties: [String: Any], debug: Bool) -> [GeospatialMapAnnotation] {
         annotationsCallCount += 1
         
         return annotationsResult

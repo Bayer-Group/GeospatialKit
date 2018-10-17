@@ -32,12 +32,12 @@ class DisplayViewController: UIViewController {
         
         guard let geoJsonObject = geoJsonObject else { return }
         
-        drawingViewWrapper.geospatial = geospatial
+        drawingViewWrapper.geospatialCocoa = geospatial
         drawingViewWrapper.geoJsonObject = geoJsonObject
         drawingViewWrapper.drawingRenderModel = drawingRenderModel
         
         mapView.addOverlays(geospatial.map.overlays(for: geoJsonObject))
-        mapView.addAnnotations(geospatial.map.annotations(for: geoJsonObject, debug: false))
+        mapView.addAnnotations(geospatial.map.annotations(for: geoJsonObject, withProperties: [:], debug: false))
         
         //        geohashBoxes?.forEach {
         //            let linearRing = geospatial.geoJson.lineString(points: ($0.points + [$0.points.first!]).map { geospatial.geoJson.point(longitude: $0.longitude, latitude: $0.latitude) })!
@@ -53,9 +53,7 @@ class DisplayViewController: UIViewController {
     
     private func refreshViews() {
         DispatchQueue.main.async { [weak self] in
-            guard let geospatial = self?.geospatial, let geoJsonObject = self?.geoJsonObject, let drawingRenderModel = self?.drawingRenderModel, let drawingViewWrapper = self?.drawingViewWrapper, let mapView = self?.mapView, let mapImageView = self?.mapImageView else { return }
-            
-            drawingViewWrapper.refresh()
+            guard let geospatial = self?.geospatial, let geoJsonObject = self?.geoJsonObject, let drawingRenderModel = self?.drawingRenderModel, let mapView = self?.mapView, let mapImageView = self?.mapImageView else { return }
             
             mapImageView.image = geospatial.image.image(for: geoJsonObject, with: drawingRenderModel, width: Double(mapImageView.bounds.width), height: Double(mapImageView.bounds.height), debug: false)
             

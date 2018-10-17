@@ -49,8 +49,8 @@ class MockGeoJsonObject: GeoJsonObject {
     var containsResult: Bool = false
     var containsToleranceResult: Bool = false
     func contains(_ point: GeodesicPoint, tolerance: Double) -> Bool {
-        if tolerance > 0 { containsToleranceCallCount += 1 } else { containsCallCount += 1 }
+        if tolerance != 0 { containsToleranceCallCount += 1 } else { containsCallCount += 1 }
         
-        return tolerance > 0 ? containsToleranceResult : containsResult
+        return tolerance != 0 ? containsToleranceResult : containsResult
     }
 }

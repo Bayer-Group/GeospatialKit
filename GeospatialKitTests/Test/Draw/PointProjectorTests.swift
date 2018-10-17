@@ -23,7 +23,7 @@ class PointProjectorTests: XCTestCase {
         XCTAssertEqual(cgPoints.count, 0)
     }
     
-    // SOMEDAY: Need good tests which are straightforward to check this logic.
+    #warning("Need good tests which are straightforward to check this logic.")
     func testAsPoints_OnePoint() {
         let cgPoints = pointProjector.asPoints([GeoTestHelper.simplePoint(1, 2, 3)])
         

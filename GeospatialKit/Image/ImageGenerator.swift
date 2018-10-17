@@ -16,7 +16,7 @@ internal class ImageGenerator: ImageGeneratorProtocol {
     func snapshot(for geoJsonObject: GeoJsonObject, with drawingRenderModel: DrawingRenderModel, width: Double, height: Double, debug: Bool, completion: @escaping (UIImage?) -> Void) {
         guard let region = geoJsonObject.objectBoundingBox?.mappingBoundingBox(insetPercent: drawingRenderModel.inset).region else { completion(nil); return }
         
-        // SOMEDAY: Decide snapshot scale - the number will vary based on if latitude or longitude is chosen as the limiting factor based on view width and height.
+        #warning("Decide snapshot scale - the number will vary based on if latitude or longitude is chosen as the limiting factor based on view width and height.")
         //let shouldScale = max(region.span.longitudeDelta, region.span.latitudeDelta) < 0.002880360609112
         let snapshotScale = 1.0 //shouldScale ? max(region.span.longitudeDelta, region.span.latitudeDelta) * 805000 : 1
         let width = width * Double(UIScreen.main.scale) / snapshotScale

@@ -16,7 +16,7 @@ class MainViewController: UIViewController {
     }
 }
 
-// SOMEDAY: Section by GeoJson and WKT?
+#warning("Section by GeoJson and WKT?")
 extension MainViewController: UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return geoJsonObjects.count

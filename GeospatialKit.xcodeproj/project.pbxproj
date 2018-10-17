@@ -53,6 +53,8 @@
 		1E7A6CCA209785A20063F01F /* GeodesicPoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7A6CC9209785A20063F01F /* GeodesicPoint.swift */; };
 		1E7A6CCC209786890063F01F /* Array.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7A6CCB209786890063F01F /* Array.swift */; };
 		1E7A6CD82097A8E80063F01F /* GeodesicBoundingBox.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7A6CD72097A8E80063F01F /* GeodesicBoundingBox.swift */; };
+		1E7A730721778E100049144F /* GeospatialMapOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7A730621778E100049144F /* GeospatialMapOverlay.swift */; };
+		1E7A73092177960E0049144F /* GeospatialMapAnnotation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7A73082177960E0049144F /* GeospatialMapAnnotation.swift */; };
 		1E7A7B891F827AD000E22297 /* MapManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7A7B881F827AD000E22297 /* MapManager.swift */; };
 		1E7A7B8B1F827C6900E22297 /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7A7B8A1F827C6900E22297 /* ImageManager.swift */; };
 		1E7BD1F71F984E8900888205 /* Assertions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7BD1F61F984E8900888205 /* Assertions.swift */; };
@@ -163,6 +165,8 @@
 		1E7A6CC9209785A20063F01F /* GeodesicPoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeodesicPoint.swift; sourceTree = "<group>"; };
 		1E7A6CCB209786890063F01F /* Array.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Array.swift; sourceTree = "<group>"; };
 		1E7A6CD72097A8E80063F01F /* GeodesicBoundingBox.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeodesicBoundingBox.swift; sourceTree = "<group>"; };
+		1E7A730621778E100049144F /* GeospatialMapOverlay.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeospatialMapOverlay.swift; sourceTree = "<group>"; };
+		1E7A73082177960E0049144F /* GeospatialMapAnnotation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeospatialMapAnnotation.swift; sourceTree = "<group>"; };
 		1E7A7B881F827AD000E22297 /* MapManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapManager.swift; sourceTree = "<group>"; };
 		1E7A7B8A1F827C6900E22297 /* ImageManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageManager.swift; sourceTree = "<group>"; };
 		1E7BD1F61F984E8900888205 /* Assertions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Assertions.swift; sourceTree = "<group>"; };
@@ -248,6 +252,7 @@
 			isa = PBXGroup;
 			children = (
 				1ED4B97B1EC4AB7B00D2288E /* AnnotationGenerator.swift */,
+				1E7A73082177960E0049144F /* GeospatialMapAnnotation.swift */,
 			);
 			path = Annotation;
 			sourceTree = "<group>";
@@ -256,6 +261,7 @@
 			isa = PBXGroup;
 			children = (
 				1ED4B9611EC26E5100D2288E /* OverlayGenerator.swift */,
+				1E7A730621778E100049144F /* GeospatialMapOverlay.swift */,
 			);
 			path = Overlay;
 			sourceTree = "<group>";
@@ -652,7 +658,6 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 1E528ED11EC20CDF00A2A9C9 /* Build configuration list for PBXNativeTarget "GeospatialKit" */;
 			buildPhases = (
-				1E160A8120F785FA00C556D0 /* Run Script - Raise error and warning flags for "TODO:", "SOMEDAY:", and "QUESTION:" in code */,
 				1E528EB81EC20CDF00A2A9C9 /* Sources */,
 				1E528EB91EC20CDF00A2A9C9 /* Frameworks */,
 				1E528EBA1EC20CDF00A2A9C9 /* Headers */,
@@ -730,7 +735,7 @@
 					1E528EF91EC20E0000A2A9C9 = {
 						CreatedOnToolsVersion = 8.3.2;
 						LastSwiftMigration = 0910;
-						ProvisioningStyle = Manual;
+						ProvisioningStyle = Automatic;
 					};
 				};
 			};
@@ -793,20 +798,6 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
-		1E160A8120F785FA00C556D0 /* Run Script - Raise error and warning flags for "TODO:", "SOMEDAY:", and "QUESTION:" in code */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-			);
-			name = "Run Script - Raise error and warning flags for \"TODO:\", \"SOMEDAY:\", and \"QUESTION:\" in code";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "SOMEDAY=\"SOMEDAY:\"\nTODO=\"TODO:\"\nQUESTION=\"QUESTION:\"\nfind \"${PROJECT_DIR}/${TARGET_NAME}\" \"${PROJECT_DIR}/${TARGET_NAME}Tests\" \"${PROJECT_DIR}/${TARGET_NAME}Example\" \\( -name \"*.swift\" \\) -print0 | xargs -0 egrep --with-filename --line-number --only-matching \"($SOMEDAY).*\\$|($TODO).*\\$|($QUESTION).*\\$\" | perl -p -e \"s/($TODO)/ error: \\$1/\" | perl -p -e \"s/($SOMEDAY)/ warning: \\$1/\" | perl -p -e \"s/($QUESTION)/ warning: \\$1/\"";
-		};
 		1E7A6CD32097A6A00063F01F /* Run Script - Carthage Copy Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -855,7 +846,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi";
+			shellScript = "if which swiftlint >/dev/null; then\nswiftlint\nelse\necho \"warning: SwiftLint not installed, download from https://github.com/realm/SwiftLint\"\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -871,9 +862,11 @@
 				1ED4B9621EC26E5100D2288E /* OverlayGenerator.swift in Sources */,
 				1E54976420AB757400FE50EC /* Timber.swift in Sources */,
 				1EBE5FD12099515D00C8F13E /* UIImage.swift in Sources */,
+				1E7A730721778E100049144F /* GeospatialMapOverlay.swift in Sources */,
 				1E528EF01EC20D4A00A2A9C9 /* PointProjector.swift in Sources */,
 				1ED4B97C1EC4AB7B00D2288E /* AnnotationGenerator.swift in Sources */,
 				1E528EE41EC20D3800A2A9C9 /* GeospatialCocoa.swift in Sources */,
+				1E7A73092177960E0049144F /* GeospatialMapAnnotation.swift in Sources */,
 				1E528F221EC2185200A2A9C9 /* DrawingRenderModel.swift in Sources */,
 				1EBCEC3B2098A32000D790D7 /* GeoJsonPolygon.swift in Sources */,
 				1EBE5FCF2099511700C8F13E /* Bundle.swift in Sources */,
@@ -1165,7 +1158,7 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = GeospatialKitExample/Info.plist;
@@ -1182,7 +1175,8 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = "";
 				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = GeospatialKitExample/Info.plist;
