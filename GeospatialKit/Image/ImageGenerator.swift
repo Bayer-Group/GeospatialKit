@@ -1,142 +1,62 @@
 public protocol ImageGeneratorProtocol {
-    func create(for geoJsonObject: GeoJsonObject, with imageRenderModel: ImageRenderModel, debug: Bool) -> UIImage?
+    func image(for geoJsonObject: GeoJsonObject, with drawingRenderModel: DrawingRenderModel, width: Double, height: Double, debug: Bool) -> UIImage?
+    func snapshot(for geoJsonObject: GeoJsonObject, with drawingRenderModel: DrawingRenderModel, width: Double, height: Double, debug: Bool, completion: @escaping (UIImage?) -> Void)
 }
 
-internal struct ImageGenerator: ImageGeneratorProtocol {
-    let calculator: GeodesicCalculatorProtocol
+internal struct SnapshotSettings {
+    let snapshot: MKMapSnapshot
+    let scale: Double
+}
+
+internal class ImageGenerator: ImageGeneratorProtocol {
+    func image(for geoJsonObject: GeoJsonObject, with drawingRenderModel: DrawingRenderModel, width: Double, height: Double, debug: Bool) -> UIImage? {
+        return image(for: geoJsonObject, with: drawingRenderModel, width: width * Double(UIScreen.main.scale), height: height * Double(UIScreen.main.scale), snapshotSettings: nil, debug: debug)
+    }
     
-    static let debugAlpha: CGFloat = 0.2
-    
-    func create(for geoJsonObject: GeoJsonObject, with imageRenderModel: ImageRenderModel, debug: Bool) -> UIImage? {
-        let width = imageRenderModel.width * imageRenderModel.pixelsToPointsMultipler
-        let height = imageRenderModel.height * imageRenderModel.pixelsToPointsMultipler
+    func snapshot(for geoJsonObject: GeoJsonObject, with drawingRenderModel: DrawingRenderModel, width: Double, height: Double, debug: Bool, completion: @escaping (UIImage?) -> Void) {
+        guard let region = geoJsonObject.objectBoundingBox?.mappingBoundingBox(insetPercent: drawingRenderModel.inset).region else { completion(nil); return }
         
-        let desiredImageRect = CGRect(x: 0, y: 0, width: width, height: height)
+        #warning("Decide snapshot scale - the number will vary based on if latitude or longitude is chosen as the limiting factor based on view width and height.")
+        //let shouldScale = max(region.span.longitudeDelta, region.span.latitudeDelta) < 0.002880360609112
+        let snapshotScale = 1.0 //shouldScale ? max(region.span.longitudeDelta, region.span.latitudeDelta) * 805000 : 1
+        let width = width * Double(UIScreen.main.scale) / snapshotScale
+        let height = height * Double(UIScreen.main.scale) / snapshotScale
         
-        UIGraphicsBeginImageContextWithOptions(desiredImageRect.size, false, 1.0)
-        guard let context = UIGraphicsGetCurrentContext() else { Log.error("No Graphics Context", errorType: .internal); return nil }
+        let mapSnapshotOptions = MKMapSnapshotOptions()
+        mapSnapshotOptions.region = region
+        mapSnapshotOptions.scale = UIScreen.main.scale
+        mapSnapshotOptions.size = CGSize(width: width, height: height)
+        mapSnapshotOptions.showsBuildings = false
+        mapSnapshotOptions.showsPointsOfInterest = false
+        mapSnapshotOptions.mapType = drawingRenderModel.mapType
         
-        context.setFillColor(imageRenderModel.backgroundColor)
-        context.fill(desiredImageRect)
-        
-        // TODO: Is this the right place to do this?
-        guard let geometries = geoJsonObject.objectGeometries, let imageBoundingBox = geoJsonObject.objectBoundingBox?.imageBoundingBox else {
-            Log.info("No geometry objects or bounding box for: \(geoJsonObject.geoJson).")
-            let image = UIGraphicsGetImageFromCurrentImageContext()
-            UIGraphicsEndImageContext()
+        MKMapSnapshotter(options: mapSnapshotOptions).start { snapshot, error in
+            if let error = error { Log.error("Snapshot Error: \(error)", errorType: .internal); completion(nil); return }
             
-            return image
+            guard let snapshot = snapshot else { return }
+            
+            let snapshotSettings = SnapshotSettings(snapshot: snapshot, scale: snapshotScale)
+            
+            let finalImage = self.image(for: geoJsonObject, with: drawingRenderModel, width: width, height: height, snapshotSettings: snapshotSettings, debug: debug)
+            
+            completion(finalImage)
         }
-        
-        let pointProjector = PointProjector(boundingBox: imageBoundingBox, width: width, height: height)
-        
-        geometries.forEach {
-            drawGeometry(imageRenderModel: imageRenderModel, pointProjector: pointProjector, geometry: $0, context: context, debug: debug)
-        }
-        
-        let image = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
-        return image
     }
 }
 
 extension ImageGenerator {
-    // swiftlint:disable:next cyclomatic_complexity
-    fileprivate func drawGeometry(imageRenderModel: ImageRenderModel, pointProjector: PointProjector, geometry: GeoJsonGeometry, context: CGContext, debug: Bool) {
-        switch geometry {
-        case let point as GeoJsonPoint:
-            drawPin(pointProjector: pointProjector, point: point)
-        case let multiPoint as GeoJsonMultiPoint:
-            multiPoint.points.forEach { drawPin(pointProjector: pointProjector, point: $0) }
+    private func image(for geoJsonObject: GeoJsonObject, with drawingRenderModel: DrawingRenderModel, width: Double, height: Double, snapshotSettings: SnapshotSettings?, debug: Bool) -> UIImage? {
+        let desiredImageRect = CGRect(x: 0, y: 0, width: width, height: height)
+        
+        let rendererFormat = UIGraphicsImageRendererFormat()
+        rendererFormat.opaque = false
+        rendererFormat.scale = 1.0
+        
+        let renderer = UIGraphicsImageRenderer(size: desiredImageRect.size, format: rendererFormat)
+        return renderer.image { context in
+            let drawing = GeometryProjector(context: context.cgContext, drawingRenderModel: drawingRenderModel, snapshotSettings: snapshotSettings, debug: debug)
             
-            if debug { drawPin(pointProjector: pointProjector, point: multiPoint.centroid) }
-        case let lineString as GeoJsonLineString:
-            drawLine(imageRenderModel: imageRenderModel, context: context, pointProjector: pointProjector, line: lineString, debug: debug)
-        case let multiLineString as GeoJsonMultiLineString:
-            multiLineString.lineStrings.forEach { drawLine(imageRenderModel: imageRenderModel, context: context, pointProjector: pointProjector, line: $0, debug: debug) }
-            
-            if debug { drawPin(pointProjector: pointProjector, point: multiLineString.centroid) }
-        case let polygon as GeoJsonPolygon:
-            drawPolygon(imageRenderModel: imageRenderModel, context: context, pointProjector: pointProjector, polygon: polygon, debug: debug)
-            
-            if debug {
-                if polygon.linearRings.count > 1 {
-                    polygon.linearRings.forEach { drawPin(pointProjector: pointProjector, point: calculator.centroid(linearRingSegments: $0.segments)) }
-                }
-                
-                drawPin(pointProjector: pointProjector, point: polygon.centroid)
-            }
-        case let multiPolygon as GeoJsonMultiPolygon:
-            multiPolygon.polygons.forEach { drawPolygon(imageRenderModel: imageRenderModel, context: context, pointProjector: pointProjector, polygon: $0, debug: debug) }
-            
-            if debug { drawPin(pointProjector: pointProjector, point: multiPolygon.centroid) }
-        case let geometryCollection as GeoJsonGeometryCollection:
-            geometryCollection.objectGeometries?.forEach {
-                drawGeometry(imageRenderModel: imageRenderModel, pointProjector: pointProjector, geometry: $0, context: context, debug: debug)
-            }
-        default: return
-        }
-    }
-    
-    // TODO: Draw the pin to better proportions?
-    private func drawPin(pointProjector: PointProjector, point: GeodesicPoint) {
-        let pinImage = UIImage.localImage(named: "UIMapPinActive")
-        
-        var point: CGPoint = pointProjector.asPoints([point]).first!
-        point.x -= pinImage.size.width / 2
-        // TODO: Remove "/ 2" if the pin bottom should be the exact location.
-        point.y -= pinImage.size.height // / 2
-        
-        let rect = CGRect(origin: point, size: pinImage.size)
-        pinImage.draw(in: rect)
-    }
-    
-    private func drawLine(imageRenderModel: ImageRenderModel, context: CGContext, pointProjector: PointProjector, line: GeoJsonLineString, debug: Bool) {
-        let points = line.points
-        
-        if debug {
-            points.forEach { drawPin(pointProjector: pointProjector, point: $0) }
-            drawPin(pointProjector: pointProjector, point: line.centroid)
-        }
-        
-        let cgPoints: [CGPoint] = pointProjector.asPoints(points)
-        
-        context.move(to: CGPoint(x: cgPoints[0].x, y: cgPoints[0].y))
-        cgPoints.forEach { context.addLine(to: CGPoint(x: $0.x, y: $0.y)) }
-        
-        context.setLineWidth(3.0)
-        
-        context.setStrokeColor(debug ? imageRenderModel.shapeLineColor.copy(alpha: ImageGenerator.debugAlpha)! : imageRenderModel.shapeLineColor)
-        
-        context.strokePath()
-    }
-    
-    private func drawPolygon(imageRenderModel: ImageRenderModel, context: CGContext, pointProjector: PointProjector, polygon: GeoJsonPolygon, debug: Bool) {
-        let lines = polygon.linearRings
-        
-        if debug { drawPin(pointProjector: pointProjector, point: polygon.centroid) }
-        
-        for (index, line) in lines.enumerated() {
-            if debug {
-                line.points.forEach { drawPin(pointProjector: pointProjector, point: $0) }
-                drawPin(pointProjector: pointProjector, point: line.centroid)
-            }
-            
-            let points: [CGPoint] = pointProjector.asPoints(line.points)
-            
-            context.beginPath()
-            context.move(to: CGPoint(x: points[0].x, y: points[0].y))
-            points.forEach { context.addLine(to: CGPoint(x: $0.x, y: $0.y)) }
-            // Note: Closing path is not needed if first and end points are the same. This should be the case in the parsers.
-            context.closePath()
-            
-            context.setLineWidth(3.0)
-            context.setStrokeColor(debug ? imageRenderModel.shapeLineColor.copy(alpha: ImageGenerator.debugAlpha)! : imageRenderModel.shapeLineColor)
-            
-            context.setFillColor(index == 0 ? (debug ? imageRenderModel.shapeFillColor.copy(alpha: ImageGenerator.debugAlpha)! : imageRenderModel.shapeFillColor) : (debug ? imageRenderModel.backgroundColor.copy(alpha: ImageGenerator.debugAlpha)! : imageRenderModel.backgroundColor))
-            
-            context.drawPath(using: .fillStroke)
+            drawing.draw(geoJsonObject: geoJsonObject, width: width, height: height)
         }
     }
 }

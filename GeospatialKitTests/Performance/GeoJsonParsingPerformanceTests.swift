@@ -3,21 +3,19 @@ import XCTest
 @testable import GeospatialKit
 
 final class GeoJsonParsingPerformanceTest: XCTestCase {
-    
     func testPolygonBoundingBox() {
         let geospatial = GeoTestHelper.geospatial
         
-        #if swift(>=4.1)
         let geoJsons = MockData.geoJsonTestData.compactMap { $0["geoJson"] as? GeoJsonDictionary }
-        #else
-        let geoJsons = MockData.geoJsonTestData.flatMap { $0["geoJson"] as? GeoJsonDictionary }
-        #endif
         
         var cacheForMemoryUsageInfo = [GeoJsonObject]()
         
         measure {
             for _ in 0..<50 {
                 for geoJson in geoJsons {
+                    // swiftlint:disable:next force_cast
+                    guard (geoJson["type"] as! String) != "Invalid" else { return }
+                    
                     cacheForMemoryUsageInfo.append(geospatial.geoJson.parse(geoJson: geoJson)!)
                 }
             }

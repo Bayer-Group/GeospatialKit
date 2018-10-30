@@ -16,19 +16,19 @@ class OverlayGeneratorTests: XCTestCase {
     }
     
     func testOverlaysPoint() {
-        let overlays = overlayGenerator.overlays(for: MockData.testGeoJsonObject(geoJsonDataName: "Point"))
+        let overlays = overlayGenerator.overlays(for: MockData.testGeoJsonObject(geoJsonDataName: "Point"), withProperties: [:])
         
         XCTAssertEqual(overlays.count, 0)
     }
     
     func testOverlaysMultiPoint() {
-        let overlays = overlayGenerator.overlays(for: MockData.testGeoJsonObject(geoJsonDataName: "MultiPoint"))
+        let overlays = overlayGenerator.overlays(for: MockData.testGeoJsonObject(geoJsonDataName: "MultiPoint 3 Point"), withProperties: [:])
         
         XCTAssertEqual(overlays.count, 0)
     }
     
     func testOverlaysLineString() {
-        let overlays = overlayGenerator.overlays(for: MockData.testGeoJsonObject(geoJsonDataName: "LineString"))
+        let overlays = overlayGenerator.overlays(for: MockData.testGeoJsonObject(geoJsonDataName: "LineString 4 Point"), withProperties: [:])
         
         XCTAssertEqual(overlays.count, 1)
         
@@ -38,9 +38,9 @@ class OverlayGeneratorTests: XCTestCase {
     }
     
     func testOverlaysMultiLineString() {
-        let overlays = overlayGenerator.overlays(for: MockData.testGeoJsonObject(geoJsonDataName: "MultiLineString"))
+        let overlays = overlayGenerator.overlays(for: MockData.testGeoJsonObject(geoJsonDataName: "MultiLineString 3 Line"), withProperties: [:])
         
-        XCTAssertEqual(overlays.count, 2)
+        XCTAssertEqual(overlays.count, 3)
         
         var renderer = overlayGenerator.renderer(for: overlays[0], with: overlayRenderModel)
         
@@ -52,7 +52,7 @@ class OverlayGeneratorTests: XCTestCase {
     }
     
     func testOverlaysPolygon() {
-        let overlays = overlayGenerator.overlays(for: MockData.testGeoJsonObject(geoJsonDataName: "Polygon"))
+        let overlays = overlayGenerator.overlays(for: MockData.testGeoJsonObject(geoJsonDataName: "Polygon 6 Line"), withProperties: [:])
         
         XCTAssertEqual(overlays.count, 1)
         
@@ -62,7 +62,7 @@ class OverlayGeneratorTests: XCTestCase {
     }
     
     func testOverlaysPolygonMultipleRings() {
-        let overlays = overlayGenerator.overlays(for: MockData.testGeoJsonObject(geoJsonDataName: "Polygon: Multiple Rings"))
+        let overlays = overlayGenerator.overlays(for: MockData.testGeoJsonObject(geoJsonDataName: "Polygon: Multiple Rings"), withProperties: [:])
         
         XCTAssertEqual(overlays.count, 1)
         
@@ -72,9 +72,9 @@ class OverlayGeneratorTests: XCTestCase {
     }
     
     func testOverlaysMultiPolygon() {
-        let overlays = overlayGenerator.overlays(for: MockData.testGeoJsonObject(geoJsonDataName: "MultiPolygon"))
+        let overlays = overlayGenerator.overlays(for: MockData.testGeoJsonObject(geoJsonDataName: "MultiPolygon 3"), withProperties: [:])
         
-        XCTAssertEqual(overlays.count, 2)
+        XCTAssertEqual(overlays.count, 3)
         
         var renderer = overlayGenerator.renderer(for: overlays[0], with: overlayRenderModel)
         
@@ -86,7 +86,7 @@ class OverlayGeneratorTests: XCTestCase {
     }
     
     func testOverlaysGeometryCollection() {
-        let overlays = overlayGenerator.overlays(for: MockData.testGeoJsonObject(geoJsonDataName: "GeometryCollection"))
+        let overlays = overlayGenerator.overlays(for: MockData.testGeoJsonObject(geoJsonDataName: "GeometryCollection"), withProperties: [:])
         
         XCTAssertEqual(overlays.count, 1)
         
@@ -96,13 +96,13 @@ class OverlayGeneratorTests: XCTestCase {
     }
     
     func testOverlaysGeometryCollectionEmptyGeometries() {
-        let overlays = overlayGenerator.overlays(for: MockData.testGeoJsonObject(geoJsonDataName: "GeometryCollection: Empty geometries"))
+        let overlays = overlayGenerator.overlays(for: MockData.testGeoJsonObject(geoJsonDataName: "GeometryCollection: Empty geometries"), withProperties: [:])
         
         XCTAssertEqual(overlays.count, 0)
     }
     
     func testOverlaysFeature() {
-        let overlays = overlayGenerator.overlays(for: MockData.testGeoJsonObject(geoJsonDataName: "Feature"))
+        let overlays = overlayGenerator.overlays(for: MockData.testGeoJsonObject(geoJsonDataName: "Feature"), withProperties: [:])
         
         XCTAssertEqual(overlays.count, 1)
         
@@ -112,7 +112,7 @@ class OverlayGeneratorTests: XCTestCase {
     }
     
     func testOverlaysFeatureGeometryCollection() {
-        let overlays = overlayGenerator.overlays(for: MockData.testGeoJsonObject(geoJsonDataName: "Feature: Geometry Collection"))
+        let overlays = overlayGenerator.overlays(for: MockData.testGeoJsonObject(geoJsonDataName: "Feature: Geometry Collection"), withProperties: [:])
         
         XCTAssertEqual(overlays.count, 2)
         
@@ -126,13 +126,13 @@ class OverlayGeneratorTests: XCTestCase {
     }
     
     func testOverlaysFeatureNullGeometry() {
-        let overlays = overlayGenerator.overlays(for: MockData.testGeoJsonObject(geoJsonDataName: "Feature: null geometry"))
+        let overlays = overlayGenerator.overlays(for: MockData.testGeoJsonObject(geoJsonDataName: "Feature: null geometry"), withProperties: [:])
         
         XCTAssertEqual(overlays.count, 0)
     }
     
     func testOverlaysFeatureCollection() {
-        let overlays = overlayGenerator.overlays(for: MockData.testGeoJsonObject(geoJsonDataName: "FeatureCollection"))
+        let overlays = overlayGenerator.overlays(for: MockData.testGeoJsonObject(geoJsonDataName: "FeatureCollection"), withProperties: [:])
         
         XCTAssertEqual(overlays.count, 2)
         
@@ -146,7 +146,7 @@ class OverlayGeneratorTests: XCTestCase {
     }
     
     func testOverlaysFeatureCollection2Features1NullGeometry() {
-        let overlays = overlayGenerator.overlays(for: MockData.testGeoJsonObject(geoJsonDataName: "FeatureCollection: 2 Features, 1 null geometry"))
+        let overlays = overlayGenerator.overlays(for: MockData.testGeoJsonObject(geoJsonDataName: "FeatureCollection: 2 Features, 1 null geometry"), withProperties: [:])
         
         XCTAssertEqual(overlays.count, 1)
         
@@ -156,7 +156,7 @@ class OverlayGeneratorTests: XCTestCase {
     }
     
     func testOverlaysFeatureCollection1FeatureNullGeometry() {
-        let overlays = overlayGenerator.overlays(for: MockData.testGeoJsonObject(geoJsonDataName: "FeatureCollection: 1 Feature, null geometry"))
+        let overlays = overlayGenerator.overlays(for: MockData.testGeoJsonObject(geoJsonDataName: "FeatureCollection: 1 Feature, null geometry"), withProperties: [:])
         
         XCTAssertEqual(overlays.count, 0)
     }

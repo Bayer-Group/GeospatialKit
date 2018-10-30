@@ -6,6 +6,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey: Any]?) -> Bool {
+        #warning("Is this needed for keeping the MapView from caching bad tiles?")
+        //URLCache.shared.removeAllCachedResponses()
         return true
     }
     

@@ -1,21 +1,19 @@
 @testable import GeospatialKit
 
 final class MockImageManager: ImageManagerProtocol {
-    private(set) var createCallCount = 0
-    private(set) var createDebugCallCount = 0
-    
-    var createResult: UIImage?
-    var createDebugResult: UIImage?
-    
-    func create(for geoJsonObject: GeoJsonObject, with imageRenderModel: ImageRenderModel) -> UIImage? {
-        createCallCount += 1
+    private(set) var imageCallCount = 0
+    var imageResult: UIImage?
+    func image(for geoJsonObject: GeoJsonObject, with drawingRenderModel: DrawingRenderModel, width: Double, height: Double, debug: Bool) -> UIImage? {
+        imageCallCount += 1
         
-        return createResult
+        return imageResult
     }
     
-    func create(for geoJsonObject: GeoJsonObject, with imageRenderModel: ImageRenderModel, debug: Bool) -> UIImage? {
-        createDebugCallCount += 1
+    private(set) var snapshotCallCount = 0
+    var snapshotResult: UIImage?
+    func snapshot(for geoJsonObject: GeoJsonObject, with drawingRenderModel: DrawingRenderModel, width: Double, height: Double, debug: Bool, completion: @escaping (UIImage?) -> Void) {
+        snapshotCallCount += 1
         
-        return createDebugResult
+        completion(snapshotResult)
     }
 }

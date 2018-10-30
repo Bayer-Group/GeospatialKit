@@ -1,25 +1,13 @@
 internal protocol OverlayGeneratorProtocol {
-    func overlay(for lineString: GeoJsonLineString) -> MKPolyline
-    func overlay(for polygon: GeoJsonPolygon) -> MKPolygon
-    func overlays(for geoJsonObject: GeoJsonObject) -> [MKOverlay]
+    func overlays(for geoJsonObject: GeoJsonObject, withProperties properties: [String: Any]) -> [GeospatialMapOverlay]
     func renderer(for overlay: MKOverlay, with overlayRenderModel: OverlayRenderModel) -> MKOverlayRenderer
 }
 
 internal struct OverlayGenerator: OverlayGeneratorProtocol {
-    func overlay(for polygon: GeoJsonPolygon) -> MKPolygon {
-        let linearRingsCoordinates = polygon.linearRings.map { $0.points.map { $0.locationCoordinate } }
-        
-        let firstCoordinates = linearRingsCoordinates.first!
-        
-        let interiorPolygons = linearRingsCoordinates.tail?.map { MKPolygon(coordinates: $0, count: $0.count) }
-        
-        return MKPolygon(coordinates: firstCoordinates, count: firstCoordinates.count, interiorPolygons: interiorPolygons)
-    }
-    
-    func overlays(for geoJsonObject: GeoJsonObject) -> [MKOverlay] {
+    func overlays(for geoJsonObject: GeoJsonObject, withProperties properties: [String: Any]) -> [GeospatialMapOverlay] {
         guard let geometries = geoJsonObject.objectGeometries else { Log.info("No geometry objects for: \(geoJsonObject.geoJson)."); return [] }
         
-        return geometries.flatMap { overlays(for: $0) }
+        return geometries.flatMap { overlays(for: $0, withProperties: properties) }
     }
     
     func renderer(for overlay: MKOverlay, with overlayRenderModel: OverlayRenderModel) -> MKOverlayRenderer {
@@ -46,25 +34,38 @@ internal struct OverlayGenerator: OverlayGeneratorProtocol {
         return MKOverlayRenderer()
     }
     
-    private func overlays(for geometry: GeoJsonGeometry) -> [MKOverlay] {
+    private func overlays(for geometry: GeoJsonGeometry, withProperties properties: [String: Any]) -> [GeospatialMapOverlay] {
         switch geometry {
         case let lineString as GeoJsonLineString:
-            return [overlay(for: lineString)]
+            return [overlay(for: lineString, withProperties: properties)]
         case let multiLineString as GeoJsonMultiLineString:
-            return multiLineString.lineStrings.flatMap { overlays(for: $0) }
+            #warning("Should this be the same overlay?")
+            return multiLineString.lineStrings.flatMap { overlays(for: $0, withProperties: properties) }
         case let polygon as GeoJsonPolygon:
-            return [overlay(for: polygon)]
+            return [overlay(for: polygon, withProperties: properties)]
         case let multiPolygon as GeoJsonMultiPolygon:
-            return multiPolygon.polygons.flatMap { overlays(for: $0) }
+            #warning("Should this be the same overlay?")
+            return multiPolygon.polygons.flatMap { overlays(for: $0, withProperties: properties) }
         case let geometryCollection as GeoJsonGeometryCollection:
-            return geometryCollection.objectGeometries?.flatMap { overlays(for: $0) } ?? []
+            #warning("Should this be the same overlay?")
+            return geometryCollection.objectGeometries?.flatMap { overlays(for: $0, withProperties: properties) } ?? []
         default: return []
         }
     }
     
-    func overlay(for lineString: GeoJsonLineString) -> MKPolyline {
+    private func overlay(for lineString: GeoJsonLineString, withProperties properties: [String: Any]) -> GeospatialMapOverlay {
         let coordinates = lineString.points.map { $0.locationCoordinate }
         
-        return MKPolyline(coordinates: coordinates, count: coordinates.count)
+        return GeospatialPolylineOverlay(coordinates: coordinates, count: coordinates.count, properties: properties)
+    }
+    
+    private func overlay(for polygon: GeoJsonPolygon, withProperties properties: [String: Any]) -> GeospatialMapOverlay {
+        let linearRingsCoordinates = polygon.linearRings.map { $0.points.map { $0.locationCoordinate } }
+        
+        let firstCoordinates = linearRingsCoordinates.first!
+        
+        let interiorPolygons = linearRingsCoordinates.tail?.map { MKPolygon(coordinates: $0, count: $0.count) }
+        
+        return GeospatialPolygonOverlay(coordinates: firstCoordinates, count: firstCoordinates.count, interiorPolygons: interiorPolygons, properties: properties)
     }
 }

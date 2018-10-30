@@ -119,6 +119,39 @@
 			"id": "12345"
 		}
 	}, {
+		"name": "Feature: Geometry Collection",
+		"geoJson": {
+			"type": "Feature",
+			"bbox": [-10.0, -10.0, 10.0, 10.0],
+			"geometry": {
+				"type": "GeometryCollection",
+				"geometries": [{
+						"type": "Point",
+						"coordinates": [100.0, 0.0]
+					},
+					{
+						"type": "LineString",
+						"coordinates": [
+							[101.0, 0.0],
+							[102.0, 1.0]
+						]
+					},
+					{
+						"type": "Polygon",
+						"coordinates": [
+							[
+								[100.0, 0.0],
+								[101.0, 0.0],
+								[101.0, 1.0],
+								[100.0, 1.0],
+								[100.0, 0.0]
+							]
+						]
+					}
+				]
+			}
+		}
+	}, {
 		"name": "Feature: null geometry",
 		"geoJson": {
 			"type": "Feature",
@@ -132,7 +165,7 @@
 			"coordinates": [100.0, 0.0]
 		}
 	}, {
-		"name": "LineString",
+		"name": "LineString 2 Point",
 		"geoJson": {
 			"type": "LineString",
 			"coordinates": [
@@ -141,7 +174,18 @@
 			]
 		}
 	}, {
-		"name": "Polygon",
+		"name": "LineString 4 Point",
+		"geoJson": {
+			"type": "LineString",
+			"coordinates": [
+				[100.0, 0.0],
+				[101.0, 1.0],
+				[121.0, -1.0],
+				[100.0, -11.0]
+			]
+		}
+	}, {
+		"name": "Polygon 4 Line",
 		"geoJson": {
 			"type": "Polygon",
 			"coordinates": [
@@ -150,6 +194,22 @@
 					[101.0, 0.0],
 					[101.0, 1.0],
 					[100.0, 1.0],
+					[100.0, 0.0]
+				]
+			]
+		}
+	}, {
+		"name": "Polygon 6 Line",
+		"geoJson": {
+			"type": "Polygon",
+			"coordinates": [
+				[
+					[100.0, 0.0],
+					[101.0, 0.0],
+					[101.0, 1.0],
+					[106.0, 2.0],
+					[107.0, 2.5],
+					[100.0, 2.0],
 					[100.0, 0.0]
 				]
 			]
@@ -168,7 +228,21 @@
 				]
 			]
 		}
-	}, {
+    }, {
+        "name": "Small Polygon 2",
+        "geoJson": {
+            "type": "Polygon",
+            "coordinates": [
+                [
+                    [-88.3254122, 39.5206294],
+                    [-88.3254123, 39.520653],
+                    [-88.3265849, 39.5206532],
+                    [-88.3265849, 39.5206296],
+                    [-88.3254122, 39.5206294]
+                ]
+            ]
+        }
+    }, {
 		"name": "Polygon: Multiple Rings",
 		"geoJson": {
 			"type": "Polygon",
@@ -202,16 +276,25 @@
 					[0.5, 1.5]
 				],
 				[
-					[1.5, 2.0],
+					[1.5, 2.3],
 					[2.4, 1.6],
 					[2.4, 2.9],
 					[2.0, 3.1],
-					[1.5, 2.0]
-				]
+					[1.5, 2.3]
+                ],
+                [
+                    [0.6, 1.8],
+                    [1.6, 1.6],
+                    [1.0, 2.5],
+                    [1.5, 3.4],
+                    [1.0, 3.4],
+                    [0.7, 2.8],
+                    [0.6, 1.8]
+                ]
 			]
 		}
 	}, {
-		"name": "MultiPoint",
+		"name": "MultiPoint 2 Point",
 		"geoJson": {
 			"type": "MultiPoint",
 			"coordinates": [
@@ -220,7 +303,17 @@
 			]
 		}
 	}, {
-		"name": "MultiLineString",
+		"name": "MultiPoint 3 Point",
+		"geoJson": {
+			"type": "MultiPoint",
+			"coordinates": [
+				[1.0, 2.0],
+				[2.0, 2.0],
+				[2.0, 3.0]
+			]
+		}
+	}, {
+		"name": "MultiLineString 2 Line",
 		"geoJson": {
 			"type": "MultiLineString",
 			"coordinates": [
@@ -235,7 +328,26 @@
 			]
 		}
 	}, {
-		"name": "MultiPolygon",
+		"name": "MultiLineString 3 Line",
+		"geoJson": {
+			"type": "MultiLineString",
+			"coordinates": [
+				[
+					[100.0, 0.0],
+					[101.0, 1.0]
+				],
+				[
+					[104.0, 0.0],
+					[105.0, 1.0]
+				],
+				[
+					[104.0, 4.0],
+					[105.0, 5.0]
+				]
+			]
+		}
+	}, {
+		"name": "MultiPolygon 2",
 		"geoJson": {
 			"type": "MultiPolygon",
 			"coordinates": [
@@ -262,6 +374,47 @@
 						[100.8, 0.8],
 						[100.2, 0.8],
 						[100.2, 0.2]
+					]
+				]
+			]
+		}
+	}, {
+		"name": "MultiPolygon 3",
+		"geoJson": {
+			"type": "MultiPolygon",
+			"coordinates": [
+				[
+					[
+						[102.0, 2.0],
+						[103.0, 2.0],
+						[103.0, 3.0],
+						[102.0, 3.0],
+						[102.0, 2.0]
+					]
+				],
+				[
+					[
+						[100.0, 0.0],
+						[101.0, 0.0],
+						[101.0, 1.0],
+						[100.0, 1.0],
+						[100.0, 0.0]
+					],
+					[
+						[100.2, 0.2],
+						[100.8, 0.2],
+						[100.8, 0.8],
+						[100.2, 0.8],
+						[100.2, 0.2]
+					]
+				],
+				[
+					[
+						[102.0, 0.0],
+						[103.0, 0.0],
+						[103.0, 1.0],
+						[102.0, 1.0],
+						[102.0, 0.0]
 					]
 				]
 			]
