@@ -1,1 +1,1 @@
-github "schlingding/GeospatialSwift" "general_enhancements"
+github "MonsantoCo/GeospatialSwift" ~> 0.3.0
