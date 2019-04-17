@@ -4,7 +4,7 @@ public protocol ImageGeneratorProtocol {
 }
 
 internal struct SnapshotSettings {
-    let snapshot: MKMapSnapshot
+    let snapshot: MKMapSnapshotter.Snapshot
     let scale: Double
 }
 
@@ -22,7 +22,7 @@ internal class ImageGenerator: ImageGeneratorProtocol {
         let width = width * Double(UIScreen.main.scale) / snapshotScale
         let height = height * Double(UIScreen.main.scale) / snapshotScale
         
-        let mapSnapshotOptions = MKMapSnapshotOptions()
+        let mapSnapshotOptions = MKMapSnapshotter.Options()
         mapSnapshotOptions.region = region
         mapSnapshotOptions.scale = UIScreen.main.scale
         mapSnapshotOptions.size = CGSize(width: width, height: height)

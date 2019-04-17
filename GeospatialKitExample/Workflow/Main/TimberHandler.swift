@@ -29,16 +29,16 @@ class TimberHandler: TimberApplicationDelegate {
         print("TOAST: \"\(message)\", displayTime: \(displayTime), type: \(type), source: \"\(source)\"")
     }
     
-    func startTrace(key: String, properties: [String: Any]?, source: Source) {
-        print("TRACE: Start \"\(key)\", , properties: \(properties ?? [:]), source: \"\(source)\"")
+    func startTrace(key: String, identifier: UUID?, properties: [String: Any]?, source: Source) {
+        print("TRACE: Start \"\(key)\", identifier: \(identifier?.uuidString ?? ""), properties: \(properties ?? [:]), source: \"\(source)\"")
     }
     
-    func incrementTraceCounter(key: String, named: String, by count: Int, source: Source) {
-        print("TRACE: Increment \"\(key)\", , named: \(named), by: \(count), source: \"\(source)\"")
+    func incrementTraceCounter(key: String, identifier: UUID?, named: String, by count: Int, source: Source) {
+        print("TRACE: Increment \"\(key)\", identifier: \(identifier?.uuidString ?? ""), named: \(named), by: \(count), source: \"\(source)\"")
     }
     
-    func stopTrace(key: String, source: Source) {
-        print("TRACE: Stop \"\(key)\", source: \"\(source)\"")
+    func stopTrace(key: String, identifier: UUID?, source: Source) {
+        print("TRACE: Stop \"\(key)\", identifier: \(identifier?.uuidString ?? ""), source: \"\(source)\"")
     }
     
     func networkActivityStarted(source: Source) {
