@@ -6,7 +6,7 @@ public extension GeoJsonPolygon {
         
         let polygonRenderer = MKPolygonRenderer(overlay: polygonOverlay)
         
-        let mapPoint: MKMapPoint = MKMapPoint.init(point.locationCoordinate)
+        let mapPoint: MKMapPoint = MKMapPoint(point.locationCoordinate)
         let polygonViewPoint: CGPoint = polygonRenderer.point(for: mapPoint)
         
         guard errorDistance >= 0 else { return distance(to: point) > abs(errorDistance) && polygonRenderer.path.contains(polygonViewPoint) }
