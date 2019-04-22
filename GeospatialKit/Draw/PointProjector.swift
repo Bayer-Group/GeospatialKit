@@ -6,10 +6,10 @@ internal struct PointProjector {
     // Future: Could add a coordinate system rather than width and height which might not assume (0,0) as the base coordinate
     init(boundingBox: GeodesicBoundingBox, width: Double, height: Double) {
         // Rotated 90 degrees for UIView coordinate system, MKMapPoint representing upper left corner of geometry bounds
-        let projectedUpperLeft = MKMapPointForCoordinate(CLLocationCoordinate2D(latitude: boundingBox.maxLatitude, longitude: boundingBox.minLongitude))
+        let projectedUpperLeft = MKMapPoint(CLLocationCoordinate2D(latitude: boundingBox.maxLatitude, longitude: boundingBox.minLongitude))
         
         // Rotated 90 degrees for UIView coordinate system, MKMapPoint representing lower right corner of geometry bounds
-        let projectedLowerRight = MKMapPointForCoordinate(CLLocationCoordinate2D(latitude: boundingBox.minLatitude, longitude: boundingBox.maxLongitude))
+        let projectedLowerRight = MKMapPoint(CLLocationCoordinate2D(latitude: boundingBox.minLatitude, longitude: boundingBox.maxLongitude))
         
         let projectedWidth = projectedLowerRight.x - projectedUpperLeft.x
         let projectedHeight = projectedLowerRight.y - projectedUpperLeft.y
@@ -31,7 +31,7 @@ internal struct PointProjector {
     
     func asPoints(_ points: [GeodesicPoint]) -> [CGPoint] {
         return points.map { point in
-            let projectedCoordinate = MKMapPointForCoordinate(CLLocationCoordinate2D(latitude: point.latitude, longitude: point.longitude))
+            let projectedCoordinate = MKMapPoint(CLLocationCoordinate2D(latitude: point.latitude, longitude: point.longitude))
             
             // Convert to the expected scale
             let scaledProjectedX = projectedCoordinate.x * scale
