@@ -1,7 +1,13 @@
 public protocol ImageGeneratorProtocol {
     func image(for geoJsonObject: GeoJsonObject, with drawingRenderModel: DrawingRenderModel, width: Double, height: Double, debug: Bool) -> UIImage?
-    func snapshot(for geoJsonObject: GeoJsonObject, with drawingRenderModel: DrawingRenderModel, width: Double, height: Double, debug: Bool, completion: @escaping (UIImage?) -> Void)
+    func snapshot(for geoJsonObject: GeoJsonObject, with drawingRenderModel: DrawingRenderModel, width: Double, height: Double, debug: Bool, completion: @escaping (UIImage?) -> Void) -> SnapshotCoordinator?
 }
+
+public protocol SnapshotCoordinator {
+    func cancel()
+}
+
+extension MKMapSnapshotter: SnapshotCoordinator { }
 
 internal struct SnapshotSettings {
     let snapshot: MKMapSnapshotter.Snapshot
@@ -13,8 +19,8 @@ internal class ImageGenerator: ImageGeneratorProtocol {
         return image(for: geoJsonObject, with: drawingRenderModel, width: width * Double(UIScreen.main.scale), height: height * Double(UIScreen.main.scale), snapshotSettings: nil, debug: debug)
     }
     
-    func snapshot(for geoJsonObject: GeoJsonObject, with drawingRenderModel: DrawingRenderModel, width: Double, height: Double, debug: Bool, completion: @escaping (UIImage?) -> Void) {
-        guard let region = geoJsonObject.objectBoundingBox?.mappingBoundingBox(insetPercent: drawingRenderModel.inset).region else { completion(nil); return }
+    func snapshot(for geoJsonObject: GeoJsonObject, with drawingRenderModel: DrawingRenderModel, width: Double, height: Double, debug: Bool, completion: @escaping (UIImage?) -> Void) -> SnapshotCoordinator? {
+        guard let region = geoJsonObject.objectBoundingBox?.mappingBoundingBox(insetPercent: drawingRenderModel.inset).region else { completion(nil); return nil }
         
         #warning("Decide snapshot scale - the number will vary based on if latitude or longitude is chosen as the limiting factor based on view width and height.")
         //let shouldScale = max(region.span.longitudeDelta, region.span.latitudeDelta) < 0.002880360609112
@@ -30,7 +36,8 @@ internal class ImageGenerator: ImageGeneratorProtocol {
         mapSnapshotOptions.showsPointsOfInterest = false
         mapSnapshotOptions.mapType = drawingRenderModel.mapType
         
-        MKMapSnapshotter(options: mapSnapshotOptions).start { snapshot, error in
+        let snapshotter = MKMapSnapshotter(options: mapSnapshotOptions)
+        snapshotter.start { snapshot, error in
             if let error = error { Log.error("Snapshot Error: \(error)", errorType: .internal); completion(nil); return }
             
             guard let snapshot = snapshot else { return }
@@ -41,6 +48,8 @@ internal class ImageGenerator: ImageGeneratorProtocol {
             
             completion(finalImage)
         }
+        
+        return snapshotter
     }
 }
 
