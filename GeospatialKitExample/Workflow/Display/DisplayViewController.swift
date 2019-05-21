@@ -60,14 +60,14 @@ class DisplayViewController: UIViewController {
             // For small geometries: region.span.latitudeDelta > 0.008 || region.span.longitudeDelta > 0.008
             
             DispatchQueue.main.async {
-                // let coordinator =
+                // let request =
                 geospatial.image.snapshot(for: geoJsonObject, with: drawingRenderModel, width: Double(mapImageView.bounds.width), height: Double(mapImageView.bounds.height), debug: false) { image in
                     guard let image = image else { return }
                     
                     mapImageView.image = image
                 }
                 
-                //coordinator?.cancel()
+                //request?.cancel()
             }
             
             guard let insetBoundingBox = geoJsonObject.objectBoundingBox?.mappingBoundingBox(insetPercent: 0.20) else { print("🗺️ GeospatialExample 🗺️ No Bounding Box"); return }

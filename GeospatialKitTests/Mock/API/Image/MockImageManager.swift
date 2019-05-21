@@ -11,7 +11,7 @@ final class MockImageManager: ImageManagerProtocol {
     
     private(set) var snapshotCallCount = 0
     var snapshotResult: UIImage?
-    func snapshot(for geoJsonObject: GeoJsonObject, with drawingRenderModel: DrawingRenderModel, width: Double, height: Double, debug: Bool, completion: @escaping (UIImage?) -> Void) -> SnapshotCoordinator? {
+    func snapshot(for geoJsonObject: GeoJsonObject, with drawingRenderModel: DrawingRenderModel, width: Double, height: Double, debug: Bool, completion: @escaping (UIImage?) -> Void) -> SnapshotRequest? {
         snapshotCallCount += 1
         
         completion(snapshotResult)

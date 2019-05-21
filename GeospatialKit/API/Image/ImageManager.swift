@@ -2,7 +2,7 @@ public protocol ImageManagerProtocol {
     func image(for geoJsonObject: GeoJsonObject, with drawingRenderModel: DrawingRenderModel, width: Double, height: Double, debug: Bool) -> UIImage?
     
     @discardableResult
-    func snapshot(for geoJsonObject: GeoJsonObject, with drawingRenderModel: DrawingRenderModel, width: Double, height: Double, debug: Bool, completion: @escaping (UIImage?) -> Void) -> SnapshotCoordinator?
+    func snapshot(for geoJsonObject: GeoJsonObject, with drawingRenderModel: DrawingRenderModel, width: Double, height: Double, debug: Bool, completion: @escaping (UIImage?) -> Void) -> SnapshotRequest?
 }
 
 extension ImageManagerProtocol {
@@ -11,7 +11,7 @@ extension ImageManagerProtocol {
     }
     
     @discardableResult
-    public func snapshot(for geoJsonObject: GeoJsonObject, with drawingRenderModel: DrawingRenderModel, width: Double, height: Double, completion: @escaping (UIImage?) -> Void) -> SnapshotCoordinator? {
+    public func snapshot(for geoJsonObject: GeoJsonObject, with drawingRenderModel: DrawingRenderModel, width: Double, height: Double, completion: @escaping (UIImage?) -> Void) -> SnapshotRequest? {
         return snapshot(for: geoJsonObject, with: drawingRenderModel, width: width, height: height, debug: false, completion: completion)
     }
     
@@ -23,7 +23,7 @@ extension ImageManagerProtocol {
     }
     
     @discardableResult
-    public func snapshot(for geoJsonObjects: [GeoJsonObject], with drawingRenderModel: DrawingRenderModel, width: Double, height: Double, completion: @escaping (UIImage?) -> Void) -> SnapshotCoordinator? {
+    public func snapshot(for geoJsonObjects: [GeoJsonObject], with drawingRenderModel: DrawingRenderModel, width: Double, height: Double, completion: @escaping (UIImage?) -> Void) -> SnapshotRequest? {
         let geometries = geoJsonObjects.compactMap { $0.objectGeometries }.flatMap { $0 }
         let geoJsonObject = Geospatial().geoJson.geometryCollection(geometries: geometries)
         
@@ -55,7 +55,7 @@ public struct ImageManager: ImageManagerProtocol {
      
      - returns: A UIImage as with image overlayed onto a Map
      */
-    public func snapshot(for geoJsonObject: GeoJsonObject, with drawingRenderModel: DrawingRenderModel, width: Double, height: Double, debug: Bool, completion: @escaping (UIImage?) -> Void) -> SnapshotCoordinator? {
+    public func snapshot(for geoJsonObject: GeoJsonObject, with drawingRenderModel: DrawingRenderModel, width: Double, height: Double, debug: Bool, completion: @escaping (UIImage?) -> Void) -> SnapshotRequest? {
         return imageGenerator.snapshot(for: geoJsonObject, with: drawingRenderModel, width: width, height: height, debug: debug, completion: completion)
     }
 }

@@ -1,13 +1,13 @@
 public protocol ImageGeneratorProtocol {
     func image(for geoJsonObject: GeoJsonObject, with drawingRenderModel: DrawingRenderModel, width: Double, height: Double, debug: Bool) -> UIImage?
-    func snapshot(for geoJsonObject: GeoJsonObject, with drawingRenderModel: DrawingRenderModel, width: Double, height: Double, debug: Bool, completion: @escaping (UIImage?) -> Void) -> SnapshotCoordinator?
+    func snapshot(for geoJsonObject: GeoJsonObject, with drawingRenderModel: DrawingRenderModel, width: Double, height: Double, debug: Bool, completion: @escaping (UIImage?) -> Void) -> SnapshotRequest?
 }
 
-public protocol SnapshotCoordinator {
+public protocol SnapshotRequest {
     func cancel()
 }
 
-extension MKMapSnapshotter: SnapshotCoordinator { }
+extension MKMapSnapshotter: SnapshotRequest { }
 
 internal struct SnapshotSettings {
     let snapshot: MKMapSnapshotter.Snapshot
@@ -19,7 +19,7 @@ internal class ImageGenerator: ImageGeneratorProtocol {
         return image(for: geoJsonObject, with: drawingRenderModel, width: width * Double(UIScreen.main.scale), height: height * Double(UIScreen.main.scale), snapshotSettings: nil, debug: debug)
     }
     
-    func snapshot(for geoJsonObject: GeoJsonObject, with drawingRenderModel: DrawingRenderModel, width: Double, height: Double, debug: Bool, completion: @escaping (UIImage?) -> Void) -> SnapshotCoordinator? {
+    func snapshot(for geoJsonObject: GeoJsonObject, with drawingRenderModel: DrawingRenderModel, width: Double, height: Double, debug: Bool, completion: @escaping (UIImage?) -> Void) -> SnapshotRequest? {
         guard let region = geoJsonObject.objectBoundingBox?.mappingBoundingBox(insetPercent: drawingRenderModel.inset).region else { completion(nil); return nil }
         
         #warning("Decide snapshot scale - the number will vary based on if latitude or longitude is chosen as the limiting factor based on view width and height.")
