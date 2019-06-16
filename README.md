@@ -5,7 +5,7 @@
 
 What is GeospatialKit?
 
-GeospatialKit is an extension to [GeospatialSwift](https://github.com/MonsantoCo/GeospatialSwift) which adds support for cocoa functionaity.
+GeospatialKit is an extension to [GeospatialSwift](https://github.com/MonsantoCo/GeospatialSwift) which adds support for cocoa functionality.
 
 A GeoJsonObject can now be projected as an image or zoomed and rendered to a map.
 
