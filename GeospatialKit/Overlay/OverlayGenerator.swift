@@ -11,24 +11,37 @@ internal struct OverlayGenerator: OverlayGeneratorProtocol {
     }
     
     func renderer(for overlay: MKOverlay, with overlayRenderModel: OverlayRenderModel) -> MKOverlayRenderer {
+        if #available(iOS 13.0, *), overlay is MKMultiPolygon {
+            let renderer = MKMultiPolygonRenderer(overlay: overlay)
+            
+            renderer.lineWidth = overlayRenderModel.lineWidth
+            renderer.strokeColor = overlayRenderModel.strokeColor
+            renderer.fillColor = overlayRenderModel.fillColor
+            renderer.alpha = overlayRenderModel.alpha
+            
+            return renderer
+        }
+        
         if overlay is MKPolygon {
-            let polygonRenderer = MKPolygonRenderer(overlay: overlay)
+            let renderer = MKPolygonRenderer(overlay: overlay)
             
-            polygonRenderer.lineWidth = overlayRenderModel.lineWidth
-            polygonRenderer.strokeColor = overlayRenderModel.strokeColor
-            polygonRenderer.fillColor = overlayRenderModel.fillColor
-            polygonRenderer.alpha = overlayRenderModel.alpha
+            renderer.lineWidth = overlayRenderModel.lineWidth
+            renderer.strokeColor = overlayRenderModel.strokeColor
+            renderer.fillColor = overlayRenderModel.fillColor
+            renderer.alpha = overlayRenderModel.alpha
             
-            return polygonRenderer
-        } else if overlay is MKPolyline {
-            let polylineRenderer = MKPolylineRenderer(overlay: overlay)
+            return renderer
+        }
+        
+        if overlay is MKPolyline {
+            let renderer = MKPolylineRenderer(overlay: overlay)
             
-            polylineRenderer.lineWidth = overlayRenderModel.lineWidth
-            polylineRenderer.strokeColor = overlayRenderModel.strokeColor
-            polylineRenderer.fillColor = overlayRenderModel.fillColor
-            polylineRenderer.alpha = overlayRenderModel.alpha
+            renderer.lineWidth = overlayRenderModel.lineWidth
+            renderer.strokeColor = overlayRenderModel.strokeColor
+            renderer.fillColor = overlayRenderModel.fillColor
+            renderer.alpha = overlayRenderModel.alpha
             
-            return polylineRenderer
+            return renderer
         }
         
         return MKOverlayRenderer()
@@ -45,7 +58,11 @@ internal struct OverlayGenerator: OverlayGeneratorProtocol {
             return [overlay(for: polygon, withProperties: properties)]
         case let multiPolygon as GeoJsonMultiPolygon:
             #warning("Should this be the same overlay?")
-            return multiPolygon.polygons.flatMap { overlays(for: $0, withProperties: properties) }
+            if #available(iOS 13.0, *) {
+                return [overlay(for: multiPolygon, withProperties: properties)]
+            } else {
+                return multiPolygon.polygons.flatMap { overlays(for: $0, withProperties: properties) }
+            }
         case let geometryCollection as GeoJsonGeometryCollection:
             #warning("Should this be the same overlay?")
             return geometryCollection.objectGeometries?.flatMap { overlays(for: $0, withProperties: properties) } ?? []
@@ -67,5 +84,13 @@ internal struct OverlayGenerator: OverlayGeneratorProtocol {
         let interiorPolygons = linearRingsCoordinates.tail?.map { MKPolygon(coordinates: $0, count: $0.count) }
         
         return GeospatialPolygonOverlay(coordinates: firstCoordinates, count: firstCoordinates.count, interiorPolygons: interiorPolygons, properties: properties)
+    }
+    
+    @available(iOS 13.0, *)
+    private func overlay(for multiPolygon: GeoJsonMultiPolygon, withProperties properties: [String: Any]) -> GeospatialMapOverlay {
+        // swiftlint:disable:next force_cast
+        let polygons = multiPolygon.polygons.map { overlay(for: $0, withProperties: properties) as! GeospatialPolygonOverlay }
+        
+        return GeospatialMultiPolygonOverlay(polygons: polygons, properties: properties)
     }
 }
