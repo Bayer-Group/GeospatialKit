@@ -36,7 +36,11 @@ class DisplayViewController: UIViewController {
         drawingViewWrapper.geoJsonObject = geoJsonObject
         drawingViewWrapper.drawingRenderModel = drawingRenderModel
         
-        mapView.addOverlays(geospatial.map.overlays(for: geoJsonObject))
+        if #available(iOS 13.0, *) {
+            mapView.addOverlays(geospatial.map.groupedOverlays(for: geoJsonObject))
+        } else {
+            mapView.addOverlays(geospatial.map.overlays(for: geoJsonObject))
+        }
         mapView.addAnnotations(geospatial.map.annotations(for: geoJsonObject, withProperties: [:], debug: false))
         
         //        geohashBoxes?.forEach {

@@ -2,6 +2,8 @@ public protocol MapManagerProtocol {
     func annotations(for geoJsonObject: GeoJsonObject, withProperties properties: [String: Any], debug: Bool) -> [GeospatialMapAnnotation]
     func annotationView(for annotation: MKAnnotation, with overlayRenderModel: OverlayRenderModel, from mapView: MKMapView, reuseId: String) -> MKAnnotationView
     func overlays(for geoJsonObject: GeoJsonObject, withProperties properties: [String: Any]) -> [GeospatialMapOverlay]
+    @available(iOS 13.0, *)
+    func groupedOverlays(for geoJsonObject: GeoJsonObject, withProperties properties: [String: Any]) -> [GeospatialMapOverlay]
     func renderer(for overlay: MKOverlay, with overlayRenderModel: OverlayRenderModel) -> MKOverlayRenderer
 }
 
@@ -16,6 +18,11 @@ public extension MapManagerProtocol {
     
     func overlays(for geoJsonObject: GeoJsonObject) -> [GeospatialMapOverlay] {
         return overlays(for: geoJsonObject, withProperties: [:])
+    }
+    
+    @available(iOS 13.0, *)
+    func groupedOverlays(for geoJsonObject: GeoJsonObject) -> [GeospatialMapOverlay] {
+        return groupedOverlays(for: geoJsonObject, withProperties: [:])
     }
 }
 
@@ -59,6 +66,18 @@ public struct MapManager: MapManagerProtocol {
      */
     public func overlays(for geoJsonObject: GeoJsonObject, withProperties properties: [String: Any]) -> [GeospatialMapOverlay] {
         return overlayGenerator.overlays(for: geoJsonObject, withProperties: properties)
+    }
+    
+    /**
+     Returns overlays for the qualifying componenets of the geoJsonObject
+     
+     - geoJsonObject: The GeoJsonObject used to create overlays
+     
+     - returns: overlays for qualifying components
+     */
+    @available(iOS 13.0, *)
+    public func groupedOverlays(for geoJsonObject: GeoJsonObject, withProperties properties: [String: Any]) -> [GeospatialMapOverlay] {
+        return overlayGenerator.groupedOverlays(for: geoJsonObject, withProperties: properties)
     }
     
     /**

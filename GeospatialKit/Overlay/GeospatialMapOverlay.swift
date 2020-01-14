@@ -13,6 +13,17 @@ public final class GeospatialMultiPolygonOverlay: MKMultiPolygon, GeospatialMapO
     }
 }
 
+@available(iOS 13.0, *)
+public final class GeospatialMultiPolylineOverlay: MKMultiPolyline, GeospatialMapOverlay {
+    public private(set) var properties: [String: Any] = [:]
+    
+    convenience init(lineStrings: [GeospatialPolylineOverlay], properties: [String: Any]) {
+        self.init(lineStrings)
+        
+        self.properties = properties
+    }
+}
+
 public final class GeospatialPolygonOverlay: MKPolygon, GeospatialMapOverlay {
     public private(set) var properties: [String: Any] = [:]
     

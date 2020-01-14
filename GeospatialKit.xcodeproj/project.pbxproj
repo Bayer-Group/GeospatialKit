@@ -424,9 +424,9 @@
 		1E10771020409C7000B5AD00 /* Data */ = {
 			isa = PBXGroup;
 			children = (
-				1E3A422B210B9CB000F97839 /* Do not open in XCode */,
 				1E0CDEB31ED617720066D74F /* IntegrationData.swift */,
 				1ED4B9671EC353E300D2288E /* GeoJsonTestData.json */,
+				1E3A4229210B9CAA00F97839 /* GeoJsonTestDataBig.json */,
 			);
 			path = Data;
 			sourceTree = "<group>";
@@ -453,14 +453,6 @@
 				1EDA70A11F98E8BE00D21C01 /* README.md */,
 			);
 			name = Documentation;
-			sourceTree = "<group>";
-		};
-		1E3A422B210B9CB000F97839 /* Do not open in XCode */ = {
-			isa = PBXGroup;
-			children = (
-				1E3A4229210B9CAA00F97839 /* GeoJsonTestDataBig.json */,
-			);
-			path = "Do not open in XCode";
 			sourceTree = "<group>";
 		};
 		1E3A422C210BBB5500F97839 /* Extensions */ = {
@@ -1093,6 +1085,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MARKETING_VERSION = 0.6.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.monsanto.GeospatialKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
@@ -1116,6 +1109,7 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MARKETING_VERSION = 0.6.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.monsanto.GeospatialKit;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
