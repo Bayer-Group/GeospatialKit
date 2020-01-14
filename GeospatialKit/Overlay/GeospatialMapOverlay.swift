@@ -6,7 +6,7 @@ public protocol GeospatialMapOverlay: MKOverlay {
 public final class GeospatialMultiPolygonOverlay: MKMultiPolygon, GeospatialMapOverlay {
     public private(set) var properties: [String: Any] = [:]
     
-    convenience init(polygons: [GeospatialPolygonOverlay], properties: [String: Any]) {
+    public convenience init(polygons: [GeospatialPolygonOverlay], properties: [String: Any]) {
         self.init(polygons)
         
         self.properties = properties
@@ -17,7 +17,7 @@ public final class GeospatialMultiPolygonOverlay: MKMultiPolygon, GeospatialMapO
 public final class GeospatialMultiPolylineOverlay: MKMultiPolyline, GeospatialMapOverlay {
     public private(set) var properties: [String: Any] = [:]
     
-    convenience init(lineStrings: [GeospatialPolylineOverlay], properties: [String: Any]) {
+    public convenience init(lineStrings: [GeospatialPolylineOverlay], properties: [String: Any]) {
         self.init(lineStrings)
         
         self.properties = properties
@@ -27,7 +27,7 @@ public final class GeospatialMultiPolylineOverlay: MKMultiPolyline, GeospatialMa
 public final class GeospatialPolygonOverlay: MKPolygon, GeospatialMapOverlay {
     public private(set) var properties: [String: Any] = [:]
     
-    convenience init(coordinates coords: UnsafePointer<CLLocationCoordinate2D>, count: Int, interiorPolygons: [MKPolygon]?, properties: [String: Any]) {
+    public convenience init(coordinates coords: UnsafePointer<CLLocationCoordinate2D>, count: Int, interiorPolygons: [MKPolygon]?, properties: [String: Any]) {
         self.init(coordinates: coords, count: count, interiorPolygons: interiorPolygons)
         
         self.properties = properties
@@ -37,7 +37,7 @@ public final class GeospatialPolygonOverlay: MKPolygon, GeospatialMapOverlay {
 public final class GeospatialPolylineOverlay: MKPolyline, GeospatialMapOverlay {
     public private(set) var properties: [String: Any] = [:]
     
-    convenience init(coordinates coords: UnsafePointer<CLLocationCoordinate2D>, count: Int, properties: [String: Any]) {
+    public convenience init(coordinates coords: UnsafePointer<CLLocationCoordinate2D>, count: Int, properties: [String: Any]) {
         self.init(coordinates: coords, count: count)
         
         self.properties = properties
