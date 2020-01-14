@@ -37,7 +37,7 @@ class DisplayViewController: UIViewController {
         drawingViewWrapper.drawingRenderModel = drawingRenderModel
         
         if #available(iOS 13.0, *) {
-            mapView.addOverlays(geospatial.map.groupedOverlays(for: geoJsonObject))
+            mapView.addOverlays(geospatial.map.groupedOverlays(for: [geoJsonObject]))
         } else {
             mapView.addOverlays(geospatial.map.overlays(for: geoJsonObject))
         }

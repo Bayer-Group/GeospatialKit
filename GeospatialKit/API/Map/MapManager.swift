@@ -3,7 +3,7 @@ public protocol MapManagerProtocol {
     func annotationView(for annotation: MKAnnotation, with overlayRenderModel: OverlayRenderModel, from mapView: MKMapView, reuseId: String) -> MKAnnotationView
     func overlays(for geoJsonObject: GeoJsonObject, withProperties properties: [String: Any]) -> [GeospatialMapOverlay]
     @available(iOS 13.0, *)
-    func groupedOverlays(for geoJsonObject: GeoJsonObject, withProperties properties: [String: Any]) -> [GeospatialMapOverlay]
+    func groupedOverlays(for geoJsonObjects: [GeoJsonObject], withProperties properties: [String: Any]) -> [GeospatialMapOverlay]
     func renderer(for overlay: MKOverlay, with overlayRenderModel: OverlayRenderModel) -> MKOverlayRenderer
 }
 
@@ -21,8 +21,8 @@ public extension MapManagerProtocol {
     }
     
     @available(iOS 13.0, *)
-    func groupedOverlays(for geoJsonObject: GeoJsonObject) -> [GeospatialMapOverlay] {
-        return groupedOverlays(for: geoJsonObject, withProperties: [:])
+    func groupedOverlays(for geoJsonObjects: [GeoJsonObject]) -> [GeospatialMapOverlay] {
+        return groupedOverlays(for: geoJsonObjects, withProperties: [:])
     }
 }
 
@@ -76,8 +76,8 @@ public struct MapManager: MapManagerProtocol {
      - returns: overlays for qualifying components
      */
     @available(iOS 13.0, *)
-    public func groupedOverlays(for geoJsonObject: GeoJsonObject, withProperties properties: [String: Any]) -> [GeospatialMapOverlay] {
-        return overlayGenerator.groupedOverlays(for: geoJsonObject, withProperties: properties)
+    public func groupedOverlays(for geoJsonObjects: [GeoJsonObject], withProperties properties: [String: Any]) -> [GeospatialMapOverlay] {
+        return overlayGenerator.groupedOverlays(for: geoJsonObjects, withProperties: properties)
     }
     
     /**

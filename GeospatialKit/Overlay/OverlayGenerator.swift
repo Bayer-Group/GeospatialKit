@@ -1,7 +1,7 @@
 internal protocol OverlayGeneratorProtocol {
     func overlays(for geoJsonObject: GeoJsonObject, withProperties properties: [String: Any]) -> [GeospatialMapOverlay]
     @available(iOS 13.0, *)
-    func groupedOverlays(for geoJsonObject: GeoJsonObject, withProperties properties: [String: Any]) -> [GeospatialMapOverlay]
+    func groupedOverlays(for geoJsonObjects: [GeoJsonObject], withProperties properties: [String: Any]) -> [GeospatialMapOverlay]
     func renderer(for overlay: MKOverlay, with overlayRenderModel: OverlayRenderModel) -> MKOverlayRenderer
 }
 
@@ -13,8 +13,10 @@ internal struct OverlayGenerator: OverlayGeneratorProtocol {
     }
     
     @available(iOS 13.0, *)
-    func groupedOverlays(for geoJsonObject: GeoJsonObject, withProperties properties: [String: Any]) -> [GeospatialMapOverlay] {
-        guard let geometries = geoJsonObject.objectGeometries else { Log.info("No geometry objects for: \(geoJsonObject.geoJson)."); return [] }
+    func groupedOverlays(for geoJsonObjects: [GeoJsonObject], withProperties properties: [String: Any]) -> [GeospatialMapOverlay] {
+        let geometries = geoJsonObjects.compactMap({ $0.objectGeometries }).flatMap { $0 }
+        
+        guard geometries.count > 0 else { Log.info("No geometry objects."); return [] }
         
         func reduceGeometriesByType(geometries: [GeoJsonGeometry]) -> [GeoJsonObjectType: [GeoJsonGeometry]] {
             geometries.reduce(into: [GeoJsonObjectType: [GeoJsonGeometry]]()) { bucket, geometry in
