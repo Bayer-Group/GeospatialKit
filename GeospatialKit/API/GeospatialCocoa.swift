@@ -2,8 +2,8 @@
  A protocol provided for unit testing.
  */
 public protocol GeospatialCocoaProtocol: GeospatialProtocol {
-    var image: ImageManagerProtocol! { get }
-    var map: MapManagerProtocol! { get }
+    var image: ImageManagerProtocol { get }
+    var map: MapManagerProtocol { get }
     
     func drawing(context: CGContext, drawingRenderModel: DrawingRenderModel) -> GeometryProjectorProtocol
 }
@@ -15,21 +15,21 @@ final public class GeospatialCocoa: Geospatial, GeospatialCocoaProtocol {
     /**
      Everything Image
      */
-    public private(set) var image: ImageManagerProtocol!
+    public let image: ImageManagerProtocol
     
     /**
      Everything Map
      */
-    public private(set) var map: MapManagerProtocol!
+    public let map: MapManagerProtocol
     
     /**
      Initialize the interface using a configuration to describe how the interface should react to requests.
      */
     public override init() {
-        super.init()
-        
         image = ImageManager()
         map = MapManager()
+        
+        super.init()
     }
     
     public func drawing(context: CGContext, drawingRenderModel: DrawingRenderModel) -> GeometryProjectorProtocol {

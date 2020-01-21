@@ -1,6 +1,14 @@
 @testable import GeospatialKit
 
 final class MockMapManager: MapManagerProtocol {
+    private(set) var groupedOverlaysCallCount = 0
+    var groupedOverlaysResult: [GeospatialMapOverlay] = []
+    func groupedOverlays(for geoJsonObjects: [GeoJsonObject], withProperties properties: [String: Any]) -> [GeospatialMapOverlay] {
+        groupedOverlaysCallCount += 1
+        
+        return groupedOverlaysResult
+    }
+    
     private(set) var overlaysCallCount = 0
     var overlaysResult: [GeospatialMapOverlay] = []
     func overlays(for geoJsonObject: GeoJsonObject, withProperties properties: [String: Any]) -> [GeospatialMapOverlay] {
