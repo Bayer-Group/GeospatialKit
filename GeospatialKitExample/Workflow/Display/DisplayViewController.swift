@@ -25,7 +25,7 @@ class DisplayViewController: UIViewController {
         }
     }
     
-    var geohashBoxes: [GeoJsonGeohashBox]!
+    var geohashBoxes: [GeohashBox]!
     
     override func viewDidLoad() {
         super.viewDidLoad()

@@ -17,8 +17,8 @@ public final class GeospatialMultiPolygonOverlay: MKMultiPolygon, GeospatialMapO
 public final class GeospatialMultiPolylineOverlay: MKMultiPolyline, GeospatialMapOverlay {
     public private(set) var properties: [String: Any] = [:]
     
-    public convenience init(lineStrings: [GeospatialPolylineOverlay], properties: [String: Any]) {
-        self.init(lineStrings)
+    public convenience init(lines: [GeospatialPolylineOverlay], properties: [String: Any]) {
+        self.init(lines)
         
         self.properties = properties
     }

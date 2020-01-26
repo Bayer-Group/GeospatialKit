@@ -16,7 +16,7 @@ final class GeoJsonParsingPerformanceTest: XCTestCase {
                     // swiftlint:disable:next force_cast
                     guard (geoJson["type"] as! String) != "Invalid" else { return }
                     
-                    cacheForMemoryUsageInfo.append(geospatial.geoJson.parse(geoJson: geoJson)!)
+                    cacheForMemoryUsageInfo.append(geospatial.geoJson.parse(geoJson: geoJson).success!)
                 }
             }
         }

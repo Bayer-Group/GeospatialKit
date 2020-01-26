@@ -1,10 +1,6 @@
 import CoreGraphics
 
-public protocol GeometryProjectorProtocol {
-    func draw(geoJsonObject: GeoJsonObject, width: Double, height: Double, zoom: Double, centerOffset: CGPoint?)
-}
-
-class GeometryProjector: GeometryProjectorProtocol {
+public class GeometryProjector {
     private let context: CGContext
     private let drawingRenderModel: DrawingRenderModel
     private let snapshotSettings: SnapshotSettings?
@@ -18,7 +14,7 @@ class GeometryProjector: GeometryProjectorProtocol {
     }
     
     #warning("Zoom and centerOffset?")
-    func draw(geoJsonObject: GeoJsonObject, width: Double, height: Double, zoom: Double = 1, centerOffset: CGPoint? = nil) {
+    public func draw(geoJsonObject: GeoJsonObject, width: Double, height: Double, zoom: Double = 1, centerOffset: CGPoint? = nil) {
         let desiredImageRect = CGRect(x: 0, y: 0, width: width, height: height)
         
         if let snapshotSettings = snapshotSettings {
@@ -28,36 +24,36 @@ class GeometryProjector: GeometryProjectorProtocol {
             context.fill(desiredImageRect)
         }
         
-        guard let geometries = geoJsonObject.objectGeometries, let insetBoundingBox = geoJsonObject.objectBoundingBox?.mappingBoundingBox(insetPercent: drawingRenderModel.inset) else {
-            Log.info("No geometry objects or bounding box for: \(geoJsonObject.geoJson).")
+        guard let insetBoundingBox = geoJsonObject.objectBoundingBox?.mappingBoundingBox(insetPercent: drawingRenderModel.inset) else {
+            Log.info("No bounding box for: \(geoJsonObject.geoJson).")
             return
         }
         
         let pointProjector = PointProjector(boundingBox: insetBoundingBox, width: width, height: height)
         
-        geometries.forEach {
+        geoJsonObject.objectGeometries.forEach {
             drawGeometry(pointProjector: pointProjector, geometry: $0)
         }
     }
     
     private func drawGeometry(pointProjector: PointProjector, geometry: GeoJsonGeometry) {
         switch geometry {
-        case let point as GeoJsonPoint:
+        case let point as GeoJson.Point:
             drawPin(pointProjector: pointProjector, point: point)
-        case let multiPoint as GeoJsonMultiPoint:
+        case let multiPoint as GeoJson.MultiPoint:
             multiPoint.points.forEach { drawPin(pointProjector: pointProjector, point: $0) }
-        case let lineString as GeoJsonLineString:
+        case let lineString as GeoJson.LineString:
             drawLine(pointProjector: pointProjector, line: lineString)
-        case let multiLineString as GeoJsonMultiLineString:
-            multiLineString.lineStrings.forEach { drawLine(pointProjector: pointProjector, line: $0) }
-        case let polygon as GeoJsonPolygon:
+        case let multiLineString as GeoJson.MultiLineString:
+            multiLineString.lines.forEach { drawLine(pointProjector: pointProjector, line: $0) }
+        case let polygon as GeoJson.Polygon:
             drawPolygon(pointProjector: pointProjector, polygon: polygon)
             
             if debug { drawPin(pointProjector: pointProjector, point: polygon.centroid) }
-        case let multiPolygon as GeoJsonMultiPolygon:
+        case let multiPolygon as GeoJson.MultiPolygon:
             multiPolygon.polygons.forEach { drawPolygon(pointProjector: pointProjector, polygon: $0) }
-        case let geometryCollection as GeoJsonGeometryCollection:
-            geometryCollection.objectGeometries?.forEach {
+        case let geometryCollection as GeoJson.GeometryCollection:
+            geometryCollection.objectGeometries.forEach {
                 drawGeometry(pointProjector: pointProjector, geometry: $0)
             }
         default: return
@@ -89,7 +85,7 @@ class GeometryProjector: GeometryProjectorProtocol {
         pinImage.draw(in: CGRect(origin: cgPoint, size: CGSize(width: width, height: height)))
     }
     
-    private func drawLine(pointProjector: PointProjector, line: GeoJsonLineString) {
+    private func drawLine(pointProjector: PointProjector, line: GeodesicLine) {
         let points = line.points
         
         let cgPoints: [CGPoint]
@@ -115,7 +111,7 @@ class GeometryProjector: GeometryProjectorProtocol {
         if debug { points.forEach { drawPin(pointProjector: pointProjector, point: $0) } }
     }
     
-    private func drawPolygon(pointProjector: PointProjector, polygon: GeoJsonPolygon) {
+    private func drawPolygon(pointProjector: PointProjector, polygon: GeodesicPolygon) {
         context.setLineWidth(CGFloat(drawingRenderModel.lineWidth))
         context.setStrokeColor(drawingRenderModel.shapeLineColor.cgColor)
         context.setFillColor(drawingRenderModel.shapeFillColor.cgColor)

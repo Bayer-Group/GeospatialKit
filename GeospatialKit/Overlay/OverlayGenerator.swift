@@ -1,15 +1,6 @@
-internal protocol OverlayGeneratorProtocol {
-    func overlays(for geoJsonObject: GeoJsonObject, withProperties properties: [String: Any]) -> [GeospatialMapOverlay]
-    @available(iOS 13.0, *)
-    func groupedOverlays(for geoJsonObjects: [GeoJsonObject], withProperties properties: [String: Any]) -> [GeospatialMapOverlay]
-    func renderer(for overlay: MKOverlay, with overlayRenderModel: OverlayRenderModel) -> MKOverlayRenderer
-}
-
-internal struct OverlayGenerator: OverlayGeneratorProtocol {
+internal struct OverlayGenerator {
     func overlays(for geoJsonObject: GeoJsonObject, withProperties properties: [String: Any]) -> [GeospatialMapOverlay] {
-        guard let geometries = geoJsonObject.objectGeometries else { Log.info("No geometry objects for: \(geoJsonObject.geoJson)."); return [] }
-        
-        return geometries.flatMap { overlays(for: $0, withProperties: properties) }
+        return geoJsonObject.objectGeometries.flatMap { overlays(for: $0, withProperties: properties) }
     }
     
     @available(iOS 13.0, *)
@@ -18,42 +9,30 @@ internal struct OverlayGenerator: OverlayGeneratorProtocol {
         
         guard geometries.count > 0 else { Log.info("No geometry objects."); return [] }
         
-        func reduceGeometriesByType(geometries: [GeoJsonGeometry]) -> [GeoJsonObjectType: [GeoJsonGeometry]] {
-            geometries.reduce(into: [GeoJsonObjectType: [GeoJsonGeometry]]()) { bucket, geometry in
+        var lines = [GeodesicLine]()
+        var polygons = [GeodesicPolygon]()
+        func sort(geometries: [GeoJsonGeometry]) {
+            geometries.forEach { geometry in
                 switch geometry {
-                case let geometry as GeoJsonGeometryCollection:
-                    reduceGeometriesByType(geometries: geometry.objectGeometries ?? []).forEach { type, geometries in
-                        bucket[type] = bucket[type].flatMap { $0 + geometries } ?? geometries
-                    }
-                case let geometry as GeoJsonMultiPolygon:
-                    reduceGeometriesByType(geometries: geometry.polygons).forEach { type, geometries in
-                        bucket[type] = bucket[type].flatMap { $0 + geometries } ?? geometries
-                    }
-                case let geometry as GeoJsonMultiLineString:
-                reduceGeometriesByType(geometries: geometry.lineStrings).forEach { type, geometries in
-                    bucket[type] = bucket[type].flatMap { $0 + geometries } ?? geometries
-                }
+                case let geometry as GeoJson.GeometryCollection:
+                    sort(geometries: geometry.objectGeometries)
+                case let geometry as GeoJson.MultiPolygon:
+                    polygons.append(contentsOf: geometry.polygons)
+                case let geometry as GeoJson.MultiLineString:
+                    lines.append(contentsOf: geometry.lines)
+                case let geometry as GeodesicPolygon:
+                    polygons.append(geometry)
+                case let geometry as GeodesicLine:
+                    lines.append(geometry)
                 default:
-                    bucket[geometry.type] = bucket[geometry.type].flatMap { $0 + [geometry] } ?? [geometry]
+                    ()
                 }
             }
         }
         
-        let geometriesByType = reduceGeometriesByType(geometries: geometries)
+        sort(geometries: geometries)
         
-        return geometriesByType.compactMap { type, geometries in
-            switch type {
-            case .lineString:
-                // Convert to one large MultiLineString
-                // swiftlint:disable:next force_cast
-                return groupedOverlay(for: geometries as! [GeoJsonLineString], withProperties: properties)
-            case .polygon:
-                // Convert to one large MultiPolygon
-                // swiftlint:disable:next force_cast
-                return groupedOverlay(for: geometries as! [GeoJsonPolygon], withProperties: properties)
-            case .point, .multiPoint, .multiLineString, .multiPolygon, .geometryCollection, .feature, .featureCollection: return nil
-            }
-        }
+        return (groupedOverlay(for: lines, withProperties: properties).flatMap { [$0] } ?? []) + (groupedOverlay(for: polygons, withProperties: properties).flatMap { [$0] } ?? [])
     }
     
     func renderer(for overlay: MKOverlay, with overlayRenderModel: OverlayRenderModel) -> MKOverlayRenderer {
@@ -106,50 +85,58 @@ internal struct OverlayGenerator: OverlayGeneratorProtocol {
     
     private func overlays(for geometry: GeoJsonGeometry, withProperties properties: [String: Any]) -> [GeospatialMapOverlay] {
         switch geometry {
-        case let lineString as GeoJsonLineString:
+        case let lineString as GeodesicLine:
             return [overlay(for: lineString, withProperties: properties)]
-        case let multiLineString as GeoJsonMultiLineString:
+        case let multiLineString as GeoJson.MultiLineString:
             #warning("Should this be the same overlay?")
-            return multiLineString.lineStrings.flatMap { overlays(for: $0, withProperties: properties) }
-        case let polygon as GeoJsonPolygon:
+            if #available(iOS 13.0, *) {
+                return [overlay(for: multiLineString, withProperties: properties)]
+            } else {
+                return multiLineString.lines.map { overlay(for: $0, withProperties: properties) }
+            }
+        case let polygon as GeodesicPolygon:
             return [overlay(for: polygon, withProperties: properties)]
-        case let multiPolygon as GeoJsonMultiPolygon:
+        case let multiPolygon as GeoJson.MultiPolygon:
             #warning("Should this be the same overlay?")
             if #available(iOS 13.0, *) {
                 return [overlay(for: multiPolygon, withProperties: properties)]
             } else {
-                return multiPolygon.polygons.flatMap { overlays(for: $0, withProperties: properties) }
+                return multiPolygon.polygons.map { overlay(for: $0, withProperties: properties) }
             }
-        case let geometryCollection as GeoJsonGeometryCollection:
+        case let geometryCollection as GeoJson.GeometryCollection:
             #warning("Should this be the same overlay?")
-            return geometryCollection.objectGeometries?.flatMap { overlays(for: $0, withProperties: properties) } ?? []
+            return geometryCollection.objectGeometries.flatMap { overlays(for: $0, withProperties: properties) }
         default: return []
         }
     }
     
     @available(iOS 13.0, *)
-    private func groupedOverlay(for lineStrings: [GeoJsonLineString], withProperties properties: [String: Any]) -> GeospatialMapOverlay {
-        // swiftlint:disable:next force_cast
-        let lineStrings = lineStrings.map { overlay(for: $0, withProperties: properties) as! GeospatialPolylineOverlay }
+    private func groupedOverlay(for lines: [GeodesicLine], withProperties properties: [String: Any]) -> GeospatialMapOverlay? {
+        guard lines.count > 0 else { return nil }
         
-        return GeospatialMultiPolylineOverlay(lineStrings: lineStrings, properties: properties)
+        // swiftlint:disable:next force_cast
+        let lines = lines.map { overlay(for: $0, withProperties: properties) as! GeospatialPolylineOverlay }
+        
+        return GeospatialMultiPolylineOverlay(lines: lines, properties: properties)
     }
     
     @available(iOS 13.0, *)
-    private func groupedOverlay(for polygons: [GeoJsonPolygon], withProperties properties: [String: Any]) -> GeospatialMapOverlay {
+    private func groupedOverlay(for polygons: [GeodesicPolygon], withProperties properties: [String: Any]) -> GeospatialMapOverlay? {
+        guard polygons.count > 0 else { return nil }
+        
         // swiftlint:disable:next force_cast
         let polygons = polygons.map { overlay(for: $0, withProperties: properties) as! GeospatialPolygonOverlay }
         
         return GeospatialMultiPolygonOverlay(polygons: polygons, properties: properties)
     }
     
-    private func overlay(for lineString: GeoJsonLineString, withProperties properties: [String: Any]) -> GeospatialMapOverlay {
-        let coordinates = lineString.points.map { $0.locationCoordinate }
+    private func overlay(for line: GeodesicLine, withProperties properties: [String: Any]) -> GeospatialMapOverlay {
+        let coordinates = line.points.map { $0.locationCoordinate }
         
         return GeospatialPolylineOverlay(coordinates: coordinates, count: coordinates.count, properties: properties)
     }
     
-    private func overlay(for polygon: GeoJsonPolygon, withProperties properties: [String: Any]) -> GeospatialMapOverlay {
+    private func overlay(for polygon: GeodesicPolygon, withProperties properties: [String: Any]) -> GeospatialMapOverlay {
         let linearRingsCoordinates = polygon.linearRings.map { $0.points.map { $0.locationCoordinate } }
         
         let firstCoordinates = linearRingsCoordinates.first!
@@ -160,15 +147,15 @@ internal struct OverlayGenerator: OverlayGeneratorProtocol {
     }
     
     @available(iOS 13.0, *)
-    private func overlay(for multiLineString: GeoJsonMultiLineString, withProperties properties: [String: Any]) -> GeospatialMapOverlay {
+    private func overlay(for multiLineString: GeoJson.MultiLineString, withProperties properties: [String: Any]) -> GeospatialMapOverlay {
         // swiftlint:disable:next force_cast
-        let lineStrings = multiLineString.lineStrings.map { overlay(for: $0, withProperties: properties) as! GeospatialPolylineOverlay }
+        let lines = multiLineString.lines.map { overlay(for: $0, withProperties: properties) as! GeospatialPolylineOverlay }
         
-        return GeospatialMultiPolylineOverlay(lineStrings: lineStrings, properties: properties)
+        return GeospatialMultiPolylineOverlay(lines: lines, properties: properties)
     }
     
     @available(iOS 13.0, *)
-    private func overlay(for multiPolygon: GeoJsonMultiPolygon, withProperties properties: [String: Any]) -> GeospatialMapOverlay {
+    private func overlay(for multiPolygon: GeoJson.MultiPolygon, withProperties properties: [String: Any]) -> GeospatialMapOverlay {
         // swiftlint:disable:next force_cast
         let polygons = multiPolygon.polygons.map { overlay(for: $0, withProperties: properties) as! GeospatialPolygonOverlay }
         

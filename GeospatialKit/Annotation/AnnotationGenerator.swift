@@ -1,13 +1,6 @@
-internal protocol AnnotationGeneratorProtocol {
-    func annotations(for geoJsonObject: GeoJsonObject, withProperties properties: [String: Any], debug: Bool) -> [GeospatialMapAnnotation]
-    func annotationView(for annotation: MKAnnotation, with overlayRenderModel: OverlayRenderModel, from mapView: MKMapView, reuseId: String) -> MKAnnotationView
-}
-
-internal struct AnnotationGenerator: AnnotationGeneratorProtocol {
+internal struct AnnotationGenerator {
     func annotations(for geoJsonObject: GeoJsonObject, withProperties properties: [String: Any], debug: Bool) -> [GeospatialMapAnnotation] {
-        guard let geometries = geoJsonObject.objectGeometries else { Log.info("No geometry objects for: \(geoJsonObject.geoJson)."); return [] }
-        
-        return geometries.flatMap { annotations(for: $0, withProperties: properties, debug: debug) }
+        return geoJsonObject.objectGeometries.flatMap { annotations(for: $0, withProperties: properties, debug: debug) }
     }
     
     func annotationView(for annotation: MKAnnotation, with overlayRenderModel: OverlayRenderModel, from mapView: MKMapView, reuseId: String) -> MKAnnotationView {
@@ -26,23 +19,23 @@ internal struct AnnotationGenerator: AnnotationGeneratorProtocol {
         var annotations: [GeospatialMapAnnotation] = []
         
         switch geometry {
-        case let point as GeoJsonPoint:
+        case let point as GeoJson.Point:
             annotations += [annotation(for: point, withProperties: properties)]
-        case let multiPoint as GeoJsonMultiPoint:
+        case let multiPoint as GeoJson.MultiPoint:
             annotations += multiPoint.points.map { annotation(for: $0, withProperties: properties) }
-        case let polygon as GeoJsonPolygon:
+        case let polygon as GeoJson.Polygon:
             if debug { annotations += [annotation(for: polygon.centroid, withProperties: properties)] }
-        case let multiLine as GeoJsonMultiLineString:
+        case let multiLine as GeoJson.MultiLineString:
             if debug { annotations += multiLine.points.map { annotation(for: $0, withProperties: properties) } }
-        case let multiPolygon as GeoJsonMultiPolygon:
+        case let multiPolygon as GeoJson.MultiPolygon:
             if debug { annotations += multiPolygon.polygons.map { annotation(for: $0.centroid, withProperties: properties) } }
-        case let geometryCollection as GeoJsonGeometryCollection:
-            annotations += geometryCollection.objectGeometries?.flatMap { self.annotations(for: $0, withProperties: properties, debug: debug) } ?? []
+        case let geometryCollection as GeoJson.GeometryCollection:
+            annotations += geometryCollection.objectGeometries.flatMap { self.annotations(for: $0, withProperties: properties, debug: debug) }
         default:
             ()
         }
         
-        if debug, let coordinatesGeometry = geometry as? GeoJsonCoordinatesGeometry, !(coordinatesGeometry is GeoJsonPoint) {
+        if debug, let coordinatesGeometry = geometry as? GeoJsonCoordinatesGeometry, !(coordinatesGeometry is GeoJson.Point) {
             return annotations + coordinatesGeometry.points.map { annotation(for: $0, withProperties: properties) }
         }
         

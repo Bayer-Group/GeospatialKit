@@ -40,15 +40,23 @@ class OverlayGeneratorTests: XCTestCase {
     func testOverlaysMultiLineString() {
         let overlays = overlayGenerator.overlays(for: MockData.testGeoJsonObject(geoJsonDataName: "MultiLineString 3 Line"), withProperties: [:])
         
-        XCTAssertEqual(overlays.count, 3)
-        
-        var renderer = overlayGenerator.renderer(for: overlays[0], with: overlayRenderModel)
-        
-        XCTAssertTrue(renderer is MKPolylineRenderer)
-        
-        renderer = overlayGenerator.renderer(for: overlays[1], with: overlayRenderModel)
-        
-        XCTAssertTrue(renderer is MKPolylineRenderer)
+        if #available(iOS 13.0, *) {
+            guard overlays.count == 1 else { XCTFail("Overlay count: \(overlays.count)"); return }
+            
+            let renderer = overlayGenerator.renderer(for: overlays[0], with: overlayRenderModel)
+            
+            XCTAssertTrue(renderer is MKMultiPolylineRenderer)
+        } else {
+            XCTAssertEqual(overlays.count, 3)
+            
+            var renderer = overlayGenerator.renderer(for: overlays[0], with: overlayRenderModel)
+            
+            XCTAssertTrue(renderer is MKPolylineRenderer)
+            
+            renderer = overlayGenerator.renderer(for: overlays[1], with: overlayRenderModel)
+            
+            XCTAssertTrue(renderer is MKPolylineRenderer)
+        }
     }
     
     func testOverlaysPolygon() {
