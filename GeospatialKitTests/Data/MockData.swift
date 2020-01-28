@@ -14,7 +14,7 @@ final class MockData {
     }
     
     static func testGeoJsonObject(geoJsonDataName: String) -> GeoJsonObject {
-        return geoJson.parse(geoJson: testGeoJson(geoJsonDataName)).success!
+        return geoJson.parseObject(fromGeoJson: testGeoJson(geoJsonDataName)).success!
     }
     
     static func testWkt(_ name: String) -> String {

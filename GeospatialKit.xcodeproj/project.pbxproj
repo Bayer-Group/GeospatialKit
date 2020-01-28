@@ -55,7 +55,6 @@
 		1EE321671F82AFEB00E8EA6C /* GeoTestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE321661F82AFEB00E8EA6C /* GeoTestHelper.swift */; };
 		600290CE23DD73DB007441BD /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 600290CD23DD73DB007441BD /* Result.swift */; };
 		600290D023DD7635007441BD /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 600290CF23DD7635007441BD /* Result.swift */; };
-		9F197BC42061C2220002EB5D /* GeoJsonParsingPerformanceTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9F197BC32061C2220002EB5D /* GeoJsonParsingPerformanceTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -148,7 +147,6 @@
 		1EE321661F82AFEB00E8EA6C /* GeoTestHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoTestHelper.swift; sourceTree = "<group>"; };
 		600290CD23DD73DB007441BD /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		600290CF23DD7635007441BD /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
-		9F197BC32061C2220002EB5D /* GeoJsonParsingPerformanceTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoJsonParsingPerformanceTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -378,7 +376,6 @@
 		1E528ECA1EC20CDF00A2A9C9 /* GeospatialKitTests */ = {
 			isa = PBXGroup;
 			children = (
-				9F197BC22061C1CD0002EB5D /* Performance */,
 				1E10770320409BE700B5AD00 /* Test */,
 				1E1076F820409B3E00B5AD00 /* Data */,
 				1EB9FED11EC5EE8A00F4AA29 /* Supporting Files */,
@@ -488,14 +485,6 @@
 				1E8BCB3E2093BB280091DA81 /* Cartfile.resolved */,
 			);
 			name = Dependencies;
-			sourceTree = "<group>";
-		};
-		9F197BC22061C1CD0002EB5D /* Performance */ = {
-			isa = PBXGroup;
-			children = (
-				9F197BC32061C2220002EB5D /* GeoJsonParsingPerformanceTests.swift */,
-			);
-			path = Performance;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -743,7 +732,6 @@
 				1E7BD1F71F984E8900888205 /* Assertions.swift in Sources */,
 				1E4491CC1ED732F900D74485 /* OverlayGeneratorTests.swift in Sources */,
 				1E2EEF2B1ED612B100BA7C8C /* MockData.swift in Sources */,
-				9F197BC42061C2220002EB5D /* GeoJsonParsingPerformanceTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

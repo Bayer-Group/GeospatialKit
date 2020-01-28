@@ -6,7 +6,7 @@ class GeoTestHelper {
     static let geospatial = Geospatial()
     
     static func parse(_ geoJsonDictionary: GeoJsonDictionary) -> GeoJsonObject {
-        return geospatial.geoJson.parse(geoJson: geoJsonDictionary).success!
+        return geospatial.geoJson.parseObject(fromGeoJson: geoJsonDictionary).success!
     }
     
     static func simplePoint(_ longitude: Double, _ latitude: Double, _ altitude: Double? = nil) -> SimplePoint {
