@@ -7,32 +7,31 @@ internal struct OverlayGenerator {
     
     @available(iOS 13.0, *)
     func groupedOverlays(for geoJsonObjects: [GeoJsonObject], withProperties properties: [String: Any]) -> [GeospatialMapOverlay] {
-        let geometries = geoJsonObjects.compactMap({ $0.objectGeometries }).flatMap { $0 }
+        let geometries = geoJsonObjects.compactMap({ $0.coordinatesGeometries }).flatMap { $0 }
         
-        guard geometries.count > 0 else { Log.info("No geometry objects."); return [] }
+        return groupedOverlays(for: geometries, withProperties: properties)
+    }
+    
+    @available(iOS 13.0, *)
+    func groupedOverlays(for geoJsonCoordinatesGeometries: [GeoJsonCoordinatesGeometry], withProperties properties: [String: Any]) -> [GeospatialMapOverlay] {
+        guard geoJsonCoordinatesGeometries.count > 0 else { Log.info("No geometry objects."); return [] }
         
         var lines = [GeodesicLine]()
         var polygons = [GeodesicPolygon]()
-        func sort(geometries: [GeoJsonGeometry]) {
-            geometries.forEach { geometry in
-                switch geometry {
-                case let geometry as GeoJson.GeometryCollection:
-                    sort(geometries: geometry.objectGeometries)
-                case let geometry as GeoJson.MultiPolygon:
-                    polygons.append(contentsOf: geometry.polygons)
-                case let geometry as GeoJson.MultiLineString:
-                    lines.append(contentsOf: geometry.lines)
-                case let geometry as GeodesicPolygon:
-                    polygons.append(geometry)
-                case let geometry as GeodesicLine:
-                    lines.append(geometry)
-                default:
-                    ()
-                }
+        geoJsonCoordinatesGeometries.forEach { geometry in
+            switch geometry {
+            case let geometry as GeoJson.MultiPolygon:
+                polygons.append(contentsOf: geometry.polygons)
+            case let geometry as GeoJson.MultiLineString:
+                lines.append(contentsOf: geometry.lines)
+            case let geometry as GeodesicPolygon:
+                polygons.append(geometry)
+            case let geometry as GeodesicLine:
+                lines.append(geometry)
+            default:
+                ()
             }
         }
-        
-        sort(geometries: geometries)
         
         return (groupedOverlay(for: lines, withProperties: properties).flatMap { [$0] } ?? []) + (groupedOverlay(for: polygons, withProperties: properties).flatMap { [$0] } ?? [])
     }

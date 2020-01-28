@@ -393,6 +393,11 @@ class OverlayGeneratorTests: XCTestCase {
         
         XCTAssertEqual(groupedOverlayRenderers.count, 1)
         
+        let betterGeometries = lotOfGeometries.flatMap { $0.coordinatesGeometries }
+        time = Date().timeIntervalSince1970
+        _ = overlayGenerator.groupedOverlays(for: betterGeometries, withProperties: [:])
+        print("Better Grouped Overlays time: \(Date().timeIntervalSince1970 - time)")
+        
         time = Date().timeIntervalSince1970
         // swiftlint:disable:next force_cast
         let polygons = lotOfGeometries.flatMap { $0.closedGeometries.compactMap { ($0 as! GeoJson.Polygon) } }

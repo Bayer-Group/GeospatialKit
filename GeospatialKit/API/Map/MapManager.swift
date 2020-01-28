@@ -36,9 +36,6 @@ public struct MapManager {
     public func annotationView(for annotation: MKAnnotation, with overlayRenderModel: OverlayRenderModel, from mapView: MKMapView, reuseId: String) -> MKAnnotationView {
         return annotationGenerator.annotationView(for: annotation, with: overlayRenderModel, from: mapView, reuseId: reuseId)
     }
-    public func overlays(for geoJsonObject: GeoJsonObject) -> [GeospatialMapOverlay] {
-        return overlays(for: geoJsonObject, withProperties: [:])
-    }
     
     /**
      Returns overlays for the qualifying componenets of the geoJsonObject
@@ -47,6 +44,9 @@ public struct MapManager {
      
      - returns: overlays for qualifying components
      */
+    public func overlays(for geoJsonObject: GeoJsonObject) -> [GeospatialMapOverlay] {
+        return overlays(for: geoJsonObject, withProperties: [:])
+    }
     public func overlays(for geoJsonObject: GeoJsonObject, withProperties properties: [String: Any]) -> [GeospatialMapOverlay] {
         return overlayGenerator.overlays(for: geoJsonObject, withProperties: properties)
     }
@@ -59,12 +59,20 @@ public struct MapManager {
      - returns: overlays for qualifying components
      */
     @available(iOS 13.0, *)
+    public func groupedOverlays(for geoJsonObjects: [GeoJsonObject]) -> [GeospatialMapOverlay] {
+        return groupedOverlays(for: geoJsonObjects, withProperties: [:])
+    }
+    @available(iOS 13.0, *)
+    public func groupedOverlays(for geoJsonCoordinatesGeometries: [GeoJsonCoordinatesGeometry]) -> [GeospatialMapOverlay] {
+        return groupedOverlays(for: geoJsonCoordinatesGeometries, withProperties: [:])
+    }
+    @available(iOS 13.0, *)
     public func groupedOverlays(for geoJsonObjects: [GeoJsonObject], withProperties properties: [String: Any]) -> [GeospatialMapOverlay] {
         return overlayGenerator.groupedOverlays(for: geoJsonObjects, withProperties: properties)
     }
     @available(iOS 13.0, *)
-    public func groupedOverlays(for geoJsonObjects: [GeoJsonObject]) -> [GeospatialMapOverlay] {
-        return groupedOverlays(for: geoJsonObjects, withProperties: [:])
+    public func groupedOverlays(for geoJsonCoordinatesGeometries: [GeoJsonCoordinatesGeometry], withProperties properties: [String: Any]) -> [GeospatialMapOverlay] {
+        return overlayGenerator.groupedOverlays(for: geoJsonCoordinatesGeometries, withProperties: properties)
     }
     
     /**
