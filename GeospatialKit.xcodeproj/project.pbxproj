@@ -11,7 +11,6 @@
 		1E0CDEB81ED71A7F0066D74F /* WktTestData.json in Resources */ = {isa = PBXBuildFile; fileRef = 1E0CDEB71ED71A7F0066D74F /* WktTestData.json */; };
 		1E2EEF2B1ED612B100BA7C8C /* MockData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E2EEF2A1ED612B100BA7C8C /* MockData.swift */; };
 		1E3A4227210B7F7100F97839 /* GeoJsonTestData.json in Resources */ = {isa = PBXBuildFile; fileRef = 1ED4B9671EC353E300D2288E /* GeoJsonTestData.json */; };
-		1E3A422A210B9CAB00F97839 /* GeoJsonTestDataBig.json in Resources */ = {isa = PBXBuildFile; fileRef = 1E3A4229210B9CAA00F97839 /* GeoJsonTestDataBig.json */; };
 		1E3A422E210BBB5F00F97839 /* MKMapView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E3A422D210BBB5F00F97839 /* MKMapView.swift */; };
 		1E4491C61ED7320800D74485 /* ImageGeneratorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4491C51ED7320800D74485 /* ImageGeneratorTests.swift */; };
 		1E4491C81ED7322700D74485 /* PointProjectorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E4491C71ED7322700D74485 /* PointProjectorTests.swift */; };
@@ -55,6 +54,8 @@
 		1EE321671F82AFEB00E8EA6C /* GeoTestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE321661F82AFEB00E8EA6C /* GeoTestHelper.swift */; };
 		600290CE23DD73DB007441BD /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 600290CD23DD73DB007441BD /* Result.swift */; };
 		600290D023DD7635007441BD /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 600290CF23DD7635007441BD /* Result.swift */; };
+		6025D8A723E0AD6C0076D5BA /* GeoJsonTestDataBig.json in Resources */ = {isa = PBXBuildFile; fileRef = 1E3A4229210B9CAA00F97839 /* GeoJsonTestDataBig.json */; };
+		6025D8A823E0AD6D0076D5BA /* GeoJsonTestDataBig.json in Resources */ = {isa = PBXBuildFile; fileRef = 1E3A4229210B9CAA00F97839 /* GeoJsonTestDataBig.json */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -622,6 +623,7 @@
 			files = (
 				1E3A4227210B7F7100F97839 /* GeoJsonTestData.json in Resources */,
 				1E0CDEB81ED71A7F0066D74F /* WktTestData.json in Resources */,
+				6025D8A823E0AD6D0076D5BA /* GeoJsonTestDataBig.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -630,8 +632,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				1EB09AD4210E4290003895A6 /* Display.storyboard in Resources */,
-				1E3A422A210B9CAB00F97839 /* GeoJsonTestDataBig.json in Resources */,
 				1E528F071EC20E0000A2A9C9 /* LaunchScreen.storyboard in Resources */,
+				6025D8A723E0AD6C0076D5BA /* GeoJsonTestDataBig.json in Resources */,
 				1EB09AD6210E4298003895A6 /* Main.storyboard in Resources */,
 				1E528F041EC20E0000A2A9C9 /* Assets.xcassets in Resources */,
 				1ED4B9691EC353E300D2288E /* GeoJsonTestData.json in Resources */,

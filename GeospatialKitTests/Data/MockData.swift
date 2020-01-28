@@ -7,6 +7,8 @@ final class MockData {
     static let geoJson = GeoTestHelper.geospatial.geoJson
     
     static let geoJsonTestData: [GeoJsonDictionary] = { return read(fileName: "GeoJsonTestData")["geoJsonObjects"] as! [GeoJsonDictionary] }()
+    static let geoJsonTestDataBig: [GeoJsonDictionary] = { return [read(fileName: "GeoJsonTestDataBig")] }()
+    static let geoJsonTestAllData: [GeoJsonDictionary] = { return geoJsonTestData + geoJsonTestDataBig }()
     static let wktTestData: [GeoJsonDictionary] = { return read(fileName: "WktTestData")["wktObjects"] as! [GeoJsonDictionary] }()
     
     static func testGeoJson(_ name: String) -> GeoJsonDictionary {
