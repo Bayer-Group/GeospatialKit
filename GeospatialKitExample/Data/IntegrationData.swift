@@ -1,3 +1,4 @@
+import GeospatialSwift
 import GeospatialKit
 
 class IntegrationData {

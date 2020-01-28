@@ -1,3 +1,5 @@
+import GeospatialSwift
+
 public extension GeodesicBoundingBox {
     internal var imageMinimumAdjustment: Double { return 0.00005 }
     

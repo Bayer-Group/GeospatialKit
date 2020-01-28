@@ -38,7 +38,6 @@
 		1E7A7B891F827AD000E22297 /* MapManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7A7B881F827AD000E22297 /* MapManager.swift */; };
 		1E7A7B8B1F827C6900E22297 /* ImageManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7A7B8A1F827C6900E22297 /* ImageManager.swift */; };
 		1E7BD1F71F984E8900888205 /* Assertions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E7BD1F61F984E8900888205 /* Assertions.swift */; };
-		1E8BCB3F2093BB280091DA81 /* Cartfile.resolved in Resources */ = {isa = PBXBuildFile; fileRef = 1E8BCB3E2093BB280091DA81 /* Cartfile.resolved */; };
 		1EB09ACC210E3B46003895A6 /* GeometryProjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EB09ACB210E3B46003895A6 /* GeometryProjector.swift */; };
 		1EB09AD4210E4290003895A6 /* Display.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1EB09AD3210E4290003895A6 /* Display.storyboard */; };
 		1EB09AD6210E4298003895A6 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 1EB09AD5210E4298003895A6 /* Main.storyboard */; };
@@ -47,16 +46,12 @@
 		1EBCEC3B2098A32000D790D7 /* GeoJsonPolygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBCEC3A2098A32000D790D7 /* GeoJsonPolygon.swift */; };
 		1EBE5FCF2099511700C8F13E /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBE5FCE2099511700C8F13E /* Bundle.swift */; };
 		1EBE5FD12099515D00C8F13E /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBE5FD02099515D00C8F13E /* UIImage.swift */; };
-		1EC2F96B2099428400BFC702 /* LICENSE in Resources */ = {isa = PBXBuildFile; fileRef = 1EC2F9682099428400BFC702 /* LICENSE */; };
-		1EC2F96C2099428400BFC702 /* CONTRIBUTING.md in Resources */ = {isa = PBXBuildFile; fileRef = 1EC2F9692099428400BFC702 /* CONTRIBUTING.md */; };
-		1EC2F96D2099428400BFC702 /* MAINTAINERS in Resources */ = {isa = PBXBuildFile; fileRef = 1EC2F96A2099428400BFC702 /* MAINTAINERS */; };
 		1ED4B9621EC26E5100D2288E /* OverlayGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED4B9611EC26E5100D2288E /* OverlayGenerator.swift */; };
 		1ED4B9641EC34B4400D2288E /* OverlayRenderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED4B9631EC34B4400D2288E /* OverlayRenderModel.swift */; };
 		1ED4B9691EC353E300D2288E /* GeoJsonTestData.json in Resources */ = {isa = PBXBuildFile; fileRef = 1ED4B9671EC353E300D2288E /* GeoJsonTestData.json */; };
 		1ED4B96F1EC35A6A00D2288E /* DisplayViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED4B96E1EC35A6A00D2288E /* DisplayViewController.swift */; };
 		1ED4B9711EC360A800D2288E /* GeoJsonCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED4B9701EC360A800D2288E /* GeoJsonCell.swift */; };
 		1ED4B97C1EC4AB7B00D2288E /* AnnotationGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED4B97B1EC4AB7B00D2288E /* AnnotationGenerator.swift */; };
-		1EDA70A21F98E8BF00D21C01 /* README.md in Resources */ = {isa = PBXBuildFile; fileRef = 1EDA70A11F98E8BE00D21C01 /* README.md */; };
 		1EE321671F82AFEB00E8EA6C /* GeoTestHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EE321661F82AFEB00E8EA6C /* GeoTestHelper.swift */; };
 		600290CE23DD73DB007441BD /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 600290CD23DD73DB007441BD /* Result.swift */; };
 		600290D023DD7635007441BD /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 600290CF23DD7635007441BD /* Result.swift */; };
@@ -628,11 +623,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1EDA70A21F98E8BF00D21C01 /* README.md in Resources */,
-				1E8BCB3F2093BB280091DA81 /* Cartfile.resolved in Resources */,
-				1EC2F96C2099428400BFC702 /* CONTRIBUTING.md in Resources */,
-				1EC2F96B2099428400BFC702 /* LICENSE in Resources */,
-				1EC2F96D2099428400BFC702 /* MAINTAINERS in Resources */,
 				1E528EF51EC20DCC00A2A9C9 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -823,7 +813,6 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -888,7 +877,6 @@
 				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
-				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
 				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
@@ -933,7 +921,6 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = GeospatialKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -957,7 +944,6 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = GeospatialKit/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
@@ -976,7 +962,6 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = "";
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = GeospatialKitTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.monsanto.GeospatialKitTests;
@@ -992,7 +977,6 @@
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CLANG_ENABLE_MODULES = YES;
 				DEVELOPMENT_TEAM = "";
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = GeospatialKitTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.monsanto.GeospatialKitTests;
@@ -1009,7 +993,6 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 557EJSX593;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = GeospatialKitExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.monsanto.GeospatialKitExample;
@@ -1027,7 +1010,6 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = 557EJSX593;
-				FRAMEWORK_SEARCH_PATHS = "$(inherited)";
 				INFOPLIST_FILE = GeospatialKitExample/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.monsanto.GeospatialKitExample;

@@ -1,3 +1,5 @@
+import GeospatialSwift
+
 public extension GeoJson.Polygon {
     func cocoaContains(_ point: GeodesicPoint, errorDistance: Double) -> Bool {
         let polygonCoordinates = linearRings.first!.points.map { $0.locationCoordinate }

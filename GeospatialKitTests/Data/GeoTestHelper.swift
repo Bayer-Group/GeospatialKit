@@ -1,3 +1,5 @@
+import GeospatialSwift
+
 @testable import GeospatialKit
 
 class GeoTestHelper {

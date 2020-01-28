@@ -1,5 +1,7 @@
 import XCTest
 
+import GeospatialSwift
+
 @testable import GeospatialKit
 
 final class GeoJsonParsingPerformanceTest: XCTestCase {

@@ -1,3 +1,5 @@
+import GeospatialSwift
+
 public protocol ImageGeneratorProtocol {
     func image(for geoJsonObject: GeoJsonObject, with drawingRenderModel: DrawingRenderModel, width: Double, height: Double, debug: Bool) -> UIImage?
     func snapshot(for geoJsonObject: GeoJsonObject, with drawingRenderModel: DrawingRenderModel, width: Double, height: Double, debug: Bool, completion: @escaping (UIImage?) -> Void) -> SnapshotRequest?

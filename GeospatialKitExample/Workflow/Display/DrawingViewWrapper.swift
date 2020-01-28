@@ -1,4 +1,5 @@
 import UIKit
+import GeospatialSwift
 import GeospatialKit
 
 class DrawingViewWrapper: UIView {

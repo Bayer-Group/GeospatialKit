@@ -1,3 +1,5 @@
+import GeospatialSwift
+
 /**
  Extends GeospatialSwift with Cocoa functionality. Create an image or render overlays and annotations for simple MapKit View interaction.
  */

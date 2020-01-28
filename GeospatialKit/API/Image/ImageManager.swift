@@ -1,3 +1,5 @@
+import GeospatialSwift
+
 public struct ImageManager {
     internal let imageGenerator: ImageGeneratorProtocol
     

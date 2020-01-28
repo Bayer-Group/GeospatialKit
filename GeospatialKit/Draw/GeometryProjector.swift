@@ -1,5 +1,7 @@
 import CoreGraphics
 
+import GeospatialSwift
+
 public class GeometryProjector {
     private let context: CGContext
     private let drawingRenderModel: DrawingRenderModel

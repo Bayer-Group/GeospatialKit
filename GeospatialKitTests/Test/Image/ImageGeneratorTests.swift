@@ -1,5 +1,7 @@
 import XCTest
 
+import GeospatialSwift
+
 @testable import GeospatialKit
 
 #warning("Add snapshot tests.")

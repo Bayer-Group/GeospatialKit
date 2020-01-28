@@ -1,3 +1,5 @@
+import GeospatialSwift
+
 internal struct OverlayGenerator {
     func overlays(for geoJsonObject: GeoJsonObject, withProperties properties: [String: Any]) -> [GeospatialMapOverlay] {
         return geoJsonObject.objectGeometries.flatMap { overlays(for: $0, withProperties: properties) }

@@ -1,3 +1,5 @@
+import GeospatialSwift
+
 @testable import GeospatialKit
 
 // swiftlint:disable force_cast force_try

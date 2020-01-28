@@ -1,3 +1,4 @@
+import GeospatialSwift
 
 public struct MapManager {
     internal let overlayGenerator: OverlayGenerator

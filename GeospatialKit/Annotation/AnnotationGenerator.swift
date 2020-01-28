@@ -1,3 +1,5 @@
+import GeospatialSwift
+
 internal struct AnnotationGenerator {
     func annotations(for geoJsonObject: GeoJsonObject, withProperties properties: [String: Any], debug: Bool) -> [GeospatialMapAnnotation] {
         return geoJsonObject.objectGeometries.flatMap { annotations(for: $0, withProperties: properties, debug: debug) }
