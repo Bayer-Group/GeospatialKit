@@ -1,2 +1,2 @@
-github "MonsantoCo/TimberSwift" "package-rework"
-github "MonsantoCo/GeospatialSwift" "package-rework"
+github "MonsantoCo/TimberSwift" ~> 1.0.0
+github "MonsantoCo/GeospatialSwift" ~> 1.0.0
