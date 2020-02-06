@@ -1,1 +1,2 @@
-github "MonsantoCo/GeospatialSwift" ~> 0.4.0
+github "MonsantoCo/TimberSwift" ~> 1.0.0
+github "MonsantoCo/GeospatialSwift" ~> 1.0.0

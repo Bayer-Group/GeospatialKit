@@ -1,3 +1,4 @@
+import GeospatialSwift
 import GeospatialKit
 
 // swiftlint:disable force_cast
@@ -26,7 +27,7 @@ extension MainViewController: UITableViewDataSource {
         guard let cell = tableView.dequeueReusableCell(withIdentifier: "GeoJsonCell") as? GeoJsonCell else { return UITableViewCell() }
         
         cell.textLabel?.text = geoJsonObjects[indexPath.row]["name"] as? String
-        cell.geoJsonObject = geospatial.geoJson.parse(geoJson: geoJsonObjects[indexPath.row]["geoJson"] as! GeoJsonDictionary)
+        cell.geoJsonObject = geospatial.geoJson.parseObject(fromGeoJson: geoJsonObjects[indexPath.row]["geoJson"] as! GeoJsonDictionary).success
         
         return cell
     }

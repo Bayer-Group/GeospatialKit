@@ -1,5 +1,7 @@
 import XCTest
 
+import GeospatialSwift
+
 @testable import GeospatialKit
 
 #warning("Add snapshot tests.")
@@ -8,16 +10,12 @@ class ImageGeneratorTests: XCTestCase {
     
     var drawingRenderModel: DrawingRenderModel!
    
-    var mockGeodesicCalculator: MockGeodesicCalculator!
-    
     let imageWidth = 150.0
     let imageHeight = 100.0
     let lineWidth = 3.0
     
     override func setUp() {
         super.setUp()
-        
-        mockGeodesicCalculator = MockGeodesicCalculator()
         
         imageGenerator = ImageGenerator()
         

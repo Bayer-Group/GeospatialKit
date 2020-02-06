@@ -1,38 +1,30 @@
-/**
- A protocol provided for unit testing.
- */
-public protocol GeospatialCocoaProtocol: GeospatialProtocol {
-    var image: ImageManagerProtocol! { get }
-    var map: MapManagerProtocol! { get }
-    
-    func drawing(context: CGContext, drawingRenderModel: DrawingRenderModel) -> GeometryProjectorProtocol
-}
+import GeospatialSwift
 
 /**
  Extends GeospatialSwift with Cocoa functionality. Create an image or render overlays and annotations for simple MapKit View interaction.
  */
-final public class GeospatialCocoa: Geospatial, GeospatialCocoaProtocol {
+final public class GeospatialCocoa: Geospatial {
     /**
      Everything Image
      */
-    public private(set) var image: ImageManagerProtocol!
+    public let image: ImageManager
     
     /**
      Everything Map
      */
-    public private(set) var map: MapManagerProtocol!
+    public let map: MapManager
     
     /**
      Initialize the interface using a configuration to describe how the interface should react to requests.
      */
     public override init() {
-        super.init()
-        
         image = ImageManager()
         map = MapManager()
+        
+        super.init()
     }
     
-    public func drawing(context: CGContext, drawingRenderModel: DrawingRenderModel) -> GeometryProjectorProtocol {
+    public func drawing(context: CGContext, drawingRenderModel: DrawingRenderModel) -> GeometryProjector {
         return GeometryProjector(context: context, drawingRenderModel: drawingRenderModel, debug: false)
     }
 }

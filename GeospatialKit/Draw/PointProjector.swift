@@ -1,3 +1,5 @@
+import GeospatialSwift
+
 internal struct PointProjector {
     private let scale: Double
     private let projectedOffset: (x: Double, y: Double)

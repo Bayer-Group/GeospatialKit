@@ -17,15 +17,15 @@ class TimberHandler: TimberApplicationDelegate {
         print("EVENT: \"\(title)\", properties: \(properties ?? [:]), source: \"\(source)\"")
     }
     
-    func log(_ logMessage: LogMessage) {
-        print("LOG: \"\(logMessage.consoleMessage)\", logLevel: \(logMessage.logLevel), source: \(logMessage.source)")
+    func log(message: LogMessage) {
+        print("LOG: \"\(message.consoleMessage)\", logLevel: \(message.logLevel), source: \(message.source)")
     }
     
-    func log(_ error: TimberError) {
+    func log(error: TimberError) {
         print("ERROR: \"\(error.logMessage.message)\" errorType: \(error.errorType.description), with properties: \(error.properties), source: \"\(error.logMessage.source)\"")
     }
     
-    func toast(_ message: String, displayTime: TimeInterval, type: ToastType, source: Source) {
+    func toast(message: String, displayTime: TimeInterval, type: ToastType, source: Source) {
         print("TOAST: \"\(message)\", displayTime: \(displayTime), type: \(type), source: \"\(source)\"")
     }
     

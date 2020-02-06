@@ -1,18 +1,18 @@
 import XCTest
 
+import GeospatialSwift
+
 @testable import GeospatialKit
 
 class PointProjectorTests: XCTestCase {
     var pointProjector: PointProjector!
     
-    var boundingBox: MockGeoJsonBoundingBox!
+    var boundingBox: GeodesicBoundingBox!
     
     override func setUp() {
         super.setUp()
         
-        boundingBox = MockGeoJsonBoundingBox()
-        let boundingCoordinates: BoundingCoordinates = (minLongitude: 20, minLatitude: 25, maxLongitude: 30, maxLatitude: 35)
-        boundingBox.boundingCoordinatesResult = boundingCoordinates
+        boundingBox = .init(minLongitude: 20, minLatitude: 25, maxLongitude: 30, maxLatitude: 35)
         
         pointProjector = PointProjector(boundingBox: boundingBox, width: 100, height: 100)
     }
