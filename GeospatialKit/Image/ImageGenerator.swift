@@ -40,7 +40,7 @@ internal class ImageGenerator: ImageGeneratorProtocol {
         
         let snapshotter = MKMapSnapshotter(options: mapSnapshotOptions)
         snapshotter.start { snapshot, error in
-            if let error = error { Log.error("Snapshot Error: \(error)", errorType: .internal); completion(nil); return }
+            if let error = error { Log.warning("Snapshot Error: \(error)"); completion(nil); return }
             
             guard let snapshot = snapshot else { return }
             
