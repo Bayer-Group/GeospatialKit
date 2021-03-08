@@ -55,6 +55,7 @@
 		600290CE23DD73DB007441BD /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 600290CD23DD73DB007441BD /* Result.swift */; };
 		6025D8A723E0AD6C0076D5BA /* GeoJsonTestDataBig.json in Resources */ = {isa = PBXBuildFile; fileRef = 1E3A4229210B9CAA00F97839 /* GeoJsonTestDataBig.json */; };
 		6025D8A823E0AD6D0076D5BA /* GeoJsonTestDataBig.json in Resources */ = {isa = PBXBuildFile; fileRef = 1E3A4229210B9CAA00F97839 /* GeoJsonTestDataBig.json */; };
+		60396F8125F6C55A003AF94A /* Package.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60396F8025F6C55A003AF94A /* Package.swift */; };
 		60A857F22436152A008554C6 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 600290CF23DD7635007441BD /* Result.swift */; };
 /* End PBXBuildFile section */
 
@@ -148,6 +149,7 @@
 		1EE321661F82AFEB00E8EA6C /* GeoTestHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoTestHelper.swift; sourceTree = "<group>"; };
 		600290CD23DD73DB007441BD /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		600290CF23DD7635007441BD /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
+		60396F8025F6C55A003AF94A /* Package.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Package.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -340,6 +342,7 @@
 		1E528EB31EC20CDF00A2A9C9 = {
 			isa = PBXGroup;
 			children = (
+				60396F8025F6C55A003AF94A /* Package.swift */,
 				1E528EBF1EC20CDF00A2A9C9 /* GeospatialKit */,
 				1E528ECA1EC20CDF00A2A9C9 /* GeospatialKitTests */,
 				1E528EFB1EC20E0000A2A9C9 /* GeospatialKitExample */,
@@ -716,6 +719,7 @@
 				1EBCEC3B2098A32000D790D7 /* GeoJsonPolygon.swift in Sources */,
 				1EBE5FCF2099511700C8F13E /* Bundle.swift in Sources */,
 				1E7A7B8B1F827C6900E22297 /* ImageManager.swift in Sources */,
+				60396F8125F6C55A003AF94A /* Package.swift in Sources */,
 				1E7A6CD82097A8E80063F01F /* GeodesicBoundingBox.swift in Sources */,
 				1E7A6CCA209785A20063F01F /* GeodesicPoint.swift in Sources */,
 				1E528EEF1EC20D4A00A2A9C9 /* ImageGenerator.swift in Sources */,

@@ -1,3 +1,5 @@
+import Foundation
+
 private class BundleClass {}
 
 internal extension Bundle {

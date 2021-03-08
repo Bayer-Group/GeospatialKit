@@ -1,3 +1,4 @@
+import MapKit
 import GeospatialSwift
 
 public extension GeodesicBoundingBox {

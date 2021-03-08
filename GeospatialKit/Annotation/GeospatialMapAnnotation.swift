@@ -1,3 +1,5 @@
+import MapKit
+
 public protocol GeospatialMapAnnotation: MKAnnotation {
     var properties: [String: Any] { get }
 }
