@@ -19,12 +19,15 @@ let package = Package(
         .target(
             name: "GeospatialKit",
             dependencies: ["GeospatialSwift", "TimberSwift"],
-            path: "GeospatialKit"
+            path: "GeospatialKit",
+            exclude: ["Info.plist"]
         ),
         .testTarget(
             name: "GeospatialKitTests",
             dependencies: ["GeospatialKit"],
-            path: "GeospatialKitTests"
+            path: "GeospatialKitTests",
+            exclude: ["Info.plist"],
+            resources: [.process("Data/WktTestData.json")]
         )
     ]
 )
