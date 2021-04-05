@@ -22,7 +22,6 @@
 		1E528EE41EC20D3800A2A9C9 /* GeospatialCocoa.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E528EE31EC20D3800A2A9C9 /* GeospatialCocoa.swift */; };
 		1E528EEF1EC20D4A00A2A9C9 /* ImageGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E528EEA1EC20D4A00A2A9C9 /* ImageGenerator.swift */; };
 		1E528EF01EC20D4A00A2A9C9 /* PointProjector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E528EEB1EC20D4A00A2A9C9 /* PointProjector.swift */; };
-		1E528EF51EC20DCC00A2A9C9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1E528EF41EC20DCC00A2A9C9 /* Assets.xcassets */; };
 		1E528EFD1EC20E0000A2A9C9 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E528EFC1EC20E0000A2A9C9 /* AppDelegate.swift */; };
 		1E528EFF1EC20E0000A2A9C9 /* MainViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1E528EFE1EC20E0000A2A9C9 /* MainViewController.swift */; };
 		1E528F041EC20E0000A2A9C9 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1E528F031EC20E0000A2A9C9 /* Assets.xcassets */; };
@@ -44,7 +43,6 @@
 		1EBC996C2101058B00CDD935 /* GeospatialKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 1E528EBD1EC20CDF00A2A9C9 /* GeospatialKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		1EBCEC3B2098A32000D790D7 /* GeoJsonPolygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBCEC3A2098A32000D790D7 /* GeoJsonPolygon.swift */; };
 		1EBE5FCF2099511700C8F13E /* Bundle.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBE5FCE2099511700C8F13E /* Bundle.swift */; };
-		1EBE5FD12099515D00C8F13E /* UIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1EBE5FD02099515D00C8F13E /* UIImage.swift */; };
 		1ED4B9621EC26E5100D2288E /* OverlayGenerator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED4B9611EC26E5100D2288E /* OverlayGenerator.swift */; };
 		1ED4B9641EC34B4400D2288E /* OverlayRenderModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1ED4B9631EC34B4400D2288E /* OverlayRenderModel.swift */; };
 		1ED4B9691EC353E300D2288E /* GeoJsonTestData.json in Resources */ = {isa = PBXBuildFile; fileRef = 1ED4B9671EC353E300D2288E /* GeoJsonTestData.json */; };
@@ -109,7 +107,6 @@
 		1E528EE31EC20D3800A2A9C9 /* GeospatialCocoa.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GeospatialCocoa.swift; sourceTree = "<group>"; };
 		1E528EEA1EC20D4A00A2A9C9 /* ImageGenerator.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ImageGenerator.swift; sourceTree = "<group>"; };
 		1E528EEB1EC20D4A00A2A9C9 /* PointProjector.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PointProjector.swift; sourceTree = "<group>"; };
-		1E528EF41EC20DCC00A2A9C9 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1E528EFA1EC20E0000A2A9C9 /* GeospatialKitExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GeospatialKitExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		1E528EFC1EC20E0000A2A9C9 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		1E528EFE1EC20E0000A2A9C9 /* MainViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewController.swift; sourceTree = "<group>"; };
@@ -134,7 +131,6 @@
 		1EB09AD7210E4362003895A6 /* DrawingViewWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrawingViewWrapper.swift; sourceTree = "<group>"; };
 		1EBCEC3A2098A32000D790D7 /* GeoJsonPolygon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoJsonPolygon.swift; sourceTree = "<group>"; };
 		1EBE5FCE2099511700C8F13E /* Bundle.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bundle.swift; sourceTree = "<group>"; };
-		1EBE5FD02099515D00C8F13E /* UIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UIImage.swift; sourceTree = "<group>"; };
 		1EC2F9682099428400BFC702 /* LICENSE */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = LICENSE; sourceTree = "<group>"; };
 		1EC2F9692099428400BFC702 /* CONTRIBUTING.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = CONTRIBUTING.md; sourceTree = "<group>"; };
 		1EC2F96A2099428400BFC702 /* MAINTAINERS */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = MAINTAINERS; sourceTree = "<group>"; };
@@ -312,7 +308,6 @@
 				1E7A6CD72097A8E80063F01F /* GeodesicBoundingBox.swift */,
 				1E7A6CC9209785A20063F01F /* GeodesicPoint.swift */,
 				1EBCEC3A2098A32000D790D7 /* GeoJsonPolygon.swift */,
-				1EBE5FD02099515D00C8F13E /* UIImage.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -388,7 +383,6 @@
 			isa = PBXGroup;
 			children = (
 				1E04992D208E1232006C95E3 /* .swiftlint.yml */,
-				1E528EF41EC20DCC00A2A9C9 /* Assets.xcassets */,
 				1E528EC01EC20CDF00A2A9C9 /* GeospatialKit.h */,
 				1E528EC11EC20CDF00A2A9C9 /* Info.plist */,
 			);
@@ -613,7 +607,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1E528EF51EC20DCC00A2A9C9 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -706,7 +699,6 @@
 				1E7A7B891F827AD000E22297 /* MapManager.swift in Sources */,
 				1ED4B9621EC26E5100D2288E /* OverlayGenerator.swift in Sources */,
 				1E54976420AB757400FE50EC /* Timber.swift in Sources */,
-				1EBE5FD12099515D00C8F13E /* UIImage.swift in Sources */,
 				1E7A730721778E100049144F /* GeospatialMapOverlay.swift in Sources */,
 				1E528EF01EC20D4A00A2A9C9 /* PointProjector.swift in Sources */,
 				1ED4B97C1EC4AB7B00D2288E /* AnnotationGenerator.swift in Sources */,
