@@ -1,5 +1,5 @@
 import XCTest
-
+import MapKit
 import GeospatialSwift
 
 @testable import GeospatialKit

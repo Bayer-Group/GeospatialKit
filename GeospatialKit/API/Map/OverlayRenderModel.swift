@@ -1,3 +1,5 @@
+import UIKit
+
 /**
  A model representing options to use when rendering
  

@@ -1,3 +1,4 @@
+import Foundation
 import TimberSwift
 
 private let timber: TimberProtocol = Timber(source: Source(title: "Geospatial Kit", version: Bundle.sourceVersion, emoji: "🗺️"))

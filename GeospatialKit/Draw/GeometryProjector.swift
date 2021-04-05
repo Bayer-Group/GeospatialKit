@@ -1,5 +1,4 @@
-import CoreGraphics
-
+import MapKit
 import GeospatialSwift
 
 public class GeometryProjector {

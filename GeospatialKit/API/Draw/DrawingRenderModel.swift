@@ -1,3 +1,5 @@
+import MapKit
+
 /**
  A model representing options to use when generating an image
  

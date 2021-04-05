@@ -1,3 +1,5 @@
+import MapKit
+
 public protocol GeospatialMapOverlay: MKOverlay {
     var properties: [String: Any] { get }
 }

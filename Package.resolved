@@ -1,0 +1,25 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "GeospatialSwift",
+        "repositoryURL": "https://github.com/MonsantoCo/GeospatialSwift.git",
+        "state": {
+          "branch": null,
+          "revision": "9137864d4263a6c3081a36fb3b620812b2b606ed",
+          "version": "1.1.1"
+        }
+      },
+      {
+        "package": "TimberSwift",
+        "repositoryURL": "https://github.com/MonsantoCo/TimberSwift.git",
+        "state": {
+          "branch": null,
+          "revision": "9a6dbed387d73aab6239a55d49204bf440b71cc9",
+          "version": "1.0.0"
+        }
+      }
+    ]
+  },
+  "version": 1
+}

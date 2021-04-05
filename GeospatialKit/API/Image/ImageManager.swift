@@ -1,3 +1,4 @@
+import UIKit
 import GeospatialSwift
 
 public struct ImageManager {
