@@ -1,7 +1,7 @@
 import GeospatialSwift
 import MapKit
 
-extension MKCoordinateRegion {
+public extension MKCoordinateRegion {
     var boundingBox: GeodesicBoundingBox {
         let minLatitude = center.latitude - span.latitudeDelta / 2.0
         let minLongitude = center.longitude - span.longitudeDelta / 2.0
