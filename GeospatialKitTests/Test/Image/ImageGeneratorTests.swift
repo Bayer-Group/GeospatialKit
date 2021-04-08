@@ -5,6 +5,7 @@ import GeospatialSwift
 @testable import GeospatialKit
 
 #warning("Add snapshot tests.")
+#warning("These tests assume a 3 point device like an iPhone 12 Pro Max")
 class ImageGeneratorTests: XCTestCase {
     var imageGenerator: ImageGenerator!
     

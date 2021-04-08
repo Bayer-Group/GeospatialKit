@@ -5,9 +5,9 @@
         "package": "GeospatialSwift",
         "repositoryURL": "https://github.com/MonsantoCo/GeospatialSwift.git",
         "state": {
-          "branch": "expose-interface",
-          "revision": "751cb49b4afaf56f3f3acde6d2633378073a3791",
-          "version": null
+          "branch": null,
+          "revision": "8510cc837835f811a7be59da992aaa7a32858c5e",
+          "version": "1.1.2"
         }
       },
       {
