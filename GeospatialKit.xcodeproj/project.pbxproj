@@ -54,6 +54,7 @@
 		6025D8A723E0AD6C0076D5BA /* GeoJsonTestDataBig.json in Resources */ = {isa = PBXBuildFile; fileRef = 1E3A4229210B9CAA00F97839 /* GeoJsonTestDataBig.json */; };
 		6025D8A823E0AD6D0076D5BA /* GeoJsonTestDataBig.json in Resources */ = {isa = PBXBuildFile; fileRef = 1E3A4229210B9CAA00F97839 /* GeoJsonTestDataBig.json */; };
 		60A857F22436152A008554C6 /* Result.swift in Sources */ = {isa = PBXBuildFile; fileRef = 600290CF23DD7635007441BD /* Result.swift */; };
+		60E96239261F8F7D0096437C /* CLLocationCoordinate2D.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60E96238261F8F7D0096437C /* CLLocationCoordinate2D.swift */; };
 		60FA2864261DE58D00666099 /* SimplePoint.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60FA2863261DE58D00666099 /* SimplePoint.swift */; };
 		60FA2868261DE68100666099 /* SimpleLine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60FA2867261DE68100666099 /* SimpleLine.swift */; };
 		60FA286C261DE6DD00666099 /* SimplePolygon.swift in Sources */ = {isa = PBXBuildFile; fileRef = 60FA286B261DE6DD00666099 /* SimplePolygon.swift */; };
@@ -152,6 +153,7 @@
 		1EE321661F82AFEB00E8EA6C /* GeoTestHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GeoTestHelper.swift; sourceTree = "<group>"; };
 		600290CD23DD73DB007441BD /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
 		600290CF23DD7635007441BD /* Result.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Result.swift; sourceTree = "<group>"; };
+		60E96238261F8F7D0096437C /* CLLocationCoordinate2D.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CLLocationCoordinate2D.swift; sourceTree = "<group>"; };
 		60FA2863261DE58D00666099 /* SimplePoint.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimplePoint.swift; sourceTree = "<group>"; };
 		60FA2867261DE68100666099 /* SimpleLine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleLine.swift; sourceTree = "<group>"; };
 		60FA286B261DE6DD00666099 /* SimplePolygon.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimplePolygon.swift; sourceTree = "<group>"; };
@@ -330,6 +332,7 @@
 				60FA2867261DE68100666099 /* SimpleLine.swift */,
 				60FA2863261DE58D00666099 /* SimplePoint.swift */,
 				60FA286B261DE6DD00666099 /* SimplePolygon.swift */,
+				60E96238261F8F7D0096437C /* CLLocationCoordinate2D.swift */,
 			);
 			path = Extensions;
 			sourceTree = "<group>";
@@ -746,6 +749,7 @@
 				1E7A6CD82097A8E80063F01F /* GeodesicBoundingBox.swift in Sources */,
 				1E7A6CCA209785A20063F01F /* GeodesicPoint.swift in Sources */,
 				1E528EEF1EC20D4A00A2A9C9 /* ImageGenerator.swift in Sources */,
+				60E96239261F8F7D0096437C /* CLLocationCoordinate2D.swift in Sources */,
 				60FA2874261DEEC000666099 /* MKCoordinateRegion.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
