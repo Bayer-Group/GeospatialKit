@@ -3,7 +3,7 @@ import GeospatialSwift
 
 private let calculator = GeospatialCocoa().calculator
 
-extension CLLocationCoordinate2D {
+public extension CLLocationCoordinate2D {
     var geodesicPoint: GeodesicPoint { SimplePoint(longitude: longitude, latitude: latitude) }
     
     func distance(from location: CLLocationCoordinate2D) -> CLLocationDistance {
