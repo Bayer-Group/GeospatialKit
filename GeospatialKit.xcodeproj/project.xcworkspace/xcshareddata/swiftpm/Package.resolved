@@ -1,25 +1,32 @@
 {
-  "object": {
-    "pins": [
-      {
-        "package": "GeospatialSwift",
-        "repositoryURL": "https://github.com/MonsantoCo/GeospatialSwift.git",
-        "state": {
-          "branch": null,
-          "revision": "8510cc837835f811a7be59da992aaa7a32858c5e",
-          "version": "1.1.2"
-        }
-      },
-      {
-        "package": "TimberSwift",
-        "repositoryURL": "https://github.com/MonsantoCo/TimberSwift.git",
-        "state": {
-          "branch": null,
-          "revision": "9a6dbed387d73aab6239a55d49204bf440b71cc9",
-          "version": "1.0.0"
-        }
+  "pins" : [
+    {
+      "identity" : "geos",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/GEOSwift/geos.git",
+      "state" : {
+        "revision" : "f510e634c822116fca615064d889300dba40d761",
+        "version" : "8.1.0"
       }
-    ]
-  },
-  "version": 1
+    },
+    {
+      "identity" : "geospatialswift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/MonsantoCo/GeospatialSwift.git",
+      "state" : {
+        "revision" : "207925630c0a19596577203fdc7c5f4047ac2a42",
+        "version" : "1.2.0"
+      }
+    },
+    {
+      "identity" : "timberswift",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/MonsantoCo/TimberSwift.git",
+      "state" : {
+        "revision" : "9a6dbed387d73aab6239a55d49204bf440b71cc9",
+        "version" : "1.0.0"
+      }
+    }
+  ],
+  "version" : 2
 }
