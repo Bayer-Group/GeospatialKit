@@ -1,4 +1,5 @@
 {
+  "originHash" : "dcf15dac5bdee69dc335d31949eff0e74028f894a8fd89383db91a57fda53808",
   "pins" : [
     {
       "identity" : "geos",
@@ -14,8 +15,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/MonsantoCo/GeospatialSwift.git",
       "state" : {
-        "revision" : "207925630c0a19596577203fdc7c5f4047ac2a42",
-        "version" : "1.2.0"
+        "branch" : "bug/SCOUT-2135-Isolation-Distance-is-not-accurate",
+        "revision" : "b403aaa8e01283dfff0c95c1e1b36fa7d5f56e50"
       }
     },
     {
@@ -28,5 +29,5 @@
       }
     }
   ],
-  "version" : 2
+  "version" : 3
 }
