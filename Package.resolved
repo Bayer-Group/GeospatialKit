@@ -14,9 +14,9 @@
         "package": "GeospatialSwift",
         "repositoryURL": "https://github.com/MonsantoCo/GeospatialSwift.git",
         "state": {
-          "branch": null,
-          "revision": "207925630c0a19596577203fdc7c5f4047ac2a42",
-          "version": "1.2.0"
+          "branch": "bug/SCOUT-2135-Isolation-Distance-is-not-accurate",
+          "revision": "b403aaa8e01283dfff0c95c1e1b36fa7d5f56e50",
+          "version": null
         }
       },
       {
