@@ -12,8 +12,7 @@ let package = Package(
             targets: ["GeospatialKit"]),
     ],
     dependencies: [
-        .package(url: "https://github.com/MonsantoCo/GeospatialSwift.git", branch: "bug/SCOUT-2135-Isolation-Distance-is-not-accurate"),
-//        .package(name: "GeospatialSwift", url: "https://github.com/MonsantoCo/GeospatialSwift.git", from: "1.2.0"),
+        .package(name: "GeospatialSwift", url: "https://github.com/MonsantoCo/GeospatialSwift.git", from: "1.2.1"),
         .package(name: "TimberSwift", url: "https://github.com/MonsantoCo/TimberSwift.git", from: "1.0.0"),
     ],
     targets: [
