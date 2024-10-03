@@ -1082,7 +1082,7 @@
 			repositoryURL = "https://github.com/MonsantoCo/GeospatialSwift.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 1.2.0;
+				minimumVersion = 1.2.1;
 			};
 		};
 		60FA289A261E294500666099 /* XCRemoteSwiftPackageReference "TimberSwift" */ = {
