@@ -1081,8 +1081,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/MonsantoCo/GeospatialSwift.git";
 			requirement = {
-				branch = "bug/SCOUT-2135-Isolation-Distance-is-not-accurate";
-				kind = branch;
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.2.1;
 			};
 		};
 		60FA289A261E294500666099 /* XCRemoteSwiftPackageReference "TimberSwift" */ = {
